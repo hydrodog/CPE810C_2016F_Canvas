@@ -2,7 +2,7 @@
 #include "Curving.h"
 
 Curving::Curving(){
-	
+	m_curvedGrades[] = { 0 };
 }
 
 // perform a linear curve on grades
