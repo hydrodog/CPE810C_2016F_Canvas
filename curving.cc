@@ -1,32 +1,25 @@
-#include "curving.h"
+#include "Curving.h"
 
-curving::curving()
-{
-	curving() {
-		
-	}
+Curving::Curving(){
 	
-	void lin_curve() {
-		
-	}
+}
+
+// perform a linear curve on grades
+void Curving::linCurve(){
 	
-	void root_curve() {
-		
-	}
+}
+
+// perform 10*sqrt(g) curve on grades
+void Curving::rootCurve(){
 	
-	double return_curve() {
-		
-	}
+}
+
+// returns curved array of grades
+double Curving::returnCurve(){
 	
-	double curve_mean() {
-		
-	}
+}
+
+// accept or deny changes to grades
+void Curving::acceptsChanges(){
 	
-	double curve_median() {
-		
-	}
-	
-	double curve_variance() {
-		
-	}
 }
