@@ -1,16 +1,25 @@
 #ifndef CANVASASSIGNMENT
 #define CANVASASSIGNMENT
+/*
+   @author:
+   @modified:Hansheng Tian
+   The objective of this group is to take input data,curve the date for the user, 
+   ask for confirmation, then push the changes back into Canvas
+*/
 
+/*
+ This class is used to take grades and curve them based on the needs of the user
+ */
 class curving {
 private:
-	double curved_grades[] = { 0 };		// array of curved grades
+	double m_curvedGrades[];
+	double m_originalGrades[];
+	bool m_confirm;
 public:
-	curving();
-	void lin_curve();		// perform a linear curve on grades
-	void root_curve();		// perform 10*sqrt(g) curve on grades
-	double return_curve();	// returns curved array of grades
-	double curve_mean();	// return mean of curved grades
-	double curve_median();	// return median of curved grades
-	double curve_variance();	// return variance of curved grades
+	Curving();
+	void linCurve(int curve,int length);		// perform a linear curve on grades
+	void rootCurve(int length);		// perform 10*sqrt(g) curve on grades
+	double returnCurve();	// returns curved array of grades
+	void acceptChanges();
 };
 #endif // CANVASASSIGNMENT
