@@ -15,7 +15,7 @@ void Curving::linCurve(int curve, int length){
 // perform 10*sqrt(g) curve on grades
 void Curving::rootCurve(int length){
     for(int i= 0; i < length; i++)
-	  m_curvedGrades[i] = 10*sqrt(m_originalGrades[i]0;
+	    m_curvedGrades[i] = 10*sqrt(m_originalGrades[i]);
 	
 }
 
