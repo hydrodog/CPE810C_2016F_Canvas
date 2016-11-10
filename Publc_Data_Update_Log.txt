@@ -1,0 +1,17 @@
+
+/*-------------------- Fangming Zhao; zip file rules; 11/10/2016; ---------------------*/
+ 
+ section:	stu_info
+ action:     	add new member
+ type:		ulong
+ member:     	stu_ID
+ description:	This is example!! This is example!! This is example!! This is example!!
+
+
+/*-------------------- your name; group you belong; time of upate; --------------------*/
+ 			The following content is what did you do
+			The following content is what did you do
+			The following content is what did you do
+			The following content is what did you do
+			The following content is what did you do
+			The following content is what did you do

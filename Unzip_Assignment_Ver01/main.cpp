@@ -5,6 +5,7 @@
 #include <Assignment_Unzip.hh>
 #include <mach-o/dyld.h>
 #include <cstring>                       // for using strrchr()
+#include <cstdlib>
 
 #ifdef WIN32
 #include "windows.h"                    // by using GetModuleFileName()
@@ -25,9 +26,9 @@ int main(){
 
         stu[i].A_info.Assigment_Comment = "good!";
         stu[i].F_info.file_number = 3;
-        for(int i = stu[i].F_info.file_number-1; i>=0; i--)     // student may submit mutiple assignments
+        for(int j = stu[i].F_info.file_number-1; j>=0; j--)     // student may submit mutiple assignments
         {
-            stu[i].F_info.File_name_Origin[i] = "HW6.txt";
+            stu[i].F_info.File_name_Origin[j] = "HW6.txt";
         }
         stu[i].F_info.File_Ext_name = ".cpp";
 
@@ -105,10 +106,10 @@ int main(){
                            stu[i].F_info.File_dir_Origin, current_pro_dir,
                            stu[i].F_info.File_name_Origin, stu[i].F_info.file_number);  // reload your weapon ready to shoot
 
-        a.A_Check_file(stu[i].F_info.file_name_valid, stu[i].F_info.file_zip_valid, stu[i].F_info.File_dir_N);       // figure out whether file student submit follow name rule or can be complied
+        //a.A_Check_file(stu[i].F_info.file_name_valid, stu[i].F_info.file_zip_valid, stu[i].F_info.File_dir_N);       // figure out whether file student submit follow name rule or can be complied
 
         if(stu[i].F_info.file_zip_valid && stu[i].F_info.file_name_valid){                  // if file's name does not follow rule or can't be complied, send mail;
-            a.A_Send_mail(stu[i].F_info.file_zip_valid, stu[i].F_info.file_name_valid, stu[i].S_info.Stu_Mail_Addr);
+          //  a.A_Send_mail(stu[i].F_info.file_zip_valid, stu[i].F_info.file_name_valid, stu[i].S_info.Stu_Mail_Addr);
       //  }
     }
 

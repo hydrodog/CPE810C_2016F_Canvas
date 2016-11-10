@@ -44,7 +44,7 @@ typedef struct{
     #ifndef _FILE_INFO
 
     typedef struct {
-        const char **File_name_Origin;               // files's name
+        const char *File_name_Origin[256];               // files's name
         const char *File_Ext_name;                  // file's extra name
                                                            // name if download group do not tell
         const char  *File_dir_Origin, *File_dir_N;         // position that file is located and the position where
@@ -91,7 +91,8 @@ typedef struct{
 class Assignment_Unzip{
 private:
     int m_Stu_Index, m_file_name_valid, m_file_zip_valid, m_F_number;
-    const char **m_F_name_Origin, *m_F_Exname, *m_F_Dir_Origin, *m_F_Dir_New;
+    const char *m_F_Exname, *m_F_Dir_Origin, *m_F_Dir_New;
+    const char *m_F_name_Origin[256];
     const char *m_current_dir;
     double m_Stu_ID;
 public:                                         // there are two methods;
@@ -109,8 +110,8 @@ const char *F_Dir_New, const char *current_dir);  // reload your weapon ready to
 
     Assignment_Unzip(int Stu_Index, int file_name_valid,
                      int file_zip_valid, double Stu_ID,
-                     const char *F_Dir_Origin, const char *current_dir
-                     ,const char **F_name_Origin, int F_number);
+                     const char *F_Dir_Origin, const char *current_dir,
+                     const char *F_name_Origin[], int F_number);
 
 
 
