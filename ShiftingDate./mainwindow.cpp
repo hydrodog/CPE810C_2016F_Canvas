@@ -21,13 +21,7 @@ MainWindow::MainWindow(createassignmentcontroller *controller,QWidget *parent) :
     ui->setupUi(this);
 
     setupConnections();
-    /*
-     * Finally, we can also alter the create UI items a bit, e.g. by setting some custom shortcuts
-     * for menu items.
-     *
-     * Note: Setting shortcuts can also be done in the designer, but sometimes it makes sense
-     * to set stuff in C++ instead.
-     */
+    
     ui->actionAdd->setShortcut( QKeySequence::New );
     ui->actionEdit->setShortcut( tr( "Ctrl+E" ) );
     ui->actionRemove->setShortcut( QKeySequence::Delete );
