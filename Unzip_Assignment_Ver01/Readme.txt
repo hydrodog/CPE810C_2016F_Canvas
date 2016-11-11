@@ -1,6 +1,7 @@
 /******************** He Song 11/11/2016 ******************
  * object: main.cpp
  * action: add a new way to get current dir in windows OS
+ * program ver: v0.72 
 /**********************************************************
  * author : Fangming Zhao
  * working OS: MacOs Sierra
