@@ -1,4 +1,8 @@
 /******************** He Song 11/11/2016 ******************
+ * object: Assignment_Unzip.cpp
+ * action: add a send_mail function to class in windows OS
+ * program ver: v0.73
+/******************** He Song 11/11/2016 ******************
  * object: main.cpp
  * action: add a new way to get current dir in windows OS
  * program ver: v0.72 
