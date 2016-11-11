@@ -9,4 +9,4 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp
+SOURCES += Assignment_1.cpp

@@ -3,6 +3,7 @@
 using namespace std;
 
 int size=10;
+
 struct Assignment{
     string name;		// Name of student
     int idnum;			// Student ID number
@@ -44,7 +45,7 @@ int main(){
 
     //display();TODO:Write a display function
 
-    delete [] *studentList;
+    delete [] studentList;
 
     system ("pause");
     return 0;
