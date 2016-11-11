@@ -62,7 +62,7 @@ int main() {
 
 /////////////
 
-//use the Qurl
+//use the Qurl to connect
 
 #include <UpdateGrade_Test.h>
 
