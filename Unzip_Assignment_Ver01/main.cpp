@@ -7,17 +7,26 @@
 #include <cstring>                       // for using strrchr()
 #include <cstdlib>
 
+/**********************************************************
+ * author : Fangming Zhao
+ * working OS: MacOs Sierra
+ * IDE: Qt Creator 4.1.0
+ * tool: C++
+ * group: C/zip file rules
+ * group member: Zheao Ma, He Song, Yuan Zhou
+ *
+ * program ver: v0.7
+ *
+ ***********************************************************/
+
 #ifdef WIN32
 #include "windows.h"                    // by using GetModuleFileName()
 #endif
 
 using namespace std;
 
-
-
-
 int main(){
-
+/*------------------- the following content is made for testing whole program ---------------------*/
     int HOWMANY_STU = 10;               // for simulating
 
     Course_info *stu=new Course_info[HOWMANY_STU];      // HOWMANY_STU is dyn
@@ -28,19 +37,17 @@ int main(){
         stu[i].F_info.file_number = 3;
         for(int j = stu[i].F_info.file_number-1; j>=0; j--)     // student may submit mutiple assignments
         {
-            stu[i].F_info.File_name_Origin[j] = "HW6.txt";
+            stu[i].F_info.File_name_Origin[j] = "HW6.zip";
         }
         stu[i].F_info.File_Ext_name = ".cpp";
 
         stu[i].F_info.File_dir_Origin = "/Users/fangmingzhao/course/Project/build-Unzip_Assignment_Ver01-Desktop_Qt_5_7_0_clang_64bit-Debug/59380_0";         // given by download
 
-        stu[i].F_info.file_name_valid = 0;       // initialize file name ok flag;
-        stu[i].F_info.file_zip_valid = 0;         // initialize zip ok flag
+        stu[i].F_info.file_name_valid = -1;       // initialize file name ok flag;
+        stu[i].F_info.file_zip_valid = -1;         // initialize zip ok flag
 /*      strcat() combine two string together
         we set different directories for every student (this work can be
         done by download group)
-
-
 
 */
 //        stu[i].F_info = {"noway",".txt", "\\new1\\hello", "\\old1\\byebye", 1,1,0,0};
@@ -57,11 +64,15 @@ int main(){
     }
 
     delete[] stu;
-
+ //   char *buf;
+ //   getcwd(buf, sizeof(buf));
+ //   cout << buf << '\n';
     cout.precision(10);
     cout << stu[13].S_info.Stu_Index << '\n';
-//--------------------------------------------------------------------
-// get current directory and store it in current_pro_dir
+/*-------------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------*/
+/*----------------- get current directory and store it in current_pro_dir--------------------*/
     uint32_t dir_buf_size = sizeof(current_pro_dir);
 
     if (_NSGetExecutablePath(current_pro_dir, &dir_buf_size) == 0)
@@ -90,26 +101,31 @@ int main(){
         Get_dir_OK = 0;
     }
 #endif
-// get current directory and store it in current_pro_dir
+
 //--------------------------------------------------------------------
 /***********************************************************************
- * this is reserved section for building sub-directory for each student
- * , if download group do not do that and have a way to solve rename problem
+ * this is reserved section for building sub-directory for each student under
+ * working directory
+ *
  *
  ***********************************************************************/
 
 
-   // for(int i=HOWMANY_STU-1; i>=0; i--){
+ /*---------------- for(int i=HOWMANY_STU-1; i>=0; i--){ ---- reserved for testing ---------------------------*/
     int i = 1;
         Assignment_Unzip a(stu[i].S_info.Stu_Index, stu[i].F_info.file_name_valid,
                            stu[i].F_info.file_zip_valid, stu[i].S_info.Stu_ID,
                            stu[i].F_info.File_dir_Origin, current_pro_dir,
                            stu[i].F_info.File_name_Origin, stu[i].F_info.file_number);  // reload your weapon ready to shoot
 
-        //a.A_Check_file(stu[i].F_info.file_name_valid, stu[i].F_info.file_zip_valid, stu[i].F_info.File_dir_N);       // figure out whether file student submit follow name rule or can be complied
+        a.A_Check_file(stu[i].F_info.file_name_valid, stu[i].F_info.file_zip_valid,
+                       stu[i].F_info.File_dir_N);       // figure out whether file student submit
+                                                        // follow name rule or can be unzipped
 
-        if(stu[i].F_info.file_zip_valid && stu[i].F_info.file_name_valid){                  // if file's name does not follow rule or can't be complied, send mail;
-          //  a.A_Send_mail(stu[i].F_info.file_zip_valid, stu[i].F_info.file_name_valid, stu[i].S_info.Stu_Mail_Addr);
+        if(stu[i].F_info.file_zip_valid && stu[i].F_info.file_name_valid){    // if file's name does not follow
+                                                                              // rule or can't be Unzipped, send
+                                                                              // them mail;
+        a.A_Send_mail(stu[i].F_info.file_zip_valid, stu[i].F_info.file_name_valid, stu[i].S_info.Stu_Mail_Addr);
       //  }
     }
 

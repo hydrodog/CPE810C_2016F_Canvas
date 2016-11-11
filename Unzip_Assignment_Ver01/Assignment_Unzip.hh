@@ -15,7 +15,7 @@ static int Get_dir_OK;                        // 0 fail to get directory of pro
 
 
 
-//------------ declare public area for data downloaded from canvas--------
+/*------------ declare public data area for each group in project to add modify and maintain ------------*/
 
 #ifndef _COURSE_INFO                                // struct for course including three structs: student
                                                     // information, assignment information, file(assignment itself) information
@@ -96,17 +96,14 @@ private:
     const char *m_current_dir;
     double m_Stu_ID;
 public:                                         // there are two methods;
-/*    Assignment_Unzip(int Stu_Index, const char *F_Orname,
-    const char *F_Exname, const char *F_Dir_Origin,
-const char *F_Dir_New, const char *current_dir);  // reload your weapon ready to shoot*/
-
-/* Using Stu_Index and Stu_ID to name the directory of each submited assignment;
+/* **********************************************************************************
+ * Using Stu_Index and Stu_ID to name the directory of each submited assignment;
  * file_name_valid indicates whether submitted file name follows rule, 1 is valid;
  * file_zip_valid indicates whether submitted zipfile can be unzipped, 1 is valid;
  * F_Dir_Origin is where download group put submitted assignment;
  * current_dir is where progame stay;
  * the function of this conductor is like reloading your weapon and prepare to shoot;
-*/
+ * **********************************************************************************/
 
     Assignment_Unzip(int Stu_Index, int file_name_valid,
                      int file_zip_valid, double Stu_ID,
@@ -115,13 +112,15 @@ const char *F_Dir_New, const char *current_dir);  // reload your weapon ready to
 
 
 
-
-    int A_Check_file(int &file_name_valid, int &m_file_zip_valid,
+/*------------------ method 1 check file and unzip them if they are valid ----------------*/
+    int A_Check_file(int &f_c_flag, int &f_q_flag,
                      const char *F_Dir_New);       // check the file to see whether
                                                    // its name follows the rule and
                                                    // can or not be complied if file
                                                    // name is qualified
-    void A_Send_mail(int f_c_flag, int f_q_flag, char const *s_mailaddress);      // notify student whose submitted assigment is not qualified
+/*------------------ method 2 send mail to student if their assignment are invalid ----------------*/
+    void A_Send_mail(int f_c_flag, int f_q_flag, char const *s_mailaddress);
+
 };
 
 #endif // ASSIGMENT_UNZIP_H
