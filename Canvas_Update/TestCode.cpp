@@ -126,8 +126,7 @@ private slots:
 
 //////////////////
 
-
-
+//use Qurl to connect with canvas
 #include <QCoreApplication>
 #include <QDebug>
 #include <QNetworkAccessManager>
