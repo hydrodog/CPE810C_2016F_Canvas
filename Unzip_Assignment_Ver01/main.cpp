@@ -6,9 +6,10 @@
 #include <mach-o/dyld.h>
 #include <cstring>                       // for using strrchr()
 #include <cstdlib>
-#include <direct.h>
+
 #ifdef WIN32
 #include "windows.h"                    // by using GetModuleFileName()
+#include <direct.h>
 #endif
 
 using namespace std;
