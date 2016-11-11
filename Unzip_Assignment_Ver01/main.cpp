@@ -6,7 +6,7 @@
 #include <mach-o/dyld.h>
 #include <cstring>                       // for using strrchr()
 #include <cstdlib>
-
+#include <direct.h>
 #ifdef WIN32
 #include "windows.h"                    // by using GetModuleFileName()
 #endif
@@ -90,7 +90,10 @@ int main(){
         Get_dir_OK = 0;
     }
 #endif
-// get current directory and store it in current_pro_dir
+//In windows to get current directory and store it in current_pro_dir
+
+  /*  _getcwd(current_pro_dir,sizeof(current_pro_dir));   */
+
 //--------------------------------------------------------------------
 /***********************************************************************
  * this is reserved section for building sub-directory for each student
