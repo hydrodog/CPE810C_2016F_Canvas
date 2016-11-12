@@ -7,24 +7,34 @@
 #include <time.h>
 #include <cstdio>
 
+/**********************************************************
+ * author : Fangming Zhao
+ * working OS: MacOs Sierra
+ * IDE: Qt Creator 4.1.0
+ * tool: C++
+ * group: C/zip file rules
+ * group member: Zheao Ma, He Song, Yuan Zhou
+ *
+ * program ver: v0.7
+ *
+ ***********************************************************/
 
 
-
-static char current_pro_dir[256];             // current directory this program stay, download group should provide
+static char current_pro_dir[256];             // current directory this program stay
 static int Get_dir_OK;                        // 0 fail to get directory of pro
 
 
 
 /*------------ declare public data area for each group in project to add modify and maintain ------------*/
 
-#ifndef _COURSE_INFO                                // struct for course including three structs: student
+#ifndef _STUDENT                                    // struct for course including three structs: student
                                                     // information, assignment information, file(assignment itself) information
 typedef struct{
 
 
 
 
-    #ifndef _STU_INFO
+    #ifndef _STUDENT_INFO
 
     typedef struct{
         int Stu_Index;                              // index for retrieving information of student
@@ -36,9 +46,9 @@ typedef struct{
         const char *Stu_Mail_Addr;                        // student's email address
 
 
-    } Stu_info;                                     // stu_info stores student information
+    }Student_info;                                     // stu_info stores student information
 
-    #define _STU_INFO
+    #define _STUDENT_INFO
     #endif
 
     #ifndef _FILE_INFO
@@ -54,15 +64,18 @@ typedef struct{
         int file_number;                            // how many files student submit
         int file_dir_err;                           // tell us whether certain file has vaild path
         int file_name_err;                          // tell us whether certain file has vaild name
-        int file_name_valid;                        // whether file name is valid
-        int file_zip_valid;                         // whether zipfile can be unzipped
+        int file_name_valid;                        // whether file name is valid, if its not, it is unneccessary
+                                                    // to compile file, meaning program should jump to next student
+                                                    // to deal with assignment
+        int file_zip_valid;                         // whether zipfile can be unzipped, if not,it is unneccessary
+                                                    // to compile file,meaning program should jump to next student
+                                                    // to deal with assignment
+
                                                     // before unzipping file, we have to list files (by using
                                                     // listgetFileList(QString fileCompressed))
                                                     // and see whether these files follow name rule. If they dont,
                                                     // set file_name_valid to 0 and file_zip_valid 1
-
-
-    } File_info;                                     // stores file (download from canvas, actually they are assignments) information. There are some seats reserved for class unzip, for now, we are not sure.
+    } File_info;                                         // stores file (download from canvas, actually they are assignments) information. There are some seats reserved for class unzip, for now, we are not sure.
 
     #define _FILE_INFO
     #endif
@@ -75,15 +88,15 @@ typedef struct{
         const char *Assignment_Graph_Title;
         const char *Assignment_Title;           //
     } Assignment_info;                          // all the things about assignment
-    #define _ASSIGNMENT_INFO
+    #define _ASSIGNMENT
     #endif
-    Stu_info S_info;
+    Student_info S_info;
     File_info F_info;
     Assignment_info A_info;
 
-} Course_info;                                   // Assigment_information is to store all information about assigment like
+} Student;                                   // Assigment_information is to store all information about assigment like
 
-#define _COURSE_INFO
+#define _STUDENT
 #endif
 
 //---------------------------------------------------------------------------------

@@ -14,14 +14,13 @@
  * tool: C++
  * group: C/zip file rules
  * group member: Zheao Ma, He Song, Yuan Zhou
- *
- * program ver: v0.7
+ * program name: Unzip_Assignment_Ver01
+ * program ver: v0.72
  *
  ***********************************************************/
 
 #ifdef WIN32
 #include "windows.h"                    // by using GetModuleFileName()
-#include <direct.h>
 #endif
 
 using namespace std;
@@ -30,7 +29,7 @@ int main(){
 /*------------------- the following content is made for testing whole program ---------------------*/
     int HOWMANY_STU = 10;               // for simulating
 
-    Course_info *stu=new Course_info[HOWMANY_STU];      // HOWMANY_STU is dyn
+    Student *stu=new Student[HOWMANY_STU];      // HOWMANY_STU is dyn
 
     for(int i=HOWMANY_STU-1; i>=0; i--){
 
@@ -102,12 +101,6 @@ int main(){
         Get_dir_OK = 0;
     }
 #endif
-<<<<<<< HEAD
-//In windows to get current directory and store it in current_pro_dir
-
-  /*  _getcwd(current_pro_dir,sizeof(current_pro_dir));   */
-=======
->>>>>>> 5ef0d01564db6d717c5e6eb9698ebd29b10ebaf6
 
 //--------------------------------------------------------------------
 /***********************************************************************

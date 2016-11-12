@@ -23,12 +23,15 @@ Assignment_Unzip::Assignment_Unzip(int Stu_Index, int file_name_valid,
     m_F_number = F_number;
     for(int i = 256; i >= 0; i--)
         m_F_name_Origin[i] = F_name_Origin[i];
+    m_file_name_valid = -1;
+    m_file_zip_valid = -1;
 
 }
 /*------------------------- Check the files ----------------------------
 * if flies follow the rule, set corresponding flag in order to let others
 * know if there is zipfile existed, unzip it after check its inside content
-*
+* NOTICE: Assume that m_F_name_Origin[] save downloaded files name without
+* path
 -----------------------------------------------------------------------*/
 
 int Assignment_Unzip::A_Check_file(int &f_c_flag, int &f_q_flag,
@@ -40,29 +43,29 @@ int Assignment_Unzip::A_Check_file(int &f_c_flag, int &f_q_flag,
     const char *File_Zip = ".zip";
 
     char *p;
-    for(int i = m_F_number-1; i>=0;i--)
+    for(int i = 0; i< m_F_number;i++)                     // m_F_number is how many file student submitted
     {
-        p = strrchr(m_F_name_Origin[i], '.');
+        p = strrchr(m_F_name_Origin[i], '.');               // m_F_name_Origin[] is their names
         if(!strcmp(p,File_CC) or !strcmp(p,File_CPP) or !strcmp(p,File_HH)
-            or !strcmp(p,File_Zip)){ // strcmp is for comparing two string
+            or !strcmp(p,File_Zip)){                        // strcmp is for comparing two string
 
             m_file_name_valid = 1;                          // if it is so, set flag 1
             f_c_flag = 1;
+            m_file_zip_valid = -1;
             f_q_flag = -1;                                   // we are not sure aboue whether zipfile can be unziped
             cout << f_c_flag << '\n';
         }
         else{
             m_file_name_valid = 0;
-            f_c_flag = 0;
-            f_q_flag = -1;
+            m_file_zip_valid = -1;
             return 0;
         }
     }
 /*---------------- unzip files from a zipfile ---------------------
 * 1. to determine we do have zipfile;
-* 2. if we do, what's inside, who are they, how many are they, if we
-*    do not have, it is no neccessary to run unzip. Instead deal with
-*    next student;
+* 2. if we do, what's inside, who are they, how many are they; if we
+*    do not have one, it is no neccessary to run unzip. Instead, deal
+*    with next student;
 * 3. we have their identification and the number of how many. we have
 *    to check them to see whether they follow name rule. if they do,
 *    unzip this zipfile let me come out. However, we go to deal with
@@ -74,7 +77,7 @@ int Assignment_Unzip::A_Check_file(int &f_c_flag, int &f_q_flag,
 // reach to this step means files in current directory follow the rules
     char *temp_Dir;
     *temp_Dir = '\0';
-    for(int i = 0; i<m_F_number;i++)
+    for(int i = 0; i< m_F_number;i++)                   // check every file
     {
         p = strrchr(m_F_name_Origin[i], '.');
         if(!strcmp(p,File_Zip)){
@@ -83,40 +86,51 @@ int Assignment_Unzip::A_Check_file(int &f_c_flag, int &f_q_flag,
             strcat(temp_Dir, m_F_name_Origin[i]);       // combine filename with directory and ready to unzip
             int count = 0;                              // number of file in a zipfile
             const char *file_name_zip[100];
-            char *s;
+
             temp_Dir = "/Users/fangmingzhao/course/Project/unziptest.zip";  // for testing
             QStringList F_List = JlCompress::getFileList(temp_Dir);
+            count = F_List.count();                     // how many files in zipfile
             foreach (QString item, F_List) {
                     QByteArray p1 = item.toLatin1();
                     if(!strcmp(p1.data(),File_CC) or !strcmp(p1.data(),File_CPP) or !strcmp(p1.data(),File_HH)
                         or !strcmp(p1.data(),File_Zip)){
-                    f_c_flag = 1;                   // at least this file follows the rule
-                    count++;                        // by this step, we will how many files in a zip
-                }else{
-                        f_c_flag = 0;
-                        count = -1;
+                        m_file_name_valid = 1;          // at least this file follows the rule
+
+                    }                                   // by this step, we will how many files in a zip
+                else{
+                        m_file_name_valid = 0;
+                        f_c_flag = m_file_name_valid;
+                        m_file_zip_valid = 0;
+                        f_q_flag = m_file_zip_valid;
+                        count = -1;                     // it doesnt make sense to count items in a zipfile if
+                                                        // no valid file in;
                         return 0;
                     }
 
+                }
+            QStringList F_Unzip = JlCompress::extractDir(temp_Dir, m_F_Dir_New);    // unzip file
+            if(F_Unzip.count() == 0){                  // if this zipfile cant be unzip, let people know
+                    m_file_zip_valid = 0;                      // meaning zipfile cant be unzipped
+                    return 0;
+                }else{
+                    m_file_zip_valid = 1;
+                    return 1;
             }
 
-            if(f_c_flag){
-                QStringList F_List = JlCompress::extractDir(temp_Dir, m_F_Dir_New);
-                //if(F_List == NULL){               // still working on this part
-                 //   f_q_flag = 0;
-                 //   return 0;
-                //}
-                f_q_flag = 1;
-            }
-            else{
-                return 0;
-            }
+
         }
 
     }
+    f_c_flag = m_file_name_valid;
+    f_q_flag = m_file_zip_valid;
 /*---------------- reserved for future ---------------------*/
 }
+/*---------------- send mail to student whose submitted file are not valid -------------------*/
+void Assignment_Unzip::A_Send_mail(int f_c_flag, int f_q_flag, const char *s_mailaddress){
 
+}
+
+#ifdef WIN32
 /*send mail function */
 //author: He song
 
@@ -238,17 +252,15 @@ bool Send_mail(const string& smtpServer, const string& username, const string& p
 
 
 void Assignment_Unzip::A_Send_mail(int f_c_flag, int f_q_flag, const char *s_mailaddress){
-	string text[2];
-	text[0]="You give a wrong zipfile, you should resend a new zipfile!";
-	text[1]="The file you given us not include .cc .cpp or .hh";
-	if(f_c_flag)
-	{
-		Send_mail(s_mailaddress,text[0], );	  // I am not sure what the sever it is, so I just add the text and s_mailaddress to the send_mail
-	}
-	if(f_q_flag)
-	{
-		Send_mail(s_mailaddress,text[1]);
-	}
-}
-
-
+    string text[2];
+    text[0]="You give a wrong zipfile, you should resend a new zipfile!";
+    text[1]="The file you given us not include .cc .cpp or .hh";
+    if(f_c_flag)
+    {
+        Send_mail(s_mailaddress,text[0], );	  // I am not sure what the sever it is, so I just add the text and s_mailaddress to the send_mail
+    }
+    if(f_q_flag)
+    {
+        Send_mail(s_mailaddress,text[1]);
+    }
+#endif
