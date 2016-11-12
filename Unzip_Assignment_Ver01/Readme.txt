@@ -10,7 +10,7 @@
  *         [Assignment_Unzip.hh]: change the name of data
  *         structure, and add and modify some commits (start
  *          at line 30);
- *  program ver: v0.74
+ * program ver: v0.74
 /******************** He Song 11/11/2016 ******************
  * object: Assignment_Unzip.cpp
  * action: add a send_mail function to class in windows OS
