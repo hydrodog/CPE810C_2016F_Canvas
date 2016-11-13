@@ -32,7 +32,7 @@ task : Writing code that is able to download files from Canvas in Qt.
      canvasconnection.cpp
      canvasconnection.h  
      
-     TODO:we are going to wrtie codes that can analyze JSON and try to find api that could download all students assignments.
+     TODO:we are going to wrtie codes that can analyze JSON and try to find api that could download all students assignments. (submission)
 
 
 */ 
