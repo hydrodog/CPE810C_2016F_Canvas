@@ -72,7 +72,7 @@ int main(){
 /*-------------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------*/
-/*----------------- get current directory and store it in current_pro_dir--------------------*/
+/*----------------- get working directory and store it in current_pro_dir--------------------*/
     uint32_t dir_buf_size = sizeof(current_pro_dir);
 
     if (_NSGetExecutablePath(current_pro_dir, &dir_buf_size) == 0)

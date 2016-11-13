@@ -1,3 +1,12 @@
+/**************** Fangming Zhao 11/12/2016 ****************
+ * object: Assignment_Unzip.cpp; Assignment_Unzip
+ * action: add new lines after getFileList() for determining
+ *         whether zipfile has files inside or can be
+ *         unzipped (start at line 91) . add new variable
+ *         File_in_Index (line 45), file_unzip_dir and
+ *         file_name_inzip[20] in data structure in Assignment
+ *         _Unzip.
+ *program ver: v0.75
 /**************** Fangming Zhao 11/11/2016 ****************
  * object: Assignment_Unzip.cpp; Assignment_Unzip.hh
  * action: [object: Assignment_Unzip.cpp]: add new lines

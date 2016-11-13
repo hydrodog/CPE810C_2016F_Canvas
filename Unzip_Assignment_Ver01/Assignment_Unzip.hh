@@ -60,6 +60,9 @@ typedef struct{
         const char  *File_dir_Origin, *File_dir_N;         // position that file is located and the position where
                                                            // the copies of files and unzip files are?? we are going to store these new files under the same level where orignal files are sitting
         const char *File_Extname_N;                 // give something if u dont do anything
+        const char *file_unzip_dir;                 // directory that unzipped files put into; the name is
+                                                    // combination of Stu_ID and Stu_Index
+        const char *file_name_inzip[20];            // file names in a zipfile;
 
         int file_number;                            // how many files student submit
         int file_dir_err;                           // tell us whether certain file has vaild path
@@ -105,7 +108,7 @@ class Assignment_Unzip{
 private:
     int m_Stu_Index, m_file_name_valid, m_file_zip_valid, m_F_number;
     const char *m_F_Exname, *m_F_Dir_Origin, *m_F_Dir_New;
-    const char *m_F_name_Origin[256];
+    const char *m_F_name_Origin[100];
     const char *m_current_dir;
     double m_Stu_ID;
 public:                                         // there are two methods;
