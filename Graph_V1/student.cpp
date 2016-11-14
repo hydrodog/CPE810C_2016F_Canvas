@@ -12,15 +12,23 @@ int Student::Getstudent_id(){
     return student_id;
 }
 
-void Student::Set_Marks(int k,double marks){
-    Marks[k]=marks;
+void Student::SetAssignment_Marks(double marks){
+    Assignment_Marks.push_back(marks);
 }
 
-double* Student::Get_Marks(){
-    return Marks;
+std::vector<double> Student::Get_Marks() const {
+    return Assignment_Marks;
 }
 
-void Student::SetAssignmentType(int type) {
+void Student::SetTest_Marks(double marks){
+    Test_Marks.push_back(marks);
+}
+
+std::vector<double> Student::Get_TestMarks() const{
+    return Test_Marks;
+}
+
+void Student::Set_AssignmentType(int type) {
     Student::Assignment_type = type;
 }
 
@@ -32,7 +40,7 @@ void Student::Set_numAssignments(){
     numAssignments++;
 }
 
-int Student::Get_numAssignments(){
+int Student::Get_numAssignments()  {
     return numAssignments;
 }
 
@@ -45,32 +53,26 @@ int Student::Get_numTests(){
 }
 
 
-Student:: Student():student_id(0){
-    for(int i=0; i< NUM_ASSIGNMENTS;i++)
-        Marks[i]=0;
+Student::Student():student_id(0){
+
 }
 
 double Student::allAssignments_avg(){
-    double sum=0;
-    if (Student:: Assignment_type==1){
-        for(int i=0;i<Student::numAssignments;i++){
-            sum+=Marks[i];
-        }
-        sum/=Student::numAssignments;
+    double sum=0.0;
+    for(unsigned int i=0; i<Assignment_Marks.size(); i++){
+        sum+=Assignment_Marks[i];
     }
+    sum/=Assignment_Marks.size();
     return sum;
 }
 
 double Student::allTests_avg(){
-    double a=0;
-    if(Student::Assignment_type==2)
-    {
-        for(int i=0;i<numTests;i++){
-            a+=Marks[i];
-        }
-        a/=NUM_ASSIGNMENTS;
+    double sum=0;
+    for(unsigned int i=0;i<Test_Marks.size();i++){
+        sum+=Test_Marks[i];
     }
-    return a;
+    sum/=Test_Marks.size();
+    return sum;
 }
 
 double Student::Final_Grade(){
