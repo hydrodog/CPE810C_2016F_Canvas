@@ -1,0 +1,1 @@
+#include <QtWebSockets/QtWebSockets>
