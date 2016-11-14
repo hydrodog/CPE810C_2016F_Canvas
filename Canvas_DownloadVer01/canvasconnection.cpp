@@ -17,19 +17,20 @@ void canvasConnection::sendRequest(const QString &strUrl)
 	//Create custom temporary event loop on stack
     QEventLoop eventLoop;
 	//Open a file
-	QFile file("out.json");
+    QFile file("out.txt");
 	//Send request to Canvas by using token.
     QNetworkRequest netRequest;
     //Set the information of url.
     netRequest.setUrl(QUrl(strUrl));
+    netRequest.setRawHeader("Accept", "application/json");
+    netRequest.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
     /*Posts a request to obtain the contents of the target request and
     returns a new QNetworkReply object opened for reading*/
     m_pNetworkReply =m_pNetworkManager->get(netRequest);
     //Signal when the network requests end
-    QObject::connect(m_pNetworkManager,SIGNAL(finished(QNetworkReply*)),&evenLoop,SLOT(quit()));
+    QObject::connect(m_pNetworkManager,SIGNAL(finished(QNetworkReply*)),&eventLoop,SLOT(quit()));
 	// blocks stack until "finished()" has been called
 	eventLoop.exec();
-	QTextStream out(&file);
     if (m_pNetworkReply->error() == QNetworkReply::NoError) {
         //success
         if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
