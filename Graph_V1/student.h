@@ -2,9 +2,6 @@
 #define STUDENT_H
 
 #include <vector>
-const int NUM_ASSIGNMENTS = 2;
-const int NUM_STUDENTS = 10;
-const int NUM_TESTS=1;
 /* Student class is to claculate the AVERAGE grade of a STUDENT in all the assignments,
    all the Tests, Project, Quizzes etc..
  * To get the marks of different assignments of a student.
