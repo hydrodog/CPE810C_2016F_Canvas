@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>首页-云聚数据</title>
+    <meta name="keywords" content="天气API接口，快递物流API接口，公交API接口，车辆违章API接口，手机归属地接口，Webservice开发，API数据，Webservice接口，免费Webservice，android快递接口，免费数据调用，API开发">
+    <meta name="description" content="强大的云数据API服务，国内最大的基础数据API服务提供商">
+    <link href="/Content/css?v=FzgVp32G6TF3frzlgZ9mnIinYrPxvb6-lt08f7yDPJk1" rel="stylesheet"/>
+<link href="/advRotate/css?v=TE2MXirUYOTFUt2TzxZaD1Hg1xDoFn6Kz-TS2llmTzE1" rel="stylesheet"/>
+<script src="/bundles/jquery?v=1A_Qqa6eu1hIFc9O--lfxRqvbqGj9Zd6uAr93zLdrWM1"></script>
+<script src="/bundles/advRotate?v=6HMx30-otS5bnU3701ozj6V9nEl-eI_PHkrgeGUMSYE1"></script>
+
+    
+</head>
+<body>
+    <div style="display: none">
+        <img src="/Content/images/big-data_conew1.jpg" />
+    </div>
+    <!--头部-->
+<div class="topOut">
+    <div class="topInner">
+        <div class="logo"></div>
+        <div class="menuOut">
+            <div class="menuOut-ul">
+                <div class="menuOut-li current"><a href="/">首页</a></div>
+                <div class="menuOut-li"><a href="/Service">数据与接口</a></div>
+                <div class="menuOut-li"><a href="/Case">经典案例</a></div>
+                <div class="menuOut-li"><a href="/Support">支持服务</a></div>
+                <div class="menuOut-li"><a href="/Service/Details">文档说明</a></div>
+                <div class="menuOut-li"><a href="/About">关于我们</a></div>
+                <div class="menuOut-li"><a href="/Apply">申请试用</a></div>
+            </div>
+            <div id="navline" style="position: relative; left: 28px; margin-top: 15px; _margin-top: 9px; width: 32px; height: 6px; font-size: 0px; background: url(/Content/images/hover-ico.jpg) 0 0 no-repeat;"></div>
+        </div>
+    </div>
+</div>
+<!--/头部-->
+<script type="text/javascript">
+    $(function () {
+        var off = $(".current").offset();
+        var poff = $(".current").parent().offset();
+        var width = $(".current").width();
+        $("#navline").css({ "left": off.left - poff.left + (width / 2 - 6) + "px" });
+    });
+    $(".menuOut-li").mouseenter(function () {
+        var off = $(this).offset();
+        var poff = $(this).parent().offset();
+        var width = $(this).width();
+        $("#navline").animate({ "left": off.left - poff.left + (width / 2 - 6) + "px" }, 500);
+    });
+    $(".menuOut-ul").mouseleave(function () {
+        var off = $(".current").offset();
+        var poff = $(".current").parent().offset();
+        var width = $(".current").width();
+        $("#navline").animate({ "left": off.left - poff.left + (width / 2 - 6) + "px" }, 500);
+    });
+</script>
+
+    
+<!--banner-->
+<div id="full-screen-slider" style="background: url(Content/images/banner/01.jpg) center 0;">
+</div>
+<!--/banner-->
+<!--公告-->
+<div class="news">
+    <ul class="newsInner">
+        <li style="background: url(Content/images/news-ico.jpg); width: 21px; height: 18px"></li>
+        <li class="newsGg">&nbsp;公告：</li>
+        <li class="newsLink">
+            <dl id="newslist">
+                
+            </dl>
+        </li>
+    </ul>
+</div>
+<!--/banner-->
+<!--main-->
+<div class="mainOut">
+        <div class="mainBlock">
+            <ul>
+                <li class="mainBlockLt">
+                    <h2>稳定安全服务支持</h2>
+                    <span>采用windows Azure云服务器，再大的访问量也能保证每位客户正常的访问。</span>
+                </li>
+                <li class="right mainIco">
+                    <img src="Content/images/6.png" style="border:none;width:54px;height:57px"/><img class="mainicohide"  style="border:none;width:54px;height:57px" /></li>
+            </ul>
+        </div>
+        <div class="mainBlock">
+            <ul>
+                <li class="mainBlockLt">
+                    <h2>支持任意设备</h2>
+                    <span>在任意网络类型中只要接入互联网，支持多操作系统与夸平台应用。</span>
+                </li>
+                <li class="right mainIco">
+                    <img src="Content/images/2.jpg" style="border:none;width:54px;height:57px"/><img class="mainicohide"  style="border:none;width:54px;height:57px" /></li>
+            </ul>
+        </div>
+        <div class="mainBlockRt">
+            <ul>
+                <li class="mainBlockLt">
+                    <h2>技术优势</h2>
+                    <span>我们拥有多年经验的数据库专家 、高级软件工程师等技术人员，保证一流的技术支持。</span>
+                </li>
+                <li class="right mainIco">
+                    <img src="Content/images/4.jpg" style="border:none;width:54px;height:57px"/><img class="mainicohide"  style="border:none;width:54px;height:57px"/></li>
+            </ul>
+        </div>
+        <div class="mainBlock">
+            <ul>
+                <li class="mainBlockLt">
+                    <h2>强大的云服务</h2>
+                    <span>让用户可以通过因特网存储和读取数据。 </span>
+                </li>
+                <li class="right mainIco">
+                    <img src="Content/images/5.jpg" style="border:none;width:54px;height:57px"/><img class="mainicohide"  style="border:none;width:54px;height:57px" /></li>
+            </ul>
+        </div>
+        <div class="mainBlock">
+            <ul>
+                <li class="mainBlockLt">
+                    <h2>灵活定制</h2>
+                    <span>在您的网站或应用中更灵活地定制各个功能和所需的数据。</span>
+                </li>
+                <li class="right mainIco">
+                    <img src="Content/images/12.jpg" style="border:none;width:54px;height:57px"/><img class="mainicohide"  style="border:none;width:54px;height:57px" /></li>
+            </ul>
+        </div>
+        <div class="mainBlockRt">
+            <ul>
+                <li class="mainBlockLt">
+                    <h2>互利共赢 </h2>
+                    <span>开放融合，互利共赢。</span>
+                </li>
+                <li class="right mainIco">
+                    <img src="Content/images/6.png" style="border:none;width:54px;height:57px"/><img class="mainicohide"  style="border:none;width:54px;height:57px"/></li>
+            </ul>
+        </div>
+
+</div>
+<!--/main-->
+<!--pic-->
+<div class="bottomPic">
+    <a href="/Service">
+        <img src="Content/images/index-btm.jpg" style="width: 1000px; height: 230px; border: none" /></a>
+</div>
+<!--/pic-->
+<script type="text/javascript">
+    $("#full-screen-slider").advRotate({
+        operStart: true,
+        viewHeight: 425,
+        navHelght: 25,
+        tagLeft: 0,
+        tagTop: -25,
+        fontSize: 38,
+        nothyperlink: false,
+        advImages: [{
+            src: "Content/images/banner/01.jpg", url: "javascript:void(0);", title: "云聚网"
+        }, {
+            src: "Content/images/banner/02.jpg", url: "javascript:void(0);", title: "云聚网"
+        }, {
+            src: "Content/images/banner/03.jpg", url: "javascript:void(0);", title: "云聚网"
+        }, {
+            src: "Content/images/banner/04.jpg", url: "javascript:void(0);", title: "云聚网"
+        }, {
+            src: "Content/images/banner/05.jpg", url: "javascript:void(0);", title: "云聚网"
+        }]
+    });
+    $(".mainBlockRt,.mainBlock").mouseenter(function () {
+        $(this).find(".mainBlockLt h2").css("color", "#50a5ce");
+        $(this).find(".mainicohide").css("display", "block");
+        $(this).find("img").eq(0).hide();
+    }).mouseleave(function () {
+        $(this).find(".mainBlockLt h2").css("color", "#3f3f3f");
+        $(this).find(".mainicohide").css("display", "none");
+        $(this).find("img").eq(0).show();
+    });
+</script>
+
+    <!--底部-->
+<div class="bottomOut">
+    <div class="bottomInner">
+        <a href="javascript:void(0);">法律声明</a> <span>|</span>  <a href="/Service">服务介绍</a><font>Copyright © 2012-2013 Lejia Software, Inc. All rights reserved.  云聚数据平台  版权所有 </font>
+        <br />
+        <div class="address">
+            地址：陕西省西安市高新区高新路25号希格玛大厦1407室 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  联系电话：4000053150&nbsp;&nbsp;&nbsp;&nbsp;商务QQ：346048058&nbsp;&nbsp;&nbsp;&nbsp;<script src="http://s16.cnzz.com/stat.php?id=4218018&web_id=4218018&show=pic" type="text/javascript"></script>
+        </div>
+    </div>
+</div>
+<!--/底部-->
+
+</body>
+</html>
