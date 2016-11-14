@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "qcustomPlot.h"
 #include "student.h"
+#include <vector>
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -19,65 +20,66 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::setupgraph(QCustomPlot *customPlot)
-{
-    const int NUM_STUDENTS = 10;
-        int count=0;
-        Student s[NUM_STUDENTS];
-        //Assignment a[NUM_ASSIGNMENTS]; //TODO
-        //for(int k=0; k< NUM_ASSIGNMENTS; k++) {
+void MainWindow::setupgraph(QCustomPlot *customPlot){
+        int numberoffiles;
+        cout <<"enter number of assignment files\n";
+        cin >> numberoffiles;
+        vector<Student> student;
+        // for(int i=1; i<= numberoffiles; i++){
         ifstream filename("a1.txt");
-        if(filename.is_open()){
-            for(int k=1;k<=NUM_ASSIGNMENTS;k++){  //NUM_ASSIGNMENTS (for now took it as 2 )is a constant in student.h
-                count=0;
-                int assignmentType;
-                filename>>assignmentType;
-                Student::SetAssignmentType(assignmentType);
+        for(int k=1;k<=numberoffiles;k++){
+          int assignmenttype;
+          if (filename.is_open()){
+              filename>> assignmenttype;
+              Student::Set_AssignmentType(assignmenttype);
+              int i=1;
+              while( i<=10){
+                  Student s;
+                  int id;
+                  double grade=0;
+                  filename >> id;
+                  s.Setstudent_id(id);
+                  filename >> grade;
+                  if(assignmenttype==1){
+                      if(s.Get_numAssignments() == 0){
+                          s.SetAssignment_Marks(grade);
+                      }
+                      else{
+                          for(unsigned int j=0; j< student.size(); j++){
+                              Student& s2 = student.at(j);
+                              if(s2.Getstudent_id() == id){
+                                  s2.SetAssignment_Marks(grade);
+                              }
+                          }
+                      }
+                  }
 
-                //set the name of assignment/test
-                //TODO:use name from download team
-                if(Student::GetAssignment_type() == 1)
-                    Student::Set_numAssignments();
-                else if(Student::GetAssignment_type() == 2)
-                    Student::Set_numTests();
-
-                for(int i=0;i<NUM_STUDENTS;i++){
-                    int id = 0;
-                    double marks = 0.0;
-                    filename >> id;
-                    filename >> marks;
-                    if (k==1){
-                        //First assignment, no data in student objects yet
-                        //Assign directly without any checks
-                        s[i].Setstudent_id(id);
-                        s[i].Set_Marks(k-1,marks);
-                        s[i].allAssignments_avg();
-                    }
-                    else{
-                        for(int j=0; j<NUM_STUDENTS; j++){
-                            /*student id's for each assignment will not be in the same
-                              order, so check before assigning*/
-                            if(s[j].Getstudent_id() == id){
-                                s[j].Set_Marks(k-1,marks);
-                                s[j].allAssignments_avg();
-                            }
-                        }
-                    }
-                    count++;
-                }
-                filename.close();
-                filename.open("a2.txt");
-                if(filename.is_open()){
-
-                }
-                else {
-                   cout<<"not open";
-                }
-            }
-
+                  else if (assignmenttype == 2){
+                      if(s.Get_numTests() == 0)
+                          s.SetTest_Marks(grade);
+                      else
+                          for(unsigned int j=0; j< student.size(); j++){
+                              Student& s2 = student.at(j);
+                              if(s2.Getstudent_id() == id){
+                                  s2.SetAssignment_Marks(grade);
+                              }
+                          }
+                  }
+                  if(k == 1)
+                      student.push_back(s);
+                  i++;
+              }
+          }
+          else
+              cout<<"not open\n";
+          filename.close();
+          if(assignmenttype==1)
+              Student::Set_numAssignments();
+          else if(assignmenttype==2)
+              Student::Set_numTests();
+          std::cout<<"opening a2.txt"<<endl;
+          filename.open("a2.txt");
         }
-        else
-            cout<<"not open";
 
         //using scatter graph
         customPlot->legend->setVisible(true);
@@ -93,9 +95,10 @@ void MainWindow::setupgraph(QCustomPlot *customPlot)
           pen.setColor(QColor(qSin(i*0.3)*100+100, qSin(i*0.6+0.7)*100+100, qSin(i*0.4+0.6)*100+100));
           // generate data:
           QVector<double> x(10), y(10); // initialize with entries 0...9
-          for(int a=0;a<10;a++){
-              x[a]=s[a].Getstudent_id();       // ID NUMBER of 10 students
-              y[a] = s[a].allAssignments_avg(); //  Avg Scores
+          for(unsigned int a=0; a<student.size(); a++){
+              Student S=student.at(a);
+              x[a] =S.Getstudent_id();       // ID NUMBER of 10 students
+              y[a] =S.allAssignments_avg(); //  Avg Scores
           }
           //set axises and line
           customPlot->graph(0)->setData(x, y);
