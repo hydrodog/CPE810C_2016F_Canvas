@@ -1,0 +1,7 @@
+{"id":10300000000000133,"name":"DOV DEV","account_id":10300000000000001,"start_at":"2014-07-01T13:31:00Z","grading_standard_id":null,"is_public":true,"course_code":"DOV DEV","default_view":"feed","root_account_id":10300000000000001,"enrollment_term_id":10300000000000001,"end_at":"2016-05-28T04:00:00Z","public_syllabus":false,"public_syllabus_to_auth":false,"storage_quota_mb":15000,"is_public_to_auth_users":false,"hide_final_grades":false,"apply_assignment_group_weights":false,"calendar":{"ics":"https://canvas.instructure.com/feeds/calendars/course_Jo1suCoQU3XhYMBJNm3Ziu2POTG4GL6DjzHJ7PM4.ics"},"time_zone":"America/New_York","sis_course_id":null,"integration_id":null,"enrollments":[{"type":"teacher","role":"TeacherEnrollment","role_id":822,"user_id":10300000000025055,"enrollment_state":"active"}],"workflow_state":"available","restrict_enrollments_to_course_dates":false}
+
+
+courses API:
+https://canvas.instructure.com/api/v1/courses/10300000000000133?access_token=1030~ITJlnLeBaoqbzneuPAfdNLG5e9jAZqVHMiZWxF3FbvTG31U6l5adkBJcqOf8lCIO
+
+
