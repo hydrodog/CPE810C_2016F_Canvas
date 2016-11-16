@@ -207,7 +207,7 @@ class UpdateGrade{
     private:
          String courseId;
          String AssignmentId;
-         String userId;
+         String Student_ID[100];
          String token;
          static String targetURL;
          double grade;
