@@ -1,3 +1,9 @@
+/******************** He Song 11/11/2016 ******************
+ * object: smtp.cpp;smtp.h
+ * action: add this two file to make a new class in the 
+ *         assignment part. This will make the others use
+ *	   send email easily than before.
+ * program ver: v0.76
 /**************** Fangming Zhao 11/12/2016 ****************
  * object: Assignment_Unzip.cpp; Assignment_Unzip
  * action: add new lines after getFileList() for determining
