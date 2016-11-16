@@ -21,12 +21,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 void MainWindow::setupgraph(QCustomPlot *customPlot){
-        int numberoffiles;
-        cout <<"Enter total number of  files\n";
-        cin >> numberoffiles;   // files include assignments,midterm (or) tests
+        //int numberoffiles;
+       // cout <<"Enter total number of  files\n";
+       // cin >> numberoffiles;   // files include assignments,midterm (or) tests
+        //cout<<"file numbers entered\n";
         vector<Student> student;
         ifstream filename("a1.txt");
-        for(int k=1;k<=numberoffiles;k++){
+        for(int k=1;k<=2;k++){
         int assignmenttype;
         if (filename.is_open()){
           filename>> assignmenttype;
@@ -90,6 +91,7 @@ void MainWindow::setupgraph(QCustomPlot *customPlot){
           Student::Set_numTests();
         filename.open("a2.txt");
         }
+        cout<<student.size()<<"\n";
 
         //using scatter graph
         customPlot->legend->setVisible(true);
@@ -104,11 +106,11 @@ void MainWindow::setupgraph(QCustomPlot *customPlot){
           customPlot->addGraph();
           pen.setColor(QColor(qSin(i*0.3)*100+100, qSin(i*0.6+0.7)*100+100, qSin(i*0.4+0.6)*100+100));
           // generate data:
-          QVector<double> x(10), y(10); // initialize with entries 0...9
+          QVector<double> x, y; // initialize with entries 0...9
           for(unsigned int a=0; a<student.size(); a++){
               Student S=student.at(a);
-              x[a] =S.Getstudent_id();       // ID NUMBER of 10 students
-              y[a] =S.allAssignments_avg(); //  Avg Scores
+              x.push_back(S.Getstudent_id());       // ID NUMBER of 10 students
+              y.push_back(S.allAssignments_avg()); //  Avg Scores
           }
           //set axises and line
           customPlot->graph(0)->setData(x, y);
@@ -120,7 +122,7 @@ void MainWindow::setupgraph(QCustomPlot *customPlot){
           customPlot->plotLayout()->insertRow(0);
           customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(customPlot, "Avg Score of each sutdent", QFont("arial", 12, QFont::Bold)));
           //set labels
-          customPlot->xAxis->setRange(1200,1280);
+          customPlot->xAxis->setRange(990,1280);
           customPlot->yAxis->setRange(0,200);
 
           // set scatter style and plot data
