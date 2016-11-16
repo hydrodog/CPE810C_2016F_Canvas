@@ -1,18 +1,52 @@
-/*Author:Jing Li,Yang Bai
+#include<iostream>
+#include <cmath>
+#define PI 3.1415926
+using namespace std;
 
-  show mainwindow
-
-*/
-#include "mainwindow.h"
-#include <QApplication>
-
-int main(int argc, char *argv[])
+int main()
 {
-    QApplication a(argc, argv);
-    createassignment createAssignment;
-    createassignmentcontroller controller(&createAssignment);
-    MainWindow w(&controller);
-    w.show();
+    double r=1;
+    int n;
+    for(n=3;n<=10;n++)
+    {
+         r=r/cos(PI/n);
 
-    return a.exec();
+    }
+    cout<<"radius for n=10 is :"<<r<<endl;
+    r=1;
+    for(n=3;n<=100;n++)
+    {
+         r=r/cos(PI/n);
+
+    }
+    cout<<"radius for n=100 is :"<<r<<endl;
+    r=1;
+    for(n=3;n<=1000;n++)
+    {
+         r=r/cos(PI/n);
+
+    }
+    cout<<"radius for n=1000 is :"<<r<<endl;
+    r=1;
+    for(n=3;n<=10000;n++)
+    {
+         r=r/cos(PI/n);
+
+    }
+    cout<<"radius for n=10000 is :"<<r<<endl;
+    r=1;
+    for(n=3;n<=100000;n++)
+    {
+         r=r/cos(PI/n);
+
+    }
+    cout<<"radius for n=100000 is :"<<r<<endl;
+    r=1;
+    for(n=3;n<=1000000;n++)
+    {
+         r=r/cos(PI/n);
+
+    }
+    cout<<"radius for n=1000000 is :"<<r<<endl;
+    return 0;
 }
