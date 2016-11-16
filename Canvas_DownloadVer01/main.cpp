@@ -8,8 +8,8 @@ int main(int argc, char *argv[]){
     canvasConnection B;
     canvasConnection C;
     A.sendRequest("http://www.36wu.com");
-   // B.sendRequest("http://baidu.com");
-    C.sendRequest("https://canvas.instructure.com/api/v1/courses?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
+   //B.sendRequest("http://baidu.com");
+   // C.sendRequest("https://canvas.instructure.com/api/v1/courses?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
 
     return a.exec();
 }

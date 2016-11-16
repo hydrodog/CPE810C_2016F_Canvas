@@ -17,11 +17,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     createassignmententry.cpp \
     createassignment.cpp \
-    createassignmentcontroller.cpp
+    createassignmentcontroller.cpp \
+    holiday.cpp
 
 HEADERS  += mainwindow.h \
     createassignmententry.h \
     createassignment.h \
-    createassignmentcontroller.h
+    createassignmentcontroller.h \
+    holiday.h
 
 FORMS    += mainwindow.ui

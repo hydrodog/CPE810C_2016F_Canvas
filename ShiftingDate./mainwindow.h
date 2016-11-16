@@ -15,7 +15,7 @@
 #include <QDir>
 #include <QTextStream>
 #include<QHash>
-
+#include<QPushButton>
 
 namespace Ui {
 class MainWindow;

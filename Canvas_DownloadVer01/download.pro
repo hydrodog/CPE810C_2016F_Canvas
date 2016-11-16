@@ -5,7 +5,7 @@ QT += widgets
 
 CONFIG += c++11
 
-TARGET = download7
+TARGET = download
 CONFIG += console
 CONFIG -= app_bundle
 

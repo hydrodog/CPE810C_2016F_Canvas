@@ -51,3 +51,11 @@ task : Writing code that is able to download files from Canvas in Qt.
 	netRequest.setHeader;
 
 	TODO:Try to find right api that could download all students submissions and classify them. 
+	
+	
+**Date:2016.11.14**  
+
+	Shengjie Hu and Mingju He try to use API to download submissions.
+	
+	TODO:Try to find right api that could download all students submissions and classify them. 
+

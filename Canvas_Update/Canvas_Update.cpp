@@ -1,21 +1,4 @@
 #include <CanvasUpdate.h>
-#include <iostream>
-#include <string>
-#include "curl_easy.h"
-#include "curl_form.h"
-#include "curl_header.h"
-
-using namespace curl;
-using namespace std;
-
-#ifdef _DEBUG
-#pragma comment(lib, "/libcurl_a_debug.lib")
-#else
-#pragma comment(lib, "/libcurl_a.lib")
-#endif
-
-using curl::curl_easy;
-using curl::curl_easy_exception;
 
 
 Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
@@ -24,7 +7,7 @@ Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsI
 	courseId = courseId;
 	AssignmentsId = AssignmentsId;
 	auth = auth;
-	Post_size = Post_size;
+	Post_size = Post_size//how many grades we need to update;
 	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
 
 }
@@ -41,49 +24,29 @@ void Canvas_Update::getGradeInfo(*greads_file_dir)
 
 string Canvas_Update::convertData(grade_info oneGrade)
 {
-	string PostData="";
-	PostData += string(oneGrade.text_comment);
-	PostData += string(oneGrade.group_comment);
-	PostData += string(oneGrade.visibility);
-	PostData += string(oneGrade.posted_grade);
-	PostData += string(oneGrade.excuse);
-	return PostData;
+	//make the request body like this  
+	//{\"comment\":{\"text_comment\" : \"asdfasdgasdfasdfasdf\"},\"submission\":{\"posted_grade\": \"99\"} }");
+	string commend = "";
+	commend += "{\"comment\":{\"text_comment\" : \"" + oneGrade.text_comment + "\"},\"submission\":{\"" + oneGrade.posted_grade + "\"} }";
+	return string(commend);
 
 }
 
 Canvas_Update::writeRequest(grade_info *gradeList,int Post_size)
 {
-	for (int i = 0; i < Post_size; ++i)
-	{
-	    curl_easy easy;
-            curl_header header;
-            curl_form form;
-            // Add some options.
-            string PostData = convertData(gradeList[i]);
-            string auth = "Authorization: Bearer" + auth;
-            header.add(auth);
-            easy.add<CURLOPT_URL>(update_Api);
-            easy.add<CURLOPT_FOLLOWLOCATION>(1L);
-            try {
-                    // Execute the request.
-                    header.add("Content-type: application/json");
-                    header.add("Accept: application/json");
-                    easy.add<CURLOPT_CUSTOMREQUEST>("POST");
-                    easy.add<CURLOPT_HTTPHEADER>(header.get());
-                    easy.add<CURLOPT_POSTFIELDS>(PostData);
-                    easy.add<CURLOPT_FOLLOWLOCATION>(1L);
-            }
-            catch (curl_easy_exception error) {
-                    // If you want to get the entire error stack we can do:
-                    auto errors = error.what();
-                    // Otherwise we could print the stack like this:
-                    error.print_traceback();
-                    // Note that the printing the stack will erase it
-            }
-	}
-
-
-
+	// the following is the example about how to update the grade and comment on sumbmission, and it is work!
+	// but there could be anyother API to grade or comment on multiple submissions
+	// we could work on it too
+	CURL *hnd = curl_easy_init();	
+	curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "PUT");
+	curl_easy_setopt(hnd, CURLOPT_URL, "https://sit.instructure.com/api/v1/courses/133/assignments/46024/submissions/19850");
+	struct curl_slist *headers = NULL;
+	headers = curl_slist_append(headers, "authorization: Bearer 1030~4MvxMX4ZFH8LCUAe9pFKhNUwFc6o4PnsFny5vlO4sLdyExxx3B9SR3ULM2nzl211");
+	headers = curl_slist_append(headers, "accept: application/json");
+	headers = curl_slist_append(headers, "content-type: application/json");
+	curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"comment\":{\"text_comment\" : \"asdfasdgasdfasdfasdf\"},\"submission\":{\"posted_grade\": \"99\"} }");
+	curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+	CURLcode ret = curl_easy_perform(hnd);	
 }
 
 
