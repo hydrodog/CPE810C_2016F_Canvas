@@ -1,4 +1,9 @@
 /******************** He Song 11/11/2016 ******************
+ * object: smtp.cpp
+ * action: edit the smtp.cpp to make it can use the stevens 
+ *         email account to send email.
+ * program ver: v0.77
+/******************** He Song 11/11/2016 ******************
  * object: smtp.cpp;smtp.h
  * action: add this two file to make a new class in the 
  *         assignment part. This will make the others use
