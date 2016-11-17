@@ -15,7 +15,8 @@ class Downloader : public QObject
 public:
     explicit Downloader(QObject *parent = 0);
 
-    void doDownload();
+    void doDownload(const QUrl &a);
+    void sendpostrequest(const QUrl &url, const QByteArray &data);
 
 signals:
 

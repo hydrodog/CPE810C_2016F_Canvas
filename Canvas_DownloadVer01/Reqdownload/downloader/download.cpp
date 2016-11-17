@@ -5,15 +5,23 @@ Downloader::Downloader(QObject *parent) :
 {
 }
 
-void Downloader::doDownload()
+void Downloader::doDownload(const QUrl &a)
 {
     manager = new QNetworkAccessManager(this);
-    QUrl a("https://my.stevens.edu");
-    a.setUserName("mhe6");
-    a.setPassword("Stevens586341");
+    //QUrl a("https://canvas.instructure.com/api/v1/courses/10300000000000133/assignments/10300000000046025?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
     manager->get(QNetworkRequest(a));
 
+
+}
+void Downloader::sendpostrequest(const QUrl &url, const QByteArray &data)
+{
+           manager = new QNetworkAccessManager(this);
+           const QUrl mUrl = url;
+           const QByteArray login = data;
+           QNetworkRequest r(mUrl);
+           connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
+           manager->post(r, data);
 
 }
 
@@ -33,7 +41,7 @@ void Downloader::replyFinished (QNetworkReply *reply)
         qDebug() << reply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
          qDebug() << "SUCCESS!";
 
-        QFile *file = new QFile("downloader.txt");
+        QFile *file = new QFile("downloade22r.txt");
         if(file->open(QFile::Append))
         {
            file->write(reply->readAll());
