@@ -21,7 +21,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 void MainWindow::setupgraph(QCustomPlot *customPlot){
-        int numberoffiles;
+       // int numberoffiles;
        // cout <<"Enter total number of  files\n";
        // cin >> numberoffiles;   // files include assignments,midterm (or) tests
         //cout<<"file numbers entered\n";
