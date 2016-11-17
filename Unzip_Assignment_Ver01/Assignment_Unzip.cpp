@@ -3,7 +3,7 @@
 #include <JlCompress.h>
 #include <string.h>
 #include <cstdio>
-
+#include <smtp.h>
 
 
 using namespace std;
@@ -261,12 +261,23 @@ void Assignment_Unzip::A_Send_mail(int f_c_flag, int f_q_flag, const char *s_mai
     string text[2];
     text[0]="You give a wrong zipfile, you should resend a new zipfile!";
     text[1]="The file you given us not include .cc .cpp or .hh";
-    if(f_c_flag)
+	int i;
+	if(f_c_flag)
     {
-        Send_mail(s_mailaddress,text[0], );	  // I am not sure what the sever it is, so I just add the text and s_mailaddress to the send_mail
+        i=0;	  // I am not sure what the sever it is, so I just add the text and s_mailaddress to the send_mail
     }
     if(f_q_flag)
     {
-        Send_mail(s_mailaddress,text[1]);
+        i=1;
     }
+	CSmtp smtp(
+		587,
+		"nexus.stevens.edu",
+		"stevens_username",
+		"password",
+		Stu_Mail_Addr,
+		"Hello Student"+Stu_ID,
+		text[i]
+	);
+    
 #endif
