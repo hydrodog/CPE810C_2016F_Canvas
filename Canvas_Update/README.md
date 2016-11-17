@@ -4,7 +4,7 @@ In update section,
 we use libcurl lib https://curl.haxx.se/ and JosephP91/curlcpp lib https://github.com/JosephP91/curlcpp 
 This two libs is used to connect with Canvas API, and we use the api to update the data to Canvas.
 
-Here is the header file of our project
+Here is the header file of our project：
 
         #ifndef CanvasUpdate_H
         #define CanvasUpdate_H

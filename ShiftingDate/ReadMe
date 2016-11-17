@@ -1,0 +1,4 @@
+
+     Now, this project can create an assignment with current date. And it has two buttons to add a week or a day, when the date is change,
+class holiday will judge if it is weekend or a festival. If it is, it will show the error message box that it should not have a class
+on that day. And it has a function to open a “txt” file, show it in the interface.

@@ -3,6 +3,18 @@
 
 #include <iostream>
 
+/**********************************************************
+ * Author : Zheao Ma
+ * OS: Windows 7
+ * IDE: Qt Creator 4.1.0
+ * Tool: C++
+ * Group: C/zip file rules
+ * Group member: Fangming Zhao, He Song, Yuan Zhou
+ *
+ * Program ver: v0.5
+ *
+ ***********************************************************/
+
 static char current_pro_dir[256];             // current directory this program stay, download group should provide
 static int Get_dir_OK;                        // 0 fail to get directory of pro
 
@@ -87,11 +99,15 @@ public:
     Assignment_Canvas_Unzip(int Stu_Index, int file_name_valid,
                             int file_zip_valid, double Stu_ID,
                             const char *File_Dir_Origin, const char *current_dir,
-                            const char *Filename_Origin[], int file_number);
-    void A_Check_file(int &m_file_name_valid, int &m_file_zip_valid,
+                            const char *Filename_Origin[], int file_number, const char *Stu_Mail_Addr);
+
+/*------------------ Check file rules and unzip if possible ----------------*/
+
+    int A_Check_file(int &m_file_name_valid, int &m_file_zip_valid,
                       const char *m_File_Dir_New);
 
-    void A_Send_mail(int m_file_name_valid, int m_file_zip_valid, char const *s_mailaddress);      // notify student whose submitted assigment is not qualified
-};
+/*------------------ Send mail to students if they fail to follow the file rules ----------------*/
+
+    int A_Send_mail(int m_file_name_valid, int m_file_zip_valid, const char *m_Stu_Mail_Addr);
 
 #endif // ASSIGNMENT_CANVAS_UNZIP_H
