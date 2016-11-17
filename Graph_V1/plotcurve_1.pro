@@ -12,10 +12,10 @@ TARGET = plotcurve_1
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
+SOURCES += plot.cpp\
         mainwindow.cpp \
     qcustomplot.cpp \
-    student.cpp
+    student.cpp \
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
