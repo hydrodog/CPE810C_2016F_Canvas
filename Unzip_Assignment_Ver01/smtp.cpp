@@ -102,27 +102,19 @@ CSmtp::CSmtp(
 bool CSmtp::CreateConn()
 {
     //for set socket,init the envernment
-    SOCKET sockClient = socket(AF_INET, SOCK_STREAM, 0); //set socket
-    SOCKADDR_IN addrSrv;
-    HOSTENT* pHostent;
-    pHostent = gethostbyname(domain.c_str());  //get domain information
-
-    addrSrv.sin_addr.S_un.S_addr = *((DWORD *)pHostent->h_addr_list[0]);    //get smtp server internet ip address
-    addrSrv.sin_family = AF_INET;
-    addrSrv.sin_port = htons(port);
-    int err = connect(sockClient, (SOCKADDR*)&addrSrv, sizeof(SOCKADDR));   //send requset to serve
-    if (err != 0)
+    hostent *pHostent = gethostbyname(domain.c_str());
+    sockaddr_in sin;
+    sin.sin_family = AF_INET;
+    sin.sin_port = htons(port);    //port of SMTP
+    memcpy(&sin.sin_addr.S_un.S_addr, pHostent->h_addr_list[0], pHostent->h_length);
+    sockClient = socket(AF_INET, SOCK_STREAM, 0); //set socket
+    //sockClient;
+    if( connect(sockClient, (sockaddr*)&sin, sizeof(sin)) )
     {
-         printf("connect fail\n");
-        return false;
-
-    }
-    this->sockClient = sockClient;
-    if (false == Recv())
-    {
-        printf("connect fail\n");
+        cerr<<"failed to connect the mail server"<<endl;
         return false;
     }
+    cout<<"connect succeed"<<endl;
     return true;
 }
 
@@ -131,10 +123,9 @@ bool CSmtp::Send(std::string &message)
     int err = send(sockClient, message.c_str(), message.length(), 0);
     if (err == SOCKET_ERROR)
     {
-        cout<<"hierr";
+		cout<<"Send_Err"<<endl;
         return false;
     }
-    std::string message01;
     return true;
 }
 
@@ -142,6 +133,7 @@ bool CSmtp::Recv()
 {
     memset(buff, 0, sizeof(char)* (MAXLEN + 1));
     int err = recv(sockClient, buff, MAXLEN, 0); //recive data
+    cout<<'+'<<buff<<'+';
     if (err == SOCKET_ERROR)
     {
         return false;
@@ -152,15 +144,14 @@ bool CSmtp::Recv()
 
 int CSmtp::Login()
 {
-    cout<<"33333";
-    std::string sendBuff;
-    sendBuff = "EHLO ";
+std::string sendBuff;
+    sendBuff = "HELO ";
     sendBuff += user; // this part need to use telnet decate
     sendBuff += "\r\n";
 
     if (false == Send(sendBuff) || false == Recv()) //send and recive
     {
-
+        cout<<"send_err_1";
         return 1; //1 is because of the internet
     }
 
@@ -168,6 +159,7 @@ int CSmtp::Login()
     sendBuff = "AUTH LOGIN\r\n";
     if (false == Send(sendBuff) || false == Recv()) //longin request
     {
+        cout<<"send_err_2";
         return 1; //1 is because of the internet
     }
 
@@ -208,15 +200,18 @@ int CSmtp::Login()
     {
         return 3; //3 is the password wrong
     }
+
     return 0;
 }
 //send email head
 bool CSmtp::SendEmailHead()
 {
     std::string sendBuff;
-    sendBuff = "MAIL FROM: <" + user + ">\r\n";
+    sendBuff = "MAIL FROM: <" + user + ">\n";
+    cout<<sendBuff;
     if (false == Send(sendBuff) || false == Recv())
     {
+        cout<<"s_head_err1";
         return false; // false because the internet
     }
 
@@ -228,7 +223,7 @@ bool CSmtp::SendEmailHead()
         sendBuff = "RCPT TO: <" + tmpadd + ">\r\n";
         if (false == Send(sendBuff) || false == Recv())
         {
-            cout<<"wangluocuowu!!!";
+            cout<<"s_head_err2";
             return false; //false because the internet
         }
     }
@@ -237,7 +232,7 @@ bool CSmtp::SendEmailHead()
     sendBuff = "DATA\r\n";
     if (false == Send(sendBuff) || false == Recv())
     {
-        cout<<"wangluocuowu!!!";
+        cout<<"s_head_err3";
         return false; //false because the internet
     }
 
@@ -245,6 +240,7 @@ bool CSmtp::SendEmailHead()
     FormatEmailHead(sendBuff);
     if (false == Send(sendBuff))
     {
+        cout<<"s_head_err4";
         return false; //false because the internet
     }
     return true;
@@ -317,14 +313,12 @@ int CSmtp::SendAttachment_Ex() //send file
         //use base64 to send
         while (ifs.read(fileBuff, MAX_FILE_LEN))
         {
-            //cout << ifs.gcount() << endl;
             chSendBuff = base64Encode(fileBuff, MAX_FILE_LEN);
             chSendBuff[strlen(chSendBuff)] = '\r';
             chSendBuff[strlen(chSendBuff)] = '\n';
             send(sockClient, chSendBuff, strlen(chSendBuff), 0);
             delete[]chSendBuff;
         }
-        //cout << ifs.gcount() << endl;
         chSendBuff = base64Encode(fileBuff, ifs.gcount());
         chSendBuff[strlen(chSendBuff)] = '\r';
         chSendBuff[strlen(chSendBuff)] = '\n';
@@ -349,7 +343,6 @@ bool CSmtp::SendEnd() //send end
     {
         return false;
     }
-    //cout << buff << endl;
     sendBuff.empty();
     sendBuff = "QUIT\r\n";
     return (Send(sendBuff) && Recv());
@@ -357,44 +350,42 @@ bool CSmtp::SendEnd() //send end
 
 int CSmtp::SendEmail_Ex()
 {
-    cout<<"22222";
     if (false == CreateConn())
     {
-        cout<<"ss00"<<endl;
+        cout<<"conn_err"<<endl;
         return 1;
     }
-    //Recv();
     int err = Login(); //login
     if (err != 0)
     {
-        cout<<"ss11"<<endl;
+        cout<<"Login_err"<<endl;
         return err; //retrun err
     }
     cout<<"login succeed!";
     if (false == SendEmailHead()) //send email head
     {
-        cout<<"ss22"<<endl;
+        cout<<"SendHead_err"<<endl;
         return 1; //1 is because of the internet
     }
-    cout<<"sendemailhead succeed!";
-    if (false == SendTextBody())
+    cout<<"SendHead_Succeed!";
+ if (false == SendTextBody())
     {
-        cout<<"ss33"<<endl;
+        cout<<"SendBody_err"<<endl;
         return 1; //1 is because of the internet
     }
     cout<<"sendemailbody succeed!";
     err = SendAttachment_Ex();
     if (err != 0)
     {
-        cout<<"ss44"<<endl;
+        cout<<"SendAttachment_err"<<endl;
         return err;
     }
     if (false == SendEnd())
     {
-        cout<<"ss55"<<endl;
+        cout<<"SendEnd_err"<<endl;
         return 1; //1 is because of the internet
     }
-    cout<<"sendemailend succeed!";
+    cout<<"SendEnd succeed!"<<endl;
     return 0; //0 is means succeed
 }
 
