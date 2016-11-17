@@ -1,0 +1,15 @@
+1 1   New Year's Day
+1 15  Martin Luther King Day
+2 12  Lincoln's Birthday
+2 14  St. Valentine's Day
+2 18  Washington's Birthday
+3 17  St. Patrick's Day
+5 28  Memorial Day
+7 4   Independence Day
+9 3   Labor Day
+10 12 Columbus Day
+11 1  Halloween
+11 23 Thanksgiving Day
+12 25 Christmas
+
+
