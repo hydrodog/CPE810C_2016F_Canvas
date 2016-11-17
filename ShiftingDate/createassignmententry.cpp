@@ -1,6 +1,6 @@
 /*Author:Jing Li
   Source file of class"createassignmententry",create currentDatetime automaticly,
-  when set the datetime,judge that if it is weekend.
+  when set the datetime,judge that if it is holiday by using the holiday class.
  *Author:Yang Bai
  if name,theme, date or assignment changed,
 return the signal that they has changed.
