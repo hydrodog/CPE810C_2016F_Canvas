@@ -56,29 +56,3 @@ int Student::Get_numTests(){
 Student::Student():student_id(0){
 
 }
-
-double Student::allAssignments_avg(){
-    double sum=0.0;
-    for(unsigned int i=0; i<Assignment_Marks.size(); i++){
-        sum+=Assignment_Marks[i];
-    }
-    sum/=Assignment_Marks.size();
-    return sum;
-}
-
-double Student::allTests_avg(){
-    double sum=0;
-    for(unsigned int i=0;i<Test_Marks.size();i++){
-        sum+=Test_Marks[i];
-    }
-    sum/=Test_Marks.size();
-    return sum;
-}
-
-double Student::Final_Grade(){
-   return 0.25*Project_grade()+0.6*allTests_avg()+0.15*allAssignments_avg();
-}
-
-double Student::Project_grade(){
-    return 0;
-}

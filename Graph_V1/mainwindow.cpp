@@ -93,49 +93,69 @@ void MainWindow::setupgraph(QCustomPlot *customPlot){
         }
         cout<<student.size()<<"\n";
 
-        //using scatter graph
+        // set dark background gradient:
+        QLinearGradient gradient(0, 0, 0, 400);
+        gradient.setColorAt(0, QColor(90, 90, 90));
+        gradient.setColorAt(0.38, QColor(105, 105, 105));
+        gradient.setColorAt(1, QColor(70, 70, 70));
+        customPlot->setBackground(QBrush(gradient));
+
+        // create empty bar chart objects:
+        QCPBars *Mean = new QCPBars(customPlot->xAxis, customPlot->yAxis);
+        Mean->setAntialiased(false); // gives more crisp, pixel aligned bar borders
+        Mean->setStackingGap(1);
+        // set names and colors:
+        Mean->setName("Mean");
+        Mean->setPen(QPen(QColor(0, 168, 140).lighter(130)));
+        Mean->setBrush(QColor(0, 168, 140));
+        // stack bars on top of each other:
+
+        // prepare x axis with country labels:
+        QVector<double> ticks;
+        QVector<QString> labels;
+        ticks << 1 << 2;
+        labels << "Ass 1" << "Ass 2";
+        QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
+        textTicker->addTicks(ticks, labels);
+        customPlot->xAxis->setTicker(textTicker);
+        customPlot->xAxis->setTickLabelRotation(60);
+        customPlot->xAxis->setSubTicks(false);
+        customPlot->xAxis->setTickLength(0, 4);
+        customPlot->xAxis->setRange(0, 8);
+        customPlot->xAxis->setBasePen(QPen(Qt::white));
+        customPlot->xAxis->setTickPen(QPen(Qt::white));
+        customPlot->xAxis->grid()->setVisible(true);
+        customPlot->xAxis->grid()->setPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
+        customPlot->xAxis->setTickLabelColor(Qt::white);
+        customPlot->xAxis->setLabelColor(Qt::white);
+
+        // prepare y axis:
+        customPlot->yAxis->setRange(0, 100);
+        customPlot->yAxis->setPadding(5); // a bit more space to the left border
+        customPlot->yAxis->setLabel("Score");
+        customPlot->yAxis->setBasePen(QPen(Qt::white));
+        customPlot->yAxis->setTickPen(QPen(Qt::white));
+        customPlot->yAxis->setSubTickPen(QPen(Qt::white));
+        customPlot->yAxis->grid()->setSubGridVisible(true);
+        customPlot->yAxis->setTickLabelColor(Qt::white);
+        customPlot->yAxis->setLabelColor(Qt::white);
+        customPlot->yAxis->grid()->setPen(QPen(QColor(130, 130, 130), 0, Qt::SolidLine));
+        customPlot->yAxis->grid()->setSubGridPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
+
+        // Add data:
+        QVector<double> MeanData;
+        //for(unsigned int a=0; a<student.size(); a++){
+           // Student S=student.at(a);
+        MeanData <<55<< 79;
+        Mean->setData(ticks, MeanData);
+
+        // setup legend:
         customPlot->legend->setVisible(true);
-        customPlot->legend->setFont(QFont("Helvetica", 9));
-        customPlot->legend->setRowSpacing(-3);
-        QVector<QCPScatterStyle::ScatterShape> shapes;
-        shapes << QCPScatterStyle::ssCross;
-        QPen pen;
-
-        for (int i=0; i<shapes.size(); ++i)
-        {
-          customPlot->addGraph();
-          pen.setColor(QColor(qSin(i*0.3)*100+100, qSin(i*0.6+0.7)*100+100, qSin(i*0.4+0.6)*100+100));
-          // generate data:
-          QVector<double> x, y; // initialize with entries 0...9
-          for(unsigned int a=0; a<student.size(); a++){
-              Student S=student.at(a);
-              x.push_back(S.Getstudent_id());       // ID NUMBER of 10 students
-              y.push_back(S.allAssignments_avg()); //  Avg Scores
-          }
-          //set axises and line
-          customPlot->graph(0)->setData(x, y);
-          customPlot->graph(0)->rescaleAxes(true);
-          customPlot->graph(0)->setPen(pen);
-          customPlot->graph(0)->setName("Avg Score of Assignmet 1");
-          customPlot->graph(0)->setLineStyle(QCPGraph::lsLine);
-          // add title layout element:
-          customPlot->plotLayout()->insertRow(0);
-          customPlot->plotLayout()->addElement(0, 0, new QCPTextElement(customPlot, "Avg Score of each sutdent", QFont("arial", 12, QFont::Bold)));
-          //set labels
-          customPlot->xAxis->setRange(990,1280);
-          customPlot->yAxis->setRange(0,200);
-
-          // set scatter style and plot data
-          if (shapes.at(i) != QCPScatterStyle::ssCustom)
-          {
-            customPlot->graph(0)->setScatterStyle(QCPScatterStyle(shapes.at(i), 10));
-          }
-          else
-          {
-            QPainterPath customScatterPath;
-            for (int i=0; i<3; ++i)
-              customScatterPath.cubicTo(qCos(2*M_PI*i/3.0)*9, qSin(2*M_PI*i/3.0)*9, qCos(2*M_PI*(i+0.9)/3.0)*9, qSin(2*M_PI*(i+0.9)/3.0)*9, 0, 0);
-            customPlot->graph(0)->setScatterStyle(QCPScatterStyle(customScatterPath, QPen(Qt::black, 0), QColor(40, 70, 255, 50), 10));
-          }
-        }
+        customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignHCenter);
+        customPlot->legend->setBrush(QColor(255, 255, 255, 100));
+        customPlot->legend->setBorderPen(Qt::NoPen);
+        QFont legendFont = font();
+        legendFont.setPointSize(10);
+        customPlot->legend->setFont(legendFont);
+        customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }

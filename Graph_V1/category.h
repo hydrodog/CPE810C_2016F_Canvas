@@ -17,13 +17,13 @@ public:
     double Test_Mean();
     double overall_Mean();
     void Assignment_Arrange_HtoL();
-    double Test_Arrange_HtoL();
+    void Test_Arrange_HtoL();
     double Assignment_Median();
     double Test_Median();
-    void setAssignment_Variance();
-    void setTest_Variance();
-    double getAssignment_Variance()const;
-    double getTest_Variance()const;
+    double Assignment_Variance();
+    double Test_Variance();
+    //percentage
+    //u
 };
 
 #endif // CATEGORY_H

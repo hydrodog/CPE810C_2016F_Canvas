@@ -12,13 +12,13 @@ class Student{
 private:
     int student_id;
     static int Assignment_type;  //to know what type of assignment it is eg: Test or a Homework assignment
-    std::vector<double> Assignment_Marks;
-    std::vector<double> Test_Marks;
     double StudentGradeSheet[]; // grade in the course till this assignment
     static int numAssignments;
     static int numTests;
 
 public:
+    std::vector<double> Assignment_Marks;
+    std::vector<double> Test_Marks;
     Student();
     //~Student();
     void Setstudent_id(int id);
@@ -33,13 +33,5 @@ public:
     static int GetAssignment_type(void);
     static void Set_AssignmentType(int type);
     static void Set_numAssignments();
-
-    // Class functions to claculate average grades
-    double allAssignments_avg();
-    double allTests_avg();
-    double Final_Grade();
-    double Project_grade();
-    friend class ClassAverage;
-
 };
 #endif // STUDENT_H

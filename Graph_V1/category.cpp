@@ -2,14 +2,14 @@
 
 double category::Assignment_Mean(){
     double sum_As=0;
-    for(int i=0;i<Assignment_Marks.size();i++){
+    for(unsigned int i=0;i<Assignment_Marks.size();i++){
         sum_As+=Assignment_Marks[i];
     }
     return sum_As/Assignment_Marks.size();
 }
 double category::Test_Mean(){
     double sum_Ts=0;
-    for(int i=0;i<Test_Marks.size();i++){
+    for(unsigned int i=0;i<Test_Marks.size();i++){
         sum_Ts+=Test_Marks[i];
     }
     return sum_Ts/Test_Marks.size();
@@ -22,17 +22,17 @@ double category::overall_Mean(){
 }
 
 void category::Assignment_Arrange_HtoL(){
-    std::sort(sorted_Assignment.begin(),sorted_Assignment.end);
+    std::sort(sorted_Assignment.begin(),sorted_Assignment.end());
 }
 
 void category::Test_Arrange_HtoL(){
-    std::sort(sorted_Test.begin(),sorted_Test.end);
+    std::sort(sorted_Test.begin(),sorted_Test.end());
 }
 
 double category::Assignment_Median(){
-    if(sorted_Assignment.size%2==0){
-        int upper=ceil((double)sorted_Assignment.size/2);
-        int lower=floor((double)sorted_Assignment.size/2);
+    if(sorted_Assignment.size()%2==0){
+        int upper=ceil((double)sorted_Assignment.size()/2);
+        int lower=floor((double)sorted_Assignment.size()/2);
         return (sorted_Assignment[upper]+sorted_Assignment[lower])/2;
     }
     else{
@@ -42,9 +42,9 @@ double category::Assignment_Median(){
 }
 
 double category::Test_Median(){
-    if(sorted_Test.size%2==0){
-        int upper=ceil((double)sorted_Test.size/2);
-        int lower=floor((double)sorted_Test.size/2);
+    if(sorted_Test.size()%2==0){
+        int upper=ceil((double)sorted_Test.size()/2);
+        int lower=floor((double)sorted_Test.size()/2);
         return (sorted_Test[upper]+sorted_Test[lower])/2;
     }
     else{
@@ -53,19 +53,19 @@ double category::Test_Median(){
     }
 }
 
-double category::setAssignment_Variance(){
+double category::Assignment_Variance(){
     double sum=0;
     double mean=category::Assignment_Mean();
-    for(i=0;i<Assignment_Marks.size();i++){
+    for(unsigned int i=0;i<Assignment_Marks.size();i++){
         sum+=pow(Assignment_Marks[i]-mean,2);
     }
-     sum/Assignment_Marks.size();
+    return sum/Assignment_Marks.size();
 }
 
-double category::setTest_Variance(){
+double category::Test_Variance(){
     double sum=0;
     double mean=category::Test_Mean();
-    for(i=0;i<Test_Marks.size();i++){
+    for(unsigned int i=0;i<Test_Marks.size();i++){
         sum+=pow(Test_Marks[i]-mean,2);
     }
     return sum/Test_Marks.size();
