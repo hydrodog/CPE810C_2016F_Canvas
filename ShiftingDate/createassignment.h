@@ -1,8 +1,9 @@
 /*Author:Yang Bai
-
- Header file of class "createassignment",
+Header file of class "createassignment"
+  This class represents our assignment itself. It has methods to create new entries, list all
+  existing ones and delete entries again.
  defined createEntry() and deleteEntry() functions
-and entryAdded and entryRemoved signals.
+ defined entryAdded and entryRemoved signals.
 
 
 */

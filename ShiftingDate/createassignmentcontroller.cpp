@@ -1,6 +1,3 @@
-
-
-
 /*Author:Yang Bai
 
  If we get createEntry signal, we will set original name "New Entry..."

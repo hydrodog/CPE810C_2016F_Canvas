@@ -1,4 +1,11 @@
+/*Author:Jing Li
+ * realize the openFileSlot();newFileSlot();AddaWeek();AddaDay() functions.
 
+ *Author:Yang Bai
+
+  link functions and buttons, tell buttons what they should do when they are clicked.
+
+*/
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "holiday.h"
@@ -152,7 +159,9 @@ void MainWindow::openFileSlot()
   }
 }
 void MainWindow:: AddaWeek()
-{
+{/*
+when button is pressed ,judge if it is holiday first.
+  */
    QDate datetimes = ui->expirationdateEdit->date();
     datetimes =datetimes.addDays(7);
     Holiday x(datetimes);
@@ -169,9 +178,7 @@ void MainWindow:: AddaWeek()
 
 }
 void MainWindow:: AddaDay()
-{/*
-when button is pressed ,judge if it is weekend first.
-  */
+{
    QDate datetimes = ui->expirationdateEdit->date();
         datetimes =datetimes.addDays(1);
         Holiday x(datetimes);
@@ -185,18 +192,7 @@ when button is pressed ,judge if it is weekend first.
             a.exec();
             return;
         }
-        /*
-        int x =datetimes.dayOfWeek();
-               if(x==6||x==7)
-               {
-              QMessageBox a;
-            a.setText("it is weekend,no class!");
-            a.exec();
-                        return;
-               }
-            else
-         ui->expirationdateEdit->setDate(datetimes);
-         */
+
 }
 void MainWindow:: MinusaWeek()
 {
@@ -216,9 +212,7 @@ void MainWindow:: MinusaWeek()
 
 }
 void MainWindow:: MinusaDay()
-{/*
-when button is pressed ,judge if it is weekend first.
-  */
+{
    QDate datetimes = ui->expirationdateEdit->date();
         datetimes =datetimes.addDays(-1);
         Holiday x(datetimes);
@@ -232,18 +226,7 @@ when button is pressed ,judge if it is weekend first.
             a.exec();
             return;
         }
-        /*
-        int x =datetimes.dayOfWeek();
-               if(x==6||x==7)
-               {
-              QMessageBox a;
-            a.setText("it is weekend,no class!");
-            a.exec();
-                        return;
-               }
-            else
-         ui->expirationdateEdit->setDate(datetimes);
-         */
+
 }
 
 void MainWindow::setupConnections()

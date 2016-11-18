@@ -1,6 +1,6 @@
 /*Author:Jing Li
   Source file of class"createassignmententry",create currentDatetime automaticly,
-  when set the datetime,judge that if it is weekend.
+  when set the datetime,judge that if it is holiday by using the holiday class.
  *Author:Yang Bai
  if name,theme, date or assignment changed,
 return the signal that they has changed.
@@ -10,6 +10,7 @@ return the signal that they has changed.
 */
 #include "createassignmententry.h"
 #include"mainwindow.h"
+#include"holiday.h"
 createassignmententry::createassignmententry(QObject *parent) : QObject(parent),m_expirationdate( QDate::currentDate ())
 {
 
@@ -44,17 +45,19 @@ void createassignmententry::setTheme(const QString &theme)
 
 QDate createassignmententry::expirationdate()
 {
-    int x =m_expirationdate.dayOfWeek();
-    if(x==6||x==7)
-    {
 
-   QMessageBox a;
-   a.setText("it is weekend,no class!");
-    a.exec();
-  return m_expirationdate;
+    Holiday x(m_expirationdate);
+    QString y=x.festival();
+    if(y=="")
+        return m_expirationdate;
+    else
+    {
+        QMessageBox a;
+        a.setText(y);
+        a.exec();
+        return m_expirationdate;
     }
-   else
-    return m_expirationdate;
+
 }
 
 void createassignmententry::setExpirationdate(const QDate &expirationdate)
