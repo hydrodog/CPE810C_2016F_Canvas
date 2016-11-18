@@ -1,18 +1,19 @@
+#ifndef SUBMISSION_HH
+#define SUBMISSION_HH
+
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-
 class Submission
 {
-    /*
     private:
         long m_assignment_id;
         //Assignment m_assignment;
         long m_course_id;
         //Course m_course;
         int m_submission_num; //submission attempt number
-        long m_student_id;
+        //long m_student_id;
         int m_grader_id;
         double m_grade; //number grades, not letter grades
         string m_grader_comment = "";
@@ -21,8 +22,8 @@ class Submission
 
     public:
 
-        Submission(long assignment_id, long course_id, int submission_num, long student_id, int grader_id, double grade, bool late)
-            : m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_student_id(student_id), m_grader_id(grader_id), m_grade(grade), m_late(late) {}
+        Submission(long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late)
+            : m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late) {}
 
         //TODO: get public methods from upload and download team so that we can download a submission and then upload a grade
 
@@ -91,6 +92,7 @@ class Submission
         //TODO: Get upload function from upload group
         //uploads a grade and possibly a comment to the submission object
         void upload() {}
-        */
 };
 
+
+#endif // SUBMISSION_HH

@@ -7,7 +7,6 @@
  If an entry is deleted, delete the entry and send back entryRemoved signal.
 
 
-
 */
 #include "createassignment.h"
 

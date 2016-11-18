@@ -45,18 +45,7 @@ void createassignmententry::setTheme(const QString &theme)
 
 QDate createassignmententry::expirationdate()
 {
-   /* int x =m_expirationdate.dayOfWeek();
-    if(x==6||x==7)
-    {
 
-   QMessageBox a;
-    a.setText("it is weekend,no class!");
-    a.exec();
-  return m_expirationdate;
-    }
-   else
-    return m_expirationdate;
-    */
     Holiday x(m_expirationdate);
     QString y=x.festival();
     if(y=="")

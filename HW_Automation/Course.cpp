@@ -4,14 +4,19 @@
 #include "Assignment.cpp"
 using namespace std;
 
+
 class Course
 {
+    /*
     private:
         long m_course_id;
         string m_course_name;
         string m_course_code;
         long m_account_id;
-        long m_student_id;
+        //long m_student_id;
+
+        //need an array of students - each student contains information, file, and assignment
+
         //string m_student_name;
 
     public:
@@ -33,4 +38,5 @@ class Course
 
             //for loop to iterate through assignments
         }
+        */
 };

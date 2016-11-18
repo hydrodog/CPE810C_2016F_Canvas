@@ -1,3 +1,6 @@
+#ifndef SUBMISSION_HH
+#define SUBMISSION_HH
+
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -10,7 +13,7 @@ class Submission
         long m_course_id;
         //Course m_course;
         int m_submission_num; //submission attempt number
-        long m_student_id;
+        //long m_student_id;
         int m_grader_id;
         double m_grade; //number grades, not letter grades
         string m_grader_comment = "";
@@ -19,8 +22,8 @@ class Submission
 
     public:
 
-        Submission(long assignment_id, long course_id, int submission_num = 0, long student_id, int grader_id, double grade, bool late = false)
-            : m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_student_id(student_id), m_grader_id(grader_id), m_grade(grade), m_late(late) {}
+        Submission(long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late)
+            : m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late) {}
 
         //TODO: get public methods from upload and download team so that we can download a submission and then upload a grade
 
@@ -45,16 +48,16 @@ class Submission
         //grades a submitted file, giving 50 points is it compiles and another 50 points if it runs. If neither, it gives a score of 25.
         double grade()
         {
+            double grade = 0;
             bool compiled = compile_submission();
             if (compiled)
             {
                 grade += 75;
                 bool ran = run_submission();
-            }
-
-            if (ran)
-            {
-                grade += 25;
+                if (ran)
+                {
+                    grade += 25;
+                }
             }
 
             m_grade = grade;
@@ -66,14 +69,14 @@ class Submission
         void display_source_code() {}
 
         //returns grade entered by the grader, if he chooses to overwrite the default grade
-        double overwrite_grade(double grade)()
+        double overwrite_grade(double grade)
         {
             m_grade = grade;
             return grade;
         }
 
         //adds a comment from the grader to the submission file
-        string grade_comment(string commenet)
+        string grade_comment(string comment)
         {
             m_grader_comment = comment;
             return comment;
@@ -91,9 +94,5 @@ class Submission
         void upload() {}
 };
 
-int main(int argc, char *argv[])
-{
 
-
-    return 0;
-}
+#endif // SUBMISSION_HH

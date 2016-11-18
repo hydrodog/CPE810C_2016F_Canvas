@@ -2,14 +2,16 @@
 #include "Course.cpp"
 using namespace std;
 
+
 class hw_automation
 {
+    /*
     private:
         Course course;
 
     public:
-        hw_automation(string course_name, string course_code, long account_id, long student_user_id)
-            : course(course_name, course_code, account_id, student_user_id) {}
+        hw_automation(string course_name, long course_id, string course_code, long account_id, long student_id)
+            : course(course_id, course_name, course_code, account_id, student_id) {}
 
         //returns course object
         Course getCourse()
@@ -17,9 +19,11 @@ class hw_automation
             //GET /api/v1/courses/:id
             return course;
         }
+        */
 };
 
-int main(int argc, char *argv[])
+int main()
 {
     return 0;
 }
+

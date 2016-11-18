@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>805</width>
-    <height>554</height>
+    <width>741</width>
+    <height>557</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>-10</x>
       <y>-10</y>
-      <width>461</width>
+      <width>411</width>
       <height>471</height>
      </rect>
     </property>
@@ -35,59 +35,85 @@
     </widget>
     <widget class="QWidget" name="detailpage">
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="7" column="2">
-       <widget class="QPushButton" name="Button2">
+      <item row="0" column="1">
+       <widget class="QLabel" name="classeslabel">
         <property name="text">
-         <string>Add a day </string>
+         <string> Name</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="datelabel">
-        <property name="text">
-         <string> Date</string>
-        </property>
-       </widget>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="themeEdit"/>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="themelabel">
-        <property name="text">
-         <string>Theme</string>
-        </property>
-       </widget>
+      <item row="3" column="2">
+       <widget class="QDateEdit" name="expirationdateEdit"/>
       </item>
-      <item row="8" column="0" colspan="2">
+      <item row="12" column="2">
+       <widget class="QPlainTextEdit" name="assignmentEdit"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="nameEdit"/>
+      </item>
+      <item row="12" column="0" colspan="2">
        <widget class="QLabel" name="assignmentlabel">
         <property name="text">
          <string>Assignment</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="2">
-       <widget class="QPlainTextEdit" name="assignmentEdit"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLineEdit" name="themeEdit"/>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="classeslabel">
+      <item row="3" column="1">
+       <widget class="QLabel" name="datelabel">
         <property name="text">
-         <string>Name</string>
+         <string> Date</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QLineEdit" name="nameEdit"/>
-      </item>
-      <item row="6" column="2">
+      <item row="8" column="2">
        <widget class="QPushButton" name="Button1">
+        <property name="maximumSize">
+         <size>
+          <width>302</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Add a week</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
-       <widget class="QDateEdit" name="expirationdateEdit"/>
+      <item row="1" column="1">
+       <widget class="QLabel" name="themelabel">
+        <property name="text">
+         <string> Theme</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="2">
+       <widget class="QPushButton" name="Button3">
+        <property name="text">
+         <string>Back a week</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="2">
+       <widget class="QPushButton" name="Button4">
+        <property name="text">
+         <string>Back a day</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QPushButton" name="Button2">
+        <property name="maximumSize">
+         <size>
+          <width>302</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Add a day </string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -95,20 +121,10 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>420</x>
       <y>10</y>
       <width>311</width>
       <height>221</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QCalendarWidget" name="calendarWidget">
-    <property name="geometry">
-     <rect>
-      <x>490</x>
-      <y>240</y>
-      <width>296</width>
-      <height>236</height>
      </rect>
     </property>
    </widget>
@@ -117,12 +133,22 @@
      <rect>
       <x>0</x>
       <y>450</y>
-      <width>441</width>
+      <width>391</width>
       <height>31</height>
      </rect>
     </property>
     <property name="standardButtons">
      <set>QDialogButtonBox::Discard|QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
+    </property>
+   </widget>
+   <widget class="QCalendarWidget" name="calendarWidget">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>240</y>
+      <width>296</width>
+      <height>236</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -131,7 +157,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>805</width>
+     <width>741</width>
      <height>26</height>
     </rect>
    </property>

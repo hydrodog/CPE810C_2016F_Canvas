@@ -159,7 +159,9 @@ void MainWindow::openFileSlot()
   }
 }
 void MainWindow:: AddaWeek()
-{
+{/*
+when button is pressed ,judge if it is holiday first.
+  */
    QDate datetimes = ui->expirationdateEdit->date();
     datetimes =datetimes.addDays(7);
     Holiday x(datetimes);
@@ -173,25 +175,10 @@ void MainWindow:: AddaWeek()
         a.exec();
         return;
     }
-    /*
-     int x =datetimes.dayOfWeek();
-            if(x==6||x==7)
-            {
 
-           QMessageBox a;
-         a.setText("it is weekend,no class!");
-         a.exec();
-
-                     return;
-            }
-         else
-     ui->expirationdateEdit->setDate(datetimes);
-     */
 }
 void MainWindow:: AddaDay()
-{/*
-when button is pressed ,judge if it is weekend first.
-  */
+{
    QDate datetimes = ui->expirationdateEdit->date();
         datetimes =datetimes.addDays(1);
         Holiday x(datetimes);
@@ -205,21 +192,43 @@ when button is pressed ,judge if it is weekend first.
             a.exec();
             return;
         }
-        /*
-        int x =datetimes.dayOfWeek();
-               if(x==6||x==7)
-               {
 
-              QMessageBox a;
-            a.setText("it is weekend,no class!");
-            a.exec();
-
-                        return;
-               }
-            else
-         ui->expirationdateEdit->setDate(datetimes);
-         */
 }
+void MainWindow:: MinusaWeek()
+{
+   QDate datetimes = ui->expirationdateEdit->date();
+    datetimes =datetimes.addDays(-7);
+    Holiday x(datetimes);
+    QString y=x.festival();
+    if(y=="")
+     ui->expirationdateEdit->setDate(datetimes);
+    else
+    {
+        QMessageBox a;
+        a.setText(y);
+        a.exec();
+        return;
+    }
+
+}
+void MainWindow:: MinusaDay()
+{
+   QDate datetimes = ui->expirationdateEdit->date();
+        datetimes =datetimes.addDays(-1);
+        Holiday x(datetimes);
+        QString y=x.festival();
+        if(y=="")
+         ui->expirationdateEdit->setDate(datetimes);
+        else
+        {
+            QMessageBox a;
+            a.setText(y);
+            a.exec();
+            return;
+        }
+
+}
+
 void MainWindow::setupConnections()
 {/*
      * This connects various signals in the UI to slots we defined accordingly.
@@ -242,5 +251,9 @@ void MainWindow::setupConnections()
            this,&MainWindow::AddaWeek);
    connect(ui->Button2,&QPushButton::clicked,
            this,&MainWindow::AddaDay);
+   connect(ui->Button3,&QPushButton::clicked,
+           this,&MainWindow::MinusaWeek);
+   connect(ui->Button4,&QPushButton::clicked,
+           this,&MainWindow::MinusaDay);
 
 }
