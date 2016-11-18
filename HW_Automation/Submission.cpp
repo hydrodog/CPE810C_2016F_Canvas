@@ -2,8 +2,10 @@
 #include <fstream>
 using namespace std;
 
+
 class Submission
 {
+    /*
     private:
         long m_assignment_id;
         //Assignment m_assignment;
@@ -89,4 +91,6 @@ class Submission
         //TODO: Get upload function from upload group
         //uploads a grade and possibly a comment to the submission object
         void upload() {}
+        */
 };
+
