@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
-#include"PlagiarismDetector.hh"
+//#include"PlagiarismDetector.hh"
 using namespace std;
 
 class detectPlagiarism {
@@ -30,20 +30,33 @@ private:
 			return false;
 	}
 
-	int LCS(vector<string> a, vector<string> b, int i, int j){
-		//This function computes the lcs of two vectors of strings
-		int alen = a.size();
-		int blen = b.size();
-		if(i >= alen || j >= blen){
-			return 0;
-		}
-		else if(stringCompare(a[i], b[j])) {
-			return 1 + LCS(a, b, i + 1, j + 1);
-		}
-		else{
-			return max(LCS(a, b, i + 1, j), LCS(a, b, i, j + 1));
-		}
+	int LCS(vector<string> a, vector<string> b){
+		//This function computes the lcs of two vectors of strings, added in dynamic implementation to  change order to O(mn) rather than O(2^n)
+		const int alen = a.size();
+		const int blen = b.size();
 
+		vector<vector<int>> mem = vector<vector<int>>();
+
+		for(int r = 0; r <= alen; r++){
+			vector<int> temp = vector<int>();
+			temp.assign(blen + 1, 0);
+			mem.push_back(temp);
+		}
+		
+		for(int k = alen; k >= 0; k--) {
+			for(int l = blen - 1; l >= 0; l--) {
+				if(k >= alen || l >= blen){
+					mem[k][l] = 0;
+				} 
+				else if(stringCompare(a[k], b[l])) {
+					mem[k][l] = 1 + mem[k+1][l+1];
+				}
+				else{
+					mem[k][l] = max(mem[k + 1][l], mem[k][l+1]);
+				}
+			}
+		}
+		return mem[0][0];
 	}
 
 public:
@@ -53,15 +66,19 @@ public:
 
 	}
 
-	vector<string> singleLcsTest(vector<vector<string>> targetH, int student){
+	
+
+
+vector<string> singleLcsTest(vector<vector<string>> targetH, int student){
 		vector<string> results = vector<string>();
 		vector<string> testH = targetH.at(student);
 		for(int i = 0; i < targetH.size(); i++) {
 			if(i != student)
-				results.push_back("Submission " + to_string(student) + " is " + to_string((LCS(testH, targetH.at(i), 0, 0) * 100) / testH.size()) + "% similar to submission " + to_string(i + 1));
+				results.push_back("Submission " + to_string(student) + " is " + to_string((LCS(testH, targetH.at(i)) * 100) / testH.size()) + "% similar to submission " + to_string(i));  
 		}
 		return results;
 	}
+
 
 	vector<vector<string>> classLcsTest(vector<vector<string>> targetH){
 		vector<vector<string>> classResults = vector<vector<string>>();
@@ -71,3 +88,4 @@ public:
 		return classResults;
 	}
 };
+
