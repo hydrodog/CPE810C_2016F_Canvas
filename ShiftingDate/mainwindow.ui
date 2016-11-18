@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>795</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="listpage">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QListWidget" name="listWidget"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="detailpage">
+       <widget class="QLabel" name="classeslabel">
+        <property name="geometry">
+         <rect>
+          <x>12</x>
+          <y>12</y>
+          <width>36</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="nameEdit">
+        <property name="geometry">
+         <rect>
+          <x>98</x>
+          <y>12</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="themelabel">
+        <property name="geometry">
+         <rect>
+          <x>12</x>
+          <y>43</y>
+          <width>42</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Theme</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="themeEdit">
+        <property name="geometry">
+         <rect>
+          <x>98</x>
+          <y>43</y>
+          <width>125</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="datelabel">
+        <property name="geometry">
+         <rect>
+          <x>12</x>
+          <y>74</y>
+          <width>32</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string> Date</string>
+        </property>
+       </widget>
+       <widget class="QDateTimeEdit" name="expirationdateEdit">
+        <property name="geometry">
+         <rect>
+          <x>98</x>
+          <y>74</y>
+          <width>143</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Button1">
+        <property name="geometry">
+         <rect>
+          <x>92</x>
+          <y>108</y>
+          <width>112</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add a week</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="assignmentlabel">
+        <property name="geometry">
+         <rect>
+          <x>12</x>
+          <y>263</y>
+          <width>72</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Assignment</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Button2">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>110</y>
+          <width>106</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add a day </string>
+        </property>
+       </widget>
+       <widget class="QPlainTextEdit" name="assignmentEdit">
+        <property name="geometry">
+         <rect>
+          <x>98</x>
+          <y>180</y>
+          <width>269</width>
+          <height>73</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Button3">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>140</y>
+          <width>113</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Minus a week</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Button4">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>140</y>
+          <width>113</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Minus a day</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QTextEdit" name="textEdit"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Discard|QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCalendarWidget" name="calendarWidget"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>795</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuEntries">
+    <property name="title">
+     <string>Entries</string>
+    </property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionRemove"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionNew"/>
+   </widget>
+   <addaction name="menuEntries"/>
+   <addaction name="menuFile"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="text">
+    <string>Add</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="text">
+    <string>Remove</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

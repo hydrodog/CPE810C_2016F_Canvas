@@ -1,9 +1,3 @@
-/*Author:Jing Li
-  Header file of class "HOLIDAY"
-  read a txt file with the date of festivals,
-  then judge if the date is weekend or a festival.
-
-*/
 #include "holiday.h"
 
 Holiday::Holiday(QDate date):m_date(date)
@@ -18,38 +12,6 @@ QString Holiday::festival()
     QString s="";
     if(x==6||x==7)
         return s="It is weekend, No class!";
-
-    QFile file("calendar.txt" );
-    if (!file.open(QFile::ReadOnly | QFile::Text))
-    {
-        QMessageBox b;
-        b.setText("error,no files");
-        b.exec();
-    }
-          QTextStream stream( &file );
-
-          QString line;
-          while (!stream.atEnd())
-             {
-              line = stream.read(2);
-              QString str=line;
-              int m=str.toInt();//read month from file
-              line = stream.read(3);
-              str=line;
-              int d=str.toInt();//read day from file
-              line = stream.readLine();//read festival from file
-              if(month==m&&day==d)
-              {
-
-               s="It is "+line+",No class!";
-              }
-             }
-
-              file.close();
-              return s;
-
-    /* now these messages below are in the "calendar.txt"files.
-     *
     if(month==1&&day==1)
         return s="It is New Year's Day, No class!";
     if(month==1&&day==15)
@@ -78,7 +40,6 @@ QString Holiday::festival()
         return s="It is Christmas, No class!";
     else
         return s="";
-        */
 
 
 }
