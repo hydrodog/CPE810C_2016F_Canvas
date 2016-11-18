@@ -58,4 +58,10 @@ task : Writing code that is able to download files from Canvas in Qt.
 	Shengjie Hu and Mingju He try to use API to download submissions.
 	
 	TODO:Try to find right api that could download all students submissions and classify them. 
+	
+**Date:2016.11.15~2016.11.17**  
+
+	We connect with other team to determine what kind of data they want.
+	
+	Also, we get the right Url to download submissions, but we should login first. We are trying to log in canvas first.
 
