@@ -1,6 +1,8 @@
 README
 HW_AUTOMATION
 
+Class Assignment_Unzip : This class is used for its student struct
+
 Class hw_automation : Encompasses all of the HW automation tasks.
 
 	Private Data Members:
@@ -10,7 +12,7 @@ Class hw_automation : Encompasses all of the HW automation tasks.
 
 	Methods:
 
-	hw_automation (string course_name, string course_code, long account_id, long student_user_id)
+	hw_automation (string course_name, long course_id, string course_code, long account_id)
 	• Constructor, constructs a hw_automation object as well as a course object
 	Course getCourse () {}
 	• Returns the course object, containing all the necessary information about the course
@@ -21,22 +23,33 @@ Class Course : Represents a course/class in canvas.
 
 	long m_course_id
 	• identifiaction number of the course
+
         string m_course_name
 	• name of the course
+
         string m_course_code
 	• code of the course
+
         long m_account_id
 	• identification number for the account associated with the course
-        long m_student_id
-	• user identification number for a given student
+
+        Student *stu = new student [25]
+        • pointer to an array of student in the course
 
 	Methods:
 
-	Course(int course_id, string course_name, string course_code, long account_id, string student_user_id)
+	Course(int course_id, string course_name, string course_code, long account_id)
 	• Contructor, constructs a course object given certain information
-	
-	vector<Assignment>  getAssignments()
-	• Returns a vector of all the assignments for a given course
+
+        Student *getstudents()
+        • Gets the the students in the course and sets each student's identification number, name, and e-mail address
+
+        void getAssignments()
+        •Gets assignment list and store each assignment information within each student object
+
+	void getAssignments()
+	• Gets all of the the assignments for a given course
+	• Puts the information of assignment each assignment in each student object
           
 Class Assignment:
 
@@ -46,18 +59,24 @@ Class Assignment:
 	• identification number of the assignment
         long m_course_id;
 	• identification number of the course
-        long m_student_id;
-	• user identification number for a given student
         double m_grade;
 	• grade for a given assignment
 
 	Methods:
 	
-	Assignment(long assignment_id, long course_id, long studnet_id, double grade)
+	Assignment(long assignment_id, long course_id, double grade)
 	• Constructor, constructs an assignment object given certain information
 	
 	Submission getSubmissions () {}
 	• Returns the submission for a given student for the corresponding assignment
+        
+        long get_assignment_id()
+        • Returns the identification number of assignment
+
+        long get_course_id()
+        • Returns the identification number of the course
+
+
 
 Class Submission:
 
@@ -69,8 +88,6 @@ Class Submission:
 	• identification number of the submission's/assignment's course
         int m_submission_num
 	• the number of times the student has made a submission / number of attempts at a submission
-        long m_student_id;
-	• user identification number for a given student
         int m_grader_id;
 	• identification number for the grader
         double m_grade
