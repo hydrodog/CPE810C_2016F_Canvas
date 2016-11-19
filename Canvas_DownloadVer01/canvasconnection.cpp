@@ -3,6 +3,14 @@
 #include <iostream>
 #include <QtNetwork>
 #include <QByteArray>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QDebug>
+#include <QCoreApplication>
+#include <iostream>
+#include <QJsonValue>
+#include <QJsonArray>
 canvasConnection::canvasConnection(QObject *parent) :
     QObject(parent)
 {
@@ -24,14 +32,14 @@ void canvasConnection::sendRequest(const QString &strUrl)
     netRequest.setUrl(QUrl(strUrl));
 
 
-    netRequest.setHeader(QNetworkRequest::ContentTypeHeader,"image/jpeg");
-    netRequest.setRawHeader("Accept", "image/jpeg");
+    netRequest.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+    netRequest.setRawHeader("Accept", "application/json");
 
 
 //    QString authString = (QString)"shu14 " + ":" + (QString)" Free921227";
 //    QString base64String = "Bearer " + authString.toUtf8().toBase64();
     //QString at = "Bearer " + (QString)"1030~ITJlnLeBaoqbzneuPAfdNLG5e9jAZqVHMiZWxF3FbvTG31U6l5adkBJcqOf8lCIO";
-    //netRequest.setRawHeader("Authorization","Bearer 1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
+    netRequest.setRawHeader("Authorization","Bearer 1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
     //netRequest.setRawHeader("Authorization", base64String.toUtf8());
 
 
@@ -59,4 +67,18 @@ void canvasConnection::sendRequest(const QString &strUrl)
 		//release memory
         delete m_pNetworkReply;
     }
+}
+
+void canvasConnection::readJson(){
+    QString settings;
+    QFile file;
+    file.setFileName("submissions.txt");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    settings = file.readAll();
+    file.close();
+
+    QJsonDocument sd = QJsonDocument::fromJson(settings.toUtf8());
+    qWarning() << sd.isNull(); // <- print false :)
+    QJsonObject sett2 = sd.object();
+    qWarning() << sett2[QString("preview_url")].toString();  // <- print my title
 }
