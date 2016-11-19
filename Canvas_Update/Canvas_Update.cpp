@@ -43,5 +43,68 @@ Canvas_Update::writeRequest(grade_info *gradeList,int Post_size)
 	CURLcode ret = curl_easy_perform(hnd);	
 }
 
+Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
+{
+	greads_file_dir = greads_file_dir;
+	courseId = courseId;
+	AssignmentsId = AssignmentsId;
+	auth = auth;
+	Post_size = Post_size//how many grades we need to update;
+	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
+}
 
+Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
+{
+	greads_file_dir = greads_file_dir;
+	courseId = courseId;
+	AssignmentsId = AssignmentsId;
+	auth = auth;
+	Post_size = Post_size//how many grades we need to update;
+	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
+}
+Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
+{
+	greads_file_dir = greads_file_dir;
+	courseId = courseId;
+	AssignmentsId = AssignmentsId;
+	auth = auth;
+	Post_size = Post_size//how many grades we need to update;
+	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
+}
 
+Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
+{
+	greads_file_dir = greads_file_dir;
+	courseId = courseId;
+	AssignmentsId = AssignmentsId;
+	auth = auth;
+	Post_size = Post_size//how many grades we need to update;
+	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
+}
+Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
+{
+	greads_file_dir = greads_file_dir;
+	courseId = courseId;
+	AssignmentsId = AssignmentsId;
+	auth = auth;
+	Post_size = Post_size//how many grades we need to update;
+	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
+}
+Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
+{
+	greads_file_dir = greads_file_dir;
+	courseId = courseId;
+	AssignmentsId = AssignmentsId;
+	auth = auth;
+	Post_size = Post_size//how many grades we need to update;
+	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
+}
+Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
+{
+	greads_file_dir = greads_file_dir;
+	courseId = courseId;
+	AssignmentsId = AssignmentsId;
+	auth = auth;
+	Post_size = Post_size//how many grades we need to update;
+	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
+}
