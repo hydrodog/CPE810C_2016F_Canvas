@@ -1,8 +1,22 @@
 This repository is for the update part of EE810 Canvas group
 
 In update section,
-we use libcurl lib https://curl.haxx.se/ and JosephP91/curlcpp lib https://github.com/JosephP91/curlcpp 
-This two libs is used to connect with Canvas API, and we use the api to update the data to Canvas.
+firstly, we should make the environment configuration in Qt creator, we use libcurl "curl-7.51.0-win32-mingw" in https://curl.haxx.se/.
+This library is used to connect with Canvas API, and we use the api to update the data to Canvas.
+
+Here is the codes should add to pro. file that external library is added.
+
+INCLUDEPATH += $$PWD/../curl-7.51.0-win32-mingw/include
+DEPENDPATH += $$PWD/../curl-7.51.0-win32-mingw/include
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../curl-7.51.0-win32-mingw/lib/ -lcurl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../curl-7.51.0-win32-mingw/lib/ -lcurl
+LIBS += C:\Users\Gregory\Desktop\learn_curl\build-Learn_Curl-Desktop_Qt_5_7_0_MinGW_32bit-Debug\debug\libcurl.dll
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../curl-7.51.0-win32-mingw/lib/libcurl.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../curl-7.51.0-win32-mingw/lib/libcurldll.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../curl-7.51.0-win32-mingw/lib/curl.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../curl-7.51.0-win32-mingw/lib/curld.lib
 
 Here is the header file of our project：
 
