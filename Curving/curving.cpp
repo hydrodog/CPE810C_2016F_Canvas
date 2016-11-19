@@ -33,3 +33,13 @@ double* Curving::returnCurve() const {
 void Curving::acceptChanges(){
 
 }
+void Curving::curveFunctions(int curve){
+    cout << "this is a line curve:";
+    for(int i = 0; i < m_size; i++){
+    cout << m_originalGrades[i] + curve;
+     }
+    cout << "this is a root curve";
+    for(int i = 0; i < m_size; i++)
+    cout << 10*sqrt(m_originalGrades[i]);
+
+}

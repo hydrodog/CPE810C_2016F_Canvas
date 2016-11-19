@@ -24,6 +24,7 @@ public:
     void rootCurve();
     double* returnCurve() const;
     void acceptChanges();
+    void curveFunctions(int curve);
 };
 
 #endif // CURVING_H
