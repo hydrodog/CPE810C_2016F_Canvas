@@ -15,10 +15,10 @@ private:
     double StudentGradeSheet[]; // grade in the course till this assignment
     static int numAssignments;
     static int numTests;
-
-public:
+protected:
     std::vector<double> Assignment_Marks;
     std::vector<double> Test_Marks;
+public:
     Student();
     //~Student();
     void Setstudent_id(int id);

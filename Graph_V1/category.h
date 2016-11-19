@@ -12,7 +12,7 @@ private:
     std::vector<double> sorted_Test=Test_Marks;
 public:
     category();
-    ~category();
+    //~category();
     double Assignment_Mean();
     double Test_Mean();
     double overall_Mean();

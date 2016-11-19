@@ -1,5 +1,9 @@
 #include "category.h"
 
+category::category(){
+
+}
+
 double category::Assignment_Mean(){
     double sum_As=0;
     for(unsigned int i=0;i<Assignment_Marks.size();i++){
