@@ -1,6 +1,5 @@
 #include <CanvasUpdate.h>
 
-
 Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsId, string auth,int Post_size))
 {
 	greads_file_dir = greads_file_dir;
@@ -9,17 +8,13 @@ Canvas_Update::Canvas_Update(char *greads_file_dir,int courseId,int AssignmentsI
 	auth = auth;
 	Post_size = Post_size//how many grades we need to update;
 	update_Api = API + "course/" + courseId + "/assignments/"+AssignmentsId+"/submissions/";
-
 }
-
 
 void Canvas_Update::getGradeInfo(*greads_file_dir)
 {
 	// this part is to get the grades data from the grade file given by Homework Automation group
 	// reade the file data and build the list of grade (*gradeList)
 	//Here We should know the struct about the file, we need to make a agreement on it
-
-
 }
 
 string Canvas_Update::convertData(grade_info oneGrade)
@@ -29,7 +24,6 @@ string Canvas_Update::convertData(grade_info oneGrade)
 	string commend = "";
 	commend += "{\"comment\":{\"text_comment\" : \"" + oneGrade.text_comment + "\"},\"submission\":{\"" + oneGrade.posted_grade + "\"} }";
 	return string(commend);
-
 }
 
 Canvas_Update::writeRequest(grade_info *gradeList,int Post_size)
