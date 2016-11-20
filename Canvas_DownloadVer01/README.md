@@ -1,5 +1,5 @@
 # Canvas-Download
--**Canvas-Download**
+
 **MUST SEE: In the .pro file, please add 'QT += network' and 'QT += widgets'. Also, you may meet some problems about OpenSSL:
 	
 	qt.network.ssl: QSslSocket: cannot call unresolved function ERR_get_error.
