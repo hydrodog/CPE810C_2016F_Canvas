@@ -38,8 +38,8 @@ void canvasConnection::sendRequest(const QString &strUrl)
 
 //    QString authString = (QString)"shu14 " + ":" + (QString)" Free921227";
 //    QString base64String = "Bearer " + authString.toUtf8().toBase64();
-    //QString at = "Bearer " + (QString)"1030~ITJlnLeBaoqbzneuPAfdNLG5e9jAZqVHMiZWxF3FbvTG31U6l5adkBJcqOf8lCIO";
-    netRequest.setRawHeader("Authorization","Bearer 1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
+    //QString at = "Bearer " + (QString)"";
+    netRequest.setRawHeader("Authorization","Bearer ");
     //netRequest.setRawHeader("Authorization", base64String.toUtf8());
 
 

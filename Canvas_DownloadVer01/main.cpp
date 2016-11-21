@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
     canvasConnection C;
     //A.sendRequest("https://canvas.instructure.com/courses/1030~133/assignments/1030~46025/submissions/20285?preview=1&version=1");
   // B.sendRequest("http://pic1.win4000.com/wallpaper/3/51e8a7e0581f6.jpg");
-  //  C.sendRequest("https://canvas.instructure.com/api/v1/courses/10300000000000133/assignments/10300000000046025?access_token=1030~ITJlnLeBaoqbzneuPAfdNLG5e9jAZqVHMiZWxF3FbvTG31U6l5adkBJcqOf8lCIO");
+  //  C.sendRequest("https://canvas.instructure.com/api/v1/courses/10300000000000133/assignments/10300000000046025?access_token=");
 //    MyDownloader m_downLoder;
 //    m_downLoder.setData(QUrl("https://canvas.instructure.com/courses/1030~133/assignments/1030~46025/submissions?zip=1"),QString("C:\\Users\\Freelancer\\Desktop\\result"));
 //    m_downLoder.cancel();
