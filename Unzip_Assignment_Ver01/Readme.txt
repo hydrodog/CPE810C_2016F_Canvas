@@ -1,11 +1,20 @@
-/******************** He Song 11/17/2016 ******************
+/**************** Fangming Zhao 11/21/2016 ****************
+ * object: Assignment_Unzip.cpp; Assignment_Unzip; main.cc
+ * action: rewrite whole method Check_file() in Assignment_Unzip.
+ *         cpp; this time, I use two array variables to store
+ *         naming rule. Also creating a new data struct called
+ *         homework. Im planning to use class instead of data
+ *         struct in the next version. Maybe class is safer.
+ *
+ * program ver: v0.94
+ /******************** He Song 11/17/2016 ******************
  * object: smtp.cpp
- * action: edit the smtp.cpp to make it can use the stevens 
+ * action: edit the smtp.cpp to make it can use the stevens
  *         email account to send email.
  * program ver: v0.77
 /******************** He Song 11/16/2016 ******************
  * object: smtp.cpp;smtp.h
- * action: add this two file to make a new class in the 
+ * action: add this two file to make a new class in the
  *         assignment part. This will make the others use
  *	   send email easily than before.
  * program ver: v0.76
@@ -17,7 +26,7 @@
  *         File_in_Index (line 45), file_unzip_dir and
  *         file_name_inzip[20] in data structure in Assignment
  *         _Unzip.
- *program ver: v0.75
+ * program ver: v0.75
 /**************** Fangming Zhao 11/11/2016 ****************
  * object: Assignment_Unzip.cpp; Assignment_Unzip.hh
  * action: [object: Assignment_Unzip.cpp]: add new lines
