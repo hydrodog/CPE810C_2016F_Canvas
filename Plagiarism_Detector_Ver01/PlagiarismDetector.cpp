@@ -14,6 +14,31 @@ private:
 
 	vector<string> scores; //List of the comparison scores. String format is the current idea so the comparisons are easy to read
 
+	int getLocW(string s)
+	//This function determines where a token is in a string consisting of multiple tokens separated by non tokens
+{
+	int loc = 0;
+	for(int i = 0; i < s.size(); i++)
+	{
+		if((i == s.size() - 1) && s[i] != ' ')
+		{
+			return -2;
+		}
+
+		else if(s[i] == '	' || s[i] == ' ' || (ispunct(s[i]) && s[i] != '_'))
+		{
+			return loc;
+		}
+
+		else 
+		{
+			loc++;
+		}
+	}
+}
+
+
+
 	int max(int a, int b){
 		//helper function for lcs that determines the greater of two integers
 		if(a > b)
@@ -24,11 +49,60 @@ private:
 
 	bool stringCompare(string a, string b){
 		//Helper function for lcs that returns if two strings are equal
-		if(a.compare(b) == a.size())
+		if(a.compare(b) == 0)
 			return true;
 		else
 			return false;
 	}
+
+public:
+
+	vector<string> getTokens(string s)
+	//this function takes in a string and tokenizes it, currently only views words or letters as tokens
+	{
+	vector<string> tokens = vector<string>();
+	string tempString;
+	int ind = 0;
+	while(ind != -2)
+	{
+		if(s[0] == '	' || s[0] == ' ' || (ispunct(s[0]) && s[0] != '_')  )
+		{
+			s = s.substr(1, s.size() - 1);
+		}
+		
+		if(!s.empty()){
+			ind = getLocW(s);
+		}
+		else{
+			ind = -2;
+		}
+		if(ind > 0)
+		{
+			tempString = s.substr(0, ind );
+			tokens.push_back(tempString);
+			s = s.substr(ind + 1, s.size() - (ind + 1));
+		}
+	}
+	if(!s.empty())
+	{
+	
+		int j = 0;
+		while(j < s.size())
+			{
+				if(ispunct(s.at(j)) && s.at(j) != '_')
+				{
+					s.erase(s.begin() + j);
+				}
+				else
+					j++;
+			}
+		if(!s.empty()) {
+			tokens.push_back(s);
+		}
+	}
+
+	return tokens;
+}
 
 	int LCS(vector<string> a, vector<string> b){
 		//This function computes the lcs of two vectors of strings, added in dynamic implementation to  change order to O(mn) rather than O(2^n)
@@ -44,7 +118,7 @@ private:
 		}
 		
 		for(int k = alen; k >= 0; k--) {
-			for(int l = blen - 1; l >= 0; l--) {
+			for(int l = blen; l >= 0; l--) {
 				if(k >= alen || l >= blen){
 					mem[k][l] = 0;
 				} 
@@ -54,12 +128,20 @@ private:
 				else{
 					mem[k][l] = max(mem[k + 1][l], mem[k][l+1]);
 				}
+			
+					
 			}
 		}
 		return mem[0][0];
 	}
 
-public:
+//public: Functions below this will be public in the end. Functions above this will be private in the end but public now for testing purposes
+
+	detectPlagiarism(){
+		testHomework = vector<string>();
+		targetHomeworks = vector<vector<string>> ();
+
+	}
 
 	vector<vector<string>> getHomeworks() {
 		//This function will be used to pull the assignments to be compared.
@@ -69,7 +151,7 @@ public:
 	
 
 
-vector<string> singleLcsTest(vector<vector<string>> targetH, int student){
+	vector<string> singleLcsTest(vector<vector<string>> targetH, int student){
 		vector<string> results = vector<string>();
 		vector<string> testH = targetH.at(student);
 		for(int i = 0; i < targetH.size(); i++) {
