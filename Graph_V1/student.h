@@ -2,6 +2,9 @@
 #define STUDENT_H
 
 #include <vector>
+#include <algorithm>
+#include <stdio.h>
+#include <iostream>
 /* Student class is to claculate the AVERAGE grade of a STUDENT in all the assignments,
    all the Tests, Project, Quizzes etc..
  * To get the marks of different assignments of a student.
@@ -15,9 +18,9 @@ private:
     double StudentGradeSheet[]; // grade in the course till this assignment
     static int numAssignments;
     static int numTests;
-protected:
     std::vector<double> Assignment_Marks;
     std::vector<double> Test_Marks;
+    int scoreInterval[21]={0};
 public:
     Student();
     //~Student();
@@ -33,5 +36,16 @@ public:
     static int GetAssignment_type(void);
     static void Set_AssignmentType(int type);
     static void Set_numAssignments();
+    double Assignment_Mean();
+    double Test_Mean();
+    double overall_Mean();
+    void Assignment_Arrange_LtoH();
+    void Test_Arrange_LtoH();
+    double getSort_Assignment(int i);
+    double Assignment_Median();
+    double Test_Median();
+    void setAssignment_Interval();
+    int getAssignment_Interval(int i);
+    //void print();
 };
 #endif // STUDENT_H

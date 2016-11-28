@@ -13,14 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += plot.cpp\
-        mainwindow.cpp \
     qcustomplot.cpp \
     student.cpp \
-    category.cpp
+    Distribution.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     qcustomplot.h \
     student.h \
-    category.h
+    Distribution.h
 
 FORMS    += mainwindow.ui
