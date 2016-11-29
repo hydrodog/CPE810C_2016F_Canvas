@@ -1,5 +1,5 @@
 /*Author:Jing Li
- * realize the openFileSlot();newFileSlot();AddaWeek();AddaDay() functions.
+ * realize the openFileSlot();newFileSlot();AddaWeek();AddaDay() functions.link this functions and buttons
 
  *Author:Yang Bai
 
@@ -124,7 +124,7 @@ void MainWindow::newFileSlot()
     }
     else
     {
-       //qDebug()<<"not modified";
+
         ui->textEdit->clear();
        this->setWindowTitle("time.txt");
     }
@@ -133,9 +133,12 @@ void MainWindow::newFileSlot()
 
 void MainWindow::openFileSlot()
 {
+    /*
+     * read a txt file.
+     */
 
   QString fileName=QFileDialog::getOpenFileName(this,"Open File",QDir::currentPath());
-  //qDebug()<<"fileName is"<<fileName;
+
   if(fileName.isEmpty())
   {
       QMessageBox::information(this,"error" ,"please select a text file");
@@ -147,7 +150,7 @@ void MainWindow::openFileSlot()
   if(ok)
   {
      QTextStream in(file);
-     ui->textEdit->setText(in.readAll());
+     ui->textEdit->setText(in.readAll());//read all messages
      file->close();
      delete file;
   }

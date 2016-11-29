@@ -1,8 +1,7 @@
 /*Author:Jing Li
-  Header file of class "HOLIDAY"
   read a txt file with the date of festivals,
-  then judge if the date is weekend or a festival.
-
+  when the date is changed, then judge if the date is weekend or a festival. if
+it is, show the error message.
 */
 #include "holiday.h"
 

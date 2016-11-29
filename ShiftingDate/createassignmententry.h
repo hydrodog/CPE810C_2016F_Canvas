@@ -1,7 +1,7 @@
 /*Author:Jing Li,Yang Bai
 
   defined name,theme,expirationdate
-and assignment in it. These are things we need when create an assignment.
+  and assignment in it. These are things we need when create an assignment.
 
 
 
