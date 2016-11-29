@@ -1,4 +1,4 @@
-#ifndef CanvasUpdate_H
+    #ifndef CanvasUpdate_H
     #define CanvasUpdate_H
     #include <stdio.h>
     #include <string>
