@@ -1,13 +1,15 @@
-#ifndef SUBMISSION_HH
-#define SUBMISSION_HH
+#ifndef SUBMISSION_H
+#define SUBMISSION_H
 
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 class Submission
 {
     private:
+        string m_file_name;
         long m_assignment_id;
         //Assignment m_assignment;
         long m_course_id;
@@ -22,8 +24,53 @@ class Submission
 
     public:
 
-        Submission(long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late)
-            : m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late) {}
+        Submission(string file_name, long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late)
+            : m_file_name(file_name), m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late) {}
+
+        friend ostream& operator <<(ostream& s, Submission sub)
+        {
+            return s << "Submission #" << sub.m_submission_num << ", File Name: \'" << sub.m_file_name << "\': Assignment " << sub.m_assignment_id << ", Course " << sub.m_course_id << ", Grader ID: " << sub.m_grader_id << ", Grade: " << sub.m_grade << ", Comments: " << sub.m_grader_comment << std::endl;
+        }
+
+        string getFileName()
+        {
+            return m_file_name;
+        }
+
+        long getAssignmentID()
+        {
+            return m_assignment_id;
+        }
+
+        long getCourseID()
+        {
+            return m_course_id;
+        }
+
+        int getSubmissionNum()
+        {
+            return m_submission_num;
+        }
+
+        int getGraderID()
+        {
+            return m_grader_id;
+        }
+
+        double getGrade()
+        {
+            return m_grade;
+        }
+
+        string getGraderComment()
+        {
+            return m_grader_comment;
+        }
+
+        bool getLate()
+        {
+            return m_late;
+        }
 
         //TODO: get public methods from upload and download team so that we can download a submission and then upload a grade
 

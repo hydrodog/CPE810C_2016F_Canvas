@@ -1,11 +1,11 @@
-#ifndef ASSIGNMENT_HH
-#define ASSIGNMENT_HH
+#ifndef ASSIGNMENT_H
+#define ASSIGNMENT_H
 
 #include <iostream>
-//#include "Submission.hh"
+#include "Submission.hh"
 using namespace std;
 
-class Submission;
+//class Submission;
 
 class Assignment
 {
@@ -25,7 +25,12 @@ class Assignment
             //GET /api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id
 
             //fake submission for now
-            return Submission(50, 1103, 1, 1564, 541, 0, false);
+            return Submission("test.cpp", m_assignment_id, m_course_id, 1, 323, 0.0, false);
+        }
+
+        friend ostream& operator <<(ostream& s, Assignment a)
+        {
+                return s << "Assignment " << a.m_assignment_id << ", Course " << a.m_course_id << ", Grade: " << a.m_grade << std::endl;
         }
 
         long get_assignment_id()
@@ -35,6 +40,10 @@ class Assignment
         long get_course_id()
         {
             return m_course_id;
+        }
+        double getGrade()
+        {
+            return m_grade;
         }
 };
 

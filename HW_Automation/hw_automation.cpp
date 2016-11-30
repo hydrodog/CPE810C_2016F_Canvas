@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Course.cpp"
+#include "hw_automation.hh"
 using namespace std;
 
 
-class hw_automation
-{
+//class hw_automation
+//{
     /*
     private:
         Course course;
@@ -20,10 +20,24 @@ class hw_automation
             return course;
         }
         */
-};
+//};
 
 int main()
 {
+    string course_name = "C++";
+    long course_id = 123;
+    string course_code = "EE810";
+    long account_id = 234;
+
+    hw_automation hwa(course_name, course_id,course_code,account_id);
+
+    cout << "Course: " << hwa.getCourse().getCourseName() << " " << hwa.getCourse().getCourseID() << " " << hwa.getCourse().getCourseCode() << " " << hwa.getCourse().getAccountID() << endl;
+    Course c = hwa.getCourse();
+    vector<Assignment> assignment_vect = c.getAssignments(); //print out all assignments
+    c.getStudents(); //outputs nothing as of now
+    c.getAssignmentsFromStudent(); //prints out students and assignment informtion from the student object
+
+
     return 0;
 }
 

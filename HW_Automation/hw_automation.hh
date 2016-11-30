@@ -1,11 +1,11 @@
-#ifndef HW_AUTOMATION_HH
-#define HW_AUTOMATION_HH
+#ifndef HW_AUTOMATION_H
+#define HW_AUTOMATION_H
 
 #include <iostream>
-//#include "Course.hh"
+#include "Course.hh"
 using namespace std;
 
-class Course;
+//class Course;
 
 class hw_automation
 {
@@ -16,17 +16,19 @@ class hw_automation
         hw_automation(string course_name, long course_id, string course_code, long account_id)
             : course(course_id, course_name, course_code, account_id) {}
 
-        //returns course object
-        Course getCourse()
-        {
-            //GET /api/v1/courses/:id
-            return course;
-        }
-
-    int main()
+    //returns course object
+    Course getCourse()
     {
-        return 0;
+        //GET /api/v1/courses/:id
+        return course;
     }
 };
+
+/*
+int main()
+{
+    return 0;
+}
+*/
 
 #endif // HW_AUTOMATION_HH
