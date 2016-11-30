@@ -1,6 +1,6 @@
 This repository is for the update part of EE810 Canvas group
 
-In update section,
+In update section, Our job is to update the grade on Canvas. Through the Canvas API. 
 firstly, we should make the environment configuration in Qt creator, we use libcurl "curl-7.51.0-win32-mingw" in https://curl.haxx.se/.
 This library is used to connect with Canvas API, and we use the api to update the data to Canvas.
 
