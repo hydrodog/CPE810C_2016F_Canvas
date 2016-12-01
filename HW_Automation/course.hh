@@ -83,7 +83,7 @@ class Course
                 //cout << "Assignment: " << it->get_assignment_id() << " " << it->get_course_id() << " " << it->getGrade() << endl;
                 cout << *it; //outputs the assignment
                 //fill in file info in student object (same as submission info)
-                cout << "\t" << it->getSubmission(); //outputs the corresponding submission
+                cout << "\t" << it->getSubmission("USER"); //outputs the corresponding submission
 
                 //for each assignment object, get the information needed to input to the student object
 
@@ -103,7 +103,7 @@ class Course
                     stu[i].A_info.Assignment_Title = title;
                     stu[i].A_info.assignment_id = assignment_id;
                     stu[i].A_info.course_id = course_id;
-                    getFileInfo(it->getSubmission(), stu[i]);
+                    getFileInfo(it->getSubmission("USER"), stu[i]);
                 }
             }
             return assignment_vect;

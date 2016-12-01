@@ -29,6 +29,12 @@ int main()
     string course_code = "EE810";
     long account_id = 234;
 
+    cout << "What is your computer's username? ";
+    string grader_username;
+    //assume input is a string and is correct, for now
+    cin >> grader_username;
+    cout << "\n\n";
+
     hw_automation hwa(course_name, course_id,course_code,account_id);
 
     cout << "Course: " << hwa.getCourse().getCourseName() << " " << hwa.getCourse().getCourseID() << " " << hwa.getCourse().getCourseCode() << " " << hwa.getCourse().getAccountID() << endl;
@@ -37,10 +43,12 @@ int main()
     c.getStudents(); //outputs nothing as of now
     c.getAssignmentsFromStudent(); //prints out students and assignment informtion from the student object
     cout << "\n\n" << assignment_vect[0] << endl;
-    Submission s = assignment_vect[0].getSubmission();
+    Submission s = assignment_vect[0].getSubmission(grader_username);
     s.display_source_code();
-    s.compile_submission();
-    s.run_submission();
+    //s.compile_submission();
+    //s.run_submission();
+    s.grade(); //calls compile and run on the submssion
+    cout << "\n" << assignment_vect[0] << endl; //doesn't change assignment grade yet - only the grade variable in the submission class
 
     return 0;
 }

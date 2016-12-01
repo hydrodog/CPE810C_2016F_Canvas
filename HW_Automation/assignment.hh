@@ -20,12 +20,12 @@ class Assignment
         //gets one submission (assume student only submits one thing)
         //run for each student
         //maybe just get the file for each student
-        Submission getSubmission()
+        Submission getSubmission(string grader_username)
         {
             //GET /api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id
 
             //fake submission for now
-            return Submission("Test.cpp", m_assignment_id, m_course_id, 1, 323, 0.0, false);
+            return Submission("Test.cpp", m_assignment_id, m_course_id, 1, 323, 0.0, false, grader_username);
         }
 
         friend ostream& operator <<(ostream& s, Assignment a)

@@ -23,11 +23,13 @@ class Submission
         bool m_late;
         //bool excused; //if not completed, it doesn't affect the grade
         stringstream open_sub, compile_sub, run_sub;
+        string m_grader_username; //determines the path used to get to the submission file
+                                //ex. "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&"
 
     public:
 
-        Submission(string file_name, long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late)
-            : m_file_name(file_name), m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late) {}
+        Submission(string file_name, long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late, string grader_username)
+            : m_file_name(file_name), m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late), m_grader_username(grader_username) {}
 
         friend ostream& operator <<(ostream& s, Submission sub)
         {
@@ -80,21 +82,36 @@ class Submission
         //downloads the submitted file from a submissions object
         void download() {}
 
-        //TODO
+        //opens and displays file/source code from the submissions object
+        void display_source_code()
+        {
+            //open submission file
+            //for now, assume it's windows
+            //may need to change file path in the future
+            //open_sub << "atom.cmd submission_files/assignment_" << m_assignment_id << "Test.cpp&";
+            open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp&";
+            system(open_sub.str().c_str());
+            //cout statement is for checking the path
+            //cout << open_sub.str() << endl;
+        }
+
         //compiles a submitted file, return true if compiles, return false if not compiled
         bool compile_submission()
         {
-            compile_sub << "g++ -std=c++11 C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp";
-            compile_sub << " -o C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
+            compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp";
+            compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
+            //cout statement is for checking the path
+            //cout << compile_sub.str() << endl;
             system(compile_sub.str().c_str());
             return true;
         }
 
-        //TODO
         //runs a submitted file, returns true if run, returns false, if not run
         bool run_submission()
         {
-            run_sub << "C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&";
+            run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&";
+            //cout statement is for checking the path
+            //cout << run_sub.str() << endl;
             system(run_sub.str().c_str());
             return true;
         }
@@ -118,18 +135,6 @@ class Submission
             return grade;
         }
 
-        //TODO: once download is figured out
-        //opens and displays file/source code from the submissions object
-        void display_source_code()
-        {
-            //open submission file
-            //for now, assume it's windows
-            //may need to change file path in the future
-            //open_sub << "atom.cmd submission_files/assignment_" << m_assignment_id << "Test.cpp&";
-            open_sub << "C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp&";
-            system(open_sub.str().c_str());
-        }
-
         //returns grade entered by the grader, if he chooses to overwrite the default grade
         double overwrite_grade(double grade)
         {
@@ -149,6 +154,11 @@ class Submission
         double plag_detector()
         {
             return 0;
+        }
+
+        void setGraderUsername(string name)
+        {
+            m_grader_username = name;
         }
 
         //TODO: Get upload function from upload group
