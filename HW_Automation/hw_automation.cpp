@@ -36,7 +36,11 @@ int main()
     vector<Assignment> assignment_vect = c.getAssignments(); //print out all assignments
     c.getStudents(); //outputs nothing as of now
     c.getAssignmentsFromStudent(); //prints out students and assignment informtion from the student object
-
+    cout << "\n\n" << assignment_vect[0] << endl;
+    Submission s = assignment_vect[0].getSubmission();
+    s.display_source_code();
+    s.compile_submission();
+    s.run_submission();
 
     return 0;
 }

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -21,6 +22,7 @@ class Submission
         string m_grader_comment = "";
         bool m_late;
         //bool excused; //if not completed, it doesn't affect the grade
+        stringstream open_sub, compile_sub, run_sub;
 
     public:
 
@@ -82,6 +84,9 @@ class Submission
         //compiles a submitted file, return true if compiles, return false if not compiled
         bool compile_submission()
         {
+            compile_sub << "g++ -std=c++11 C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp";
+            compile_sub << " -o C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
+            system(compile_sub.str().c_str());
             return true;
         }
 
@@ -89,6 +94,8 @@ class Submission
         //runs a submitted file, returns true if run, returns false, if not run
         bool run_submission()
         {
+            run_sub << "C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&";
+            system(run_sub.str().c_str());
             return true;
         }
 
@@ -113,7 +120,15 @@ class Submission
 
         //TODO: once download is figured out
         //opens and displays file/source code from the submissions object
-        void display_source_code() {}
+        void display_source_code()
+        {
+            //open submission file
+            //for now, assume it's windows
+            //may need to change file path in the future
+            //open_sub << "atom.cmd submission_files/assignment_" << m_assignment_id << "Test.cpp&";
+            open_sub << "C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp&";
+            system(open_sub.str().c_str());
+        }
 
         //returns grade entered by the grader, if he chooses to overwrite the default grade
         double overwrite_grade(double grade)

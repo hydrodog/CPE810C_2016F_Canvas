@@ -25,7 +25,7 @@ class Assignment
             //GET /api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id
 
             //fake submission for now
-            return Submission("test.cpp", m_assignment_id, m_course_id, 1, 323, 0.0, false);
+            return Submission("Test.cpp", m_assignment_id, m_course_id, 1, 323, 0.0, false);
         }
 
         friend ostream& operator <<(ostream& s, Assignment a)
