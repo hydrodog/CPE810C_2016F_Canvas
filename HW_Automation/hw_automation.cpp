@@ -29,6 +29,24 @@ int main()
     string course_code = "EE810";
     long account_id = 234;
 
+    //doesn't yet affect anything in the program
+    //will eventually modify code based on whether os is "windows" or "mac"
+    while (1)
+    {
+        cout << "Are you using windows or mac? ";
+        string os; //operating system
+        cin >> os;
+        if (os == "mac" || os == "windows")
+        {
+            break;
+        }
+        else
+        {
+            cout << "Error: Please enter \'windows\' or \'mac\'.\n";
+        }
+    }
+
+
     cout << "What is your computer's username? ";
     string grader_username;
     //assume input is a string and is correct, for now
