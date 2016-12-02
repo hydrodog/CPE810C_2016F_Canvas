@@ -1,0 +1,10 @@
+/**********************************************************
+ * author : Zheao Ma
+ * working OS: Windows 7
+ * IDE: Qt Creator 4.1.0
+ * tool: C++
+ * group: C/zip file rules
+ * group member: Fangming Zhao, He Song, Yuan Zhou
+ * collaborator: Fangming Zhao, He Song, Yuan Zhou
+ * program name: Unzip_Assignment_WindowsVer
+ ***********************************************************/
