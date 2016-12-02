@@ -1,45 +1,36 @@
 #include<iostream>
 #include<vector>
 #include<string>
-//#include"PlagiarismDetector.hh"
+#include"PlagiarismDetector.hh"
 using namespace std;
 
-class detectPlagiarism {
 
-private:
-
-	vector<string> testHomework; //The current homework assignment held in form tbd. String is placeholder for testing purposes
-
-	vector<vector<string>> targetHomeworks; //The homework assignments to be tested against the current homework assignment
-
-	vector<string> scores; //List of the comparison scores. String format is the current idea so the comparisons are easy to read
-
-	int getLocW(string s)
+	int detectPlagiarism::getLocW(string s){
 	//This function determines where a token is in a string consisting of multiple tokens separated by non tokens
-{
-	int loc = 0;
-	for(int i = 0; i < s.size(); i++)
-	{
-		if((i == s.size() - 1) && s[i] != ' ')
-		{
-			return -2;
-		}
 
-		else if(s[i] == '	' || s[i] == ' ' || (ispunct(s[i]) && s[i] != '_'))
+		int loc = 0;
+		for(int i = 0; i < s.size(); i++)
 		{
-			return loc;
-		}
+			if((i == s.size() - 1) && s[i] != ' ')
+			{
+				return -2;
+			}
 
-		else 
-		{
-			loc++;
+			else if(s[i] == '	' || s[i] == ' ' || (ispunct(s[i]) && s[i] != '_'))
+			{
+				return loc;
+			}
+
+			else 
+			{
+				loc++;
+			}
 		}
+		return -2;
 	}
-}
 
 
-
-	int max(int a, int b){
+	int detectPlagiarism::max(int a, int b){
 		//helper function for lcs that determines the greater of two integers
 		if(a > b)
 			return a;
@@ -47,7 +38,8 @@ private:
 			return b;
 	}
 
-	bool stringCompare(string a, string b){
+
+	bool detectPlagiarism::stringCompare(string a, string b){
 		//Helper function for lcs that returns if two strings are equal
 		if(a.compare(b) == 0)
 			return true;
@@ -55,56 +47,55 @@ private:
 			return false;
 	}
 
-public:
 
-	vector<string> getTokens(string s)
-	//this function takes in a string and tokenizes it, currently only views words or letters as tokens
-	{
-	vector<string> tokens = vector<string>();
-	string tempString;
-	int ind = 0;
-	while(ind != -2)
-	{
-		if(s[0] == '	' || s[0] == ' ' || (ispunct(s[0]) && s[0] != '_')  )
+	vector<string> detectPlagiarism::getTokens(string s){
+		//this function takes in a string and tokenizes it, currently only views words or letters as tokens
+		vector<string> tokens = vector<string>();
+		string tempString;
+		int ind = 0;
+		while(ind != -2)
 		{
-			s = s.substr(1, s.size() - 1);
-		}
-		
-		if(!s.empty()){
-			ind = getLocW(s);
-		}
-		else{
-			ind = -2;
-		}
-		if(ind > 0)
-		{
-			tempString = s.substr(0, ind );
-			tokens.push_back(tempString);
-			s = s.substr(ind + 1, s.size() - (ind + 1));
-		}
-	}
-	if(!s.empty())
-	{
-	
-		int j = 0;
-		while(j < s.size())
+			if(s[0] == '	' || s[0] == ' ' || (ispunct(s[0]) && s[0] != '_')  )
 			{
-				if(ispunct(s.at(j)) && s.at(j) != '_')
-				{
-					s.erase(s.begin() + j);
-				}
-				else
-					j++;
+				s = s.substr(1, s.size() - 1);
 			}
-		if(!s.empty()) {
-			tokens.push_back(s);
+			
+			if(!s.empty()){
+				ind = getLocW(s);
+			}
+			else{
+				ind = -2;
+			}
+			if(ind > 0)
+			{
+				tempString = s.substr(0, ind );
+				tokens.push_back(tempString);
+				s = s.substr(ind + 1, s.size() - (ind + 1));
+			}
 		}
+		if(!s.empty())
+		{
+	
+			int j = 0;
+			while(j < s.size())
+				{
+					if(ispunct(s.at(j)) && s.at(j) != '_')
+					{
+						s.erase(s.begin() + j);
+					}
+					else
+						j++;
+				}
+			if(!s.empty()) {
+				tokens.push_back(s);
+			}
+		}
+
+		return tokens;
 	}
 
-	return tokens;
-}
 
-	int LCS(vector<string> a, vector<string> b){
+	int detectPlagiarism::LCS(vector<string> a, vector<string> b){
 		//This function computes the lcs of two vectors of strings, added in dynamic implementation to  change order to O(mn) rather than O(2^n)
 		const int alen = a.size();
 		const int blen = b.size();
@@ -135,23 +126,23 @@ public:
 		return mem[0][0];
 	}
 
-//public: Functions below this will be public in the end. Functions above this will be private in the end but public now for testing purposes
 
-	detectPlagiarism(){
+	detectPlagiarism::detectPlagiarism(){
+		//generic constructor
 		testHomework = vector<string>();
 		targetHomeworks = vector<vector<string>> ();
 
 	}
 
-	vector<vector<string>> getHomeworks() {
-		//This function will be used to pull the assignments to be compared.
 
+	vector<vector<string>> detectPlagiarism::getHomeworks() {
+		//This function will be used to pull the assignments to be compared.
+		return vector<vector<string>>();
 	}
 
-	
 
-
-	vector<string> singleLcsTest(vector<vector<string>> targetH, int student){
+	vector<string> detectPlagiarism::singleLcsTest(vector<vector<string>> targetH, int student){
+		//This function takes in a vector of assignments and compares a chosen assignment to the rest of the assignments
 		vector<string> results = vector<string>();
 		vector<string> testH = targetH.at(student);
 		for(int i = 0; i < targetH.size(); i++) {
@@ -162,12 +153,11 @@ public:
 	}
 
 
-	vector<vector<string>> classLcsTest(vector<vector<string>> targetH){
+	vector<vector<string>> detectPlagiarism::classLcsTest(vector<vector<string>> targetH){ 
+		//Runs a comparison of each assignment with all the others
 		vector<vector<string>> classResults = vector<vector<string>>();
 		for(int i = 0; i < targetH.size(); i++){
 			classResults.push_back(singleLcsTest(targetH, i));
 		}
 		return classResults;
 	}
-};
-
