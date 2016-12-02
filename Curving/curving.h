@@ -1,6 +1,11 @@
 #ifndef CURVING_H
 #define CURVING_H
 
+#include <math.h>
+#include <iostream>
+#include <vector>
+using namespace std;
+
 /*
   @author: Thomas Falsone
   @modified:
@@ -15,14 +20,15 @@
 class Curving {
 private:
     int m_size;
-    double* m_curvedGrades;
-    double* m_originalGrades;
+    vector<double> m_curvedGrades;
+    vector<double> m_originalGrades;
     bool m_confirm;
+    bool m_typeCurve;
 public:
-    Curving(double* data, int size);
-    void linCurve(int curve);
+    Curving(vector<double> data);
+    void linCurve(double curve);
     void rootCurve();
-    double* returnCurve() const;
+    vector<double> returnCurve() const;
     void acceptChanges();
 };
 
