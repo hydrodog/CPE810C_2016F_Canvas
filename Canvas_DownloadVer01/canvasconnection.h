@@ -26,7 +26,7 @@ public:
     //send network requests with url.
     void sendRequest(const QString& strUrl);
     //Read JSON
-    void readJson();
+    void readJson(QString A);
 signals:
     //declare signal when network requests end
     void signal_requestFinished(bool bSuccess,const QString& strResult);

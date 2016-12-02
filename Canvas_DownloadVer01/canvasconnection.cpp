@@ -11,6 +11,8 @@
 #include <iostream>
 #include <QJsonValue>
 #include <QJsonArray>
+
+
 canvasConnection::canvasConnection(QObject *parent) :
     QObject(parent)
 {
@@ -25,7 +27,7 @@ void canvasConnection::sendRequest(const QString &strUrl)
 	//Create custom temporary event loop on stack
     QEventLoop eventLoop;
 	//Open a file
-    QFile file("submissions.txt");
+    QFile file("submissions9.txt");
 	//Send request to Canvas by using token.
     QNetworkRequest netRequest;
     //Set the information of url.
@@ -38,8 +40,8 @@ void canvasConnection::sendRequest(const QString &strUrl)
 
 //    QString authString = (QString)"shu14 " + ":" + (QString)" Free921227";
 //    QString base64String = "Bearer " + authString.toUtf8().toBase64();
-    //QString at = "Bearer " + (QString)"";
-    netRequest.setRawHeader("Authorization","Bearer ");
+    //QString at = "Bearer " + (QString)"1030~ITJlnLeBaoqbzneuPAfdNLG5e9jAZqVHMiZWxF3FbvTG31U6l5adkBJcqOf8lCIO";
+    //netRequest.setRawHeader("Authorization","Bearer 1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
     //netRequest.setRawHeader("Authorization", base64String.toUtf8());
 
 
@@ -57,7 +59,7 @@ void canvasConnection::sendRequest(const QString &strUrl)
         file.write(m_pNetworkReply->readAll());
         file.flush();
         file.close();
-        qDebug() << "Success" <<m_pNetworkReply->readAll();
+        qDebug() << "Success";
 		//release memory
         delete m_pNetworkReply;
     }
@@ -69,16 +71,43 @@ void canvasConnection::sendRequest(const QString &strUrl)
     }
 }
 
-void canvasConnection::readJson(){
+void canvasConnection::readJson(QString A){
+
     QString settings;
     QFile file;
-    file.setFileName("submissions.txt");
+    file.setFileName(A);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     settings = file.readAll();
     file.close();
-
+    //qWarning() << settings;
     QJsonDocument sd = QJsonDocument::fromJson(settings.toUtf8());
     qWarning() << sd.isNull(); // <- print false :)
-    QJsonObject sett2 = sd.object();
-    qWarning() << sett2[QString("preview_url")].toString();  // <- print my title
+    qWarning() << sd.isArray();
+    qWarning() << sd.isObject();
+    //封装JSON对象
+    QJsonArray sett3 = sd.array();
+   // QJsonObject sett2 = sd.object();
+    qWarning() << sett3;
+    QJsonArray::iterator it;
+    //qWarning() << sett2;
+    qWarning() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+
+    qWarning() << sett3[1];
+
+    qWarning() << sett3[1].isObject();
+
+//   QJsonObject SET = sett3[1];
+
+//   qWarning() << SET["assignment_id"].toInt();
+
+
+    for (it = sett3.begin(); it != sett3.end(); ++it){
+        qDebug() << *it;
+        //QString a = *it;
+        qWarning() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+        qWarning() << (*it["assignment_id"]).toInt();
+
+
+    }
+    //qWarning() << sett2[QString("title")].toString();  // <- print my title
 }
