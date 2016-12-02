@@ -28,6 +28,7 @@ public:
     void sendRequest(const QString &strUrl);
     //Read JSON
     void readJson();
+    //Set file name
     void setFilename(QString fN);
 signals:
     //declare signal when network requests end

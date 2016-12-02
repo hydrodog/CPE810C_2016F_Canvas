@@ -3,10 +3,6 @@
 #include <QFileInfo>
 using namespace std;
 
-//void httpReadyRead();
-//void httpFinished();
-
-
 //TODO:download JSON file then put data into datd-base.
 int main(int argc, char *argv[]){
     QCoreApplication a(argc, argv);
@@ -24,5 +20,3 @@ int main(int argc, char *argv[]){
     B.readJson();
     return a.exec();
 }
-
-

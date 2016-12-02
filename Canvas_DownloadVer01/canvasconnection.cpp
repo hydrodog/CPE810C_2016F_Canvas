@@ -1,6 +1,5 @@
 #include "canvasconnection.h"
 #include <QTextCodec>
-#include <iostream>
 #include <QtNetwork>
 #include <QByteArray>
 #include <QFile>
@@ -8,7 +7,6 @@
 #include <QJsonDocument>
 #include <QDebug>
 #include <QCoreApplication>
-#include <iostream>
 #include <QJsonValue>
 #include <QJsonArray>
 #include <vector>
@@ -67,7 +65,7 @@ void canvasConnection::setFilename(QString fN){
 
 //read Json
 void canvasConnection::readJson(){
-    //vector<double> vec;
+    vector<double> vec;
     QString settings;
     QFile file;
     file.setFileName(fileName);
@@ -94,8 +92,9 @@ void canvasConnection::readJson(){
         std::cout << "score : ";
         //print score.
         qDebug() << sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble();
-       // vec[i] = sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble();
+        vec.push_back(sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble());
     }
-//    for(int i = 0; i<10; i++)
-//        std::cout << vec[i] << "+";
+    for(int i = 0; i<10; i++)
+        std::cout << vec[i] << "+";
+    std::cout << endl;
 }
