@@ -11,7 +11,7 @@
 #include <iostream>
 #include <QJsonValue>
 #include <QJsonArray>
-
+#include <vector>
 
 canvasConnection::canvasConnection(QObject *parent) :
     QObject(parent)
@@ -27,24 +27,13 @@ void canvasConnection::sendRequest(const QString &strUrl)
 	//Create custom temporary event loop on stack
     QEventLoop eventLoop;
 	//Open a file
-    QFile file("submissions9.txt");
+    QFile file(fileName);
 	//Send request to Canvas by using token.
     QNetworkRequest netRequest;
     //Set the information of url.
     netRequest.setUrl(QUrl(strUrl));
-
-
     netRequest.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
     netRequest.setRawHeader("Accept", "application/json");
-
-
-//    QString authString = (QString)"shu14 " + ":" + (QString)" Free921227";
-//    QString base64String = "Bearer " + authString.toUtf8().toBase64();
-    //QString at = "Bearer " + (QString)"1030~ITJlnLeBaoqbzneuPAfdNLG5e9jAZqVHMiZWxF3FbvTG31U6l5adkBJcqOf8lCIO";
-    //netRequest.setRawHeader("Authorization","Bearer 1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
-    //netRequest.setRawHeader("Authorization", base64String.toUtf8());
-
-
     /*Posts a request to obtain the contents of the target request and
     returns a new QNetworkReply object opened for reading*/
     m_pNetworkReply =m_pNetworkManager->get(netRequest);
@@ -71,11 +60,17 @@ void canvasConnection::sendRequest(const QString &strUrl)
     }
 }
 
-void canvasConnection::readJson(QString A){
+//set name of file
+void canvasConnection::setFilename(QString fN){
+    fileName = fN;
+}
 
+//read Json
+void canvasConnection::readJson(){
+    //vector<double> vec;
     QString settings;
     QFile file;
-    file.setFileName(A);
+    file.setFileName(fileName);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     settings = file.readAll();
     file.close();
@@ -84,30 +79,23 @@ void canvasConnection::readJson(QString A){
     qWarning() << sd.isNull(); // <- print false :)
     qWarning() << sd.isArray();
     qWarning() << sd.isObject();
-    //封装JSON对象
+    //Json Array
     QJsonArray sett3 = sd.array();
-   // QJsonObject sett2 = sd.object();
     qWarning() << sett3;
-    QJsonArray::iterator it;
-    //qWarning() << sett2;
+
     qWarning() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 
-    qWarning() << sett3[1];
-
-    qWarning() << sett3[1].isObject();
-
-//   QJsonObject SET = sett3[1];
-
-//   qWarning() << SET["assignment_id"].toInt();
-
-
-    for (it = sett3.begin(); it != sett3.end(); ++it){
-        qDebug() << *it;
-        //QString a = *it;
-        qWarning() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-        qWarning() << (*it["assignment_id"]).toInt();
-
-
+    for(int i = 0; i < 10; i++){
+        //convert from QJsonValue to QJsonObject
+        double AAA = sett3.at(i).toObject().take(QString("assignment_id")).toDouble();
+        std::cout.precision(0);
+        //print assignment id.
+        std::cout << "assignment_id : " << std::fixed << (AAA - 1.03*pow(10,16)) << endl;
+        std::cout << "score : ";
+        //print score.
+        qDebug() << sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble();
+       // vec[i] = sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble();
     }
-    //qWarning() << sett2[QString("title")].toString();  // <- print my title
+//    for(int i = 0; i<10; i++)
+//        std::cout << vec[i] << "+";
 }

@@ -21,12 +21,14 @@ private:
     QNetworkReply* m_pNetworkReply;
     //Current url
     QString m_strUrl;
+    QString fileName;
 public:
     explicit canvasConnection(QObject *parent = 0);
     //send network requests with url.
-    void sendRequest(const QString& strUrl);
+    void sendRequest(const QString &strUrl);
     //Read JSON
-    void readJson(QString A);
+    void readJson();
+    void setFilename(QString fN);
 signals:
     //declare signal when network requests end
     void signal_requestFinished(bool bSuccess,const QString& strResult);
