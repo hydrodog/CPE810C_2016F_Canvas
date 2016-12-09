@@ -27,7 +27,7 @@ int main()
     string course_name = "C++";
     long course_id = 123;
     string course_code = "EE810";
-    long account_id = 234;
+    long account_id = 234; //account associated with the course, maybe for the professor?
 
     //doesn't yet affect anything in the program
     //will eventually modify code based on whether os is "windows" or "mac"
@@ -53,20 +53,25 @@ int main()
     cin >> grader_username;
     cout << "\n\n";
 
-    hw_automation hwa(course_name, course_id,course_code,account_id);
+    hw_automation hwa(course_name, course_id, course_code, account_id);
 
     cout << "Course: " << hwa.getCourse().getCourseName() << " " << hwa.getCourse().getCourseID() << " " << hwa.getCourse().getCourseCode() << " " << hwa.getCourse().getAccountID() << endl;
     Course c = hwa.getCourse();
-    vector<Assignment> assignment_vect = c.getAssignments(); //print out all assignments
-    c.getStudents(); //outputs nothing as of now
-    c.getAssignmentsFromStudent(); //prints out students and assignment informtion from the student object
-    cout << "\n\n" << assignment_vect[0] << endl;
-    Submission s = assignment_vect[0].getSubmission(grader_username);
-    s.display_source_code();
+    //c.addAssignmentToStudents();
+
+    c.gradeStudents(grader_username);
+
+
+    //vector<Assignment> assignment_vect = c.getAssignments(); //print out all assignments
+    //c.getStudents(); //outputs nothing as of now
+    //c.getAssignmentsFromStudent(); //prints out students and assignment informtion from the student object
+    //cout << "\n\n" << assignment_vect[0] << endl;
+    //Submission s = assignment_vect[0].getSubmission(grader_username); //wrong submission constructor
+    //s.display_source_code();
     //s.compile_submission();
     //s.run_submission();
-    s.grade(); //calls compile and run on the submssion
-    cout << "\n" << assignment_vect[0] << endl; //doesn't change assignment grade yet - only the grade variable in the submission class
+    //s.grade(); //calls compile and run on the submssion
+    //cout << "\n" << assignment_vect[0] << endl; //doesn't change assignment grade yet - only the grade variable in the submission class
 
     return 0;
 }

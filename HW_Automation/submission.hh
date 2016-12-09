@@ -25,11 +25,12 @@ class Submission
         stringstream open_sub, compile_sub, run_sub;
         string m_grader_username; //determines the path used to get to the submission file
                                 //ex. "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&"
+        double m_student_id;
 
     public:
 
-        Submission(string file_name, long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late, string grader_username)
-            : m_file_name(file_name), m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late), m_grader_username(grader_username) {}
+        Submission(string file_name, long assignment_id, long course_id, int submission_num, int grader_id, double grade, bool late, string grader_username, double student_id)
+            : m_file_name(file_name), m_assignment_id(assignment_id), m_course_id(course_id), m_submission_num(submission_num), m_grader_id(grader_id), m_grade(grade), m_late(late), m_grader_username(grader_username), m_student_id(student_id) {}
 
         friend ostream& operator <<(ostream& s, Submission sub)
         {
@@ -98,9 +99,11 @@ class Submission
         //compiles a submitted file, return true if compiles, return false if not compiled
         bool compile_submission()
         {
-            compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp";
+            //cout << "compile" << endl;
+            compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.cpp";
             compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
             //cout statement is for checking the path
+            //cout << compile_sub.str() << endl;
             //cout << compile_sub.str() << endl;
             system(compile_sub.str().c_str());
             return true;
@@ -109,7 +112,8 @@ class Submission
         //runs a submitted file, returns true if run, returns false, if not run
         bool run_submission()
         {
-            run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&";
+            //cout << "run" << endl;
+            run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.exe&";
             //cout statement is for checking the path
             //cout << run_sub.str() << endl;
             system(run_sub.str().c_str());
@@ -163,7 +167,23 @@ class Submission
 
         //TODO: Get upload function from upload group
         //uploads a grade and possibly a comment to the submission object
-        void upload() {}
+        void upload()
+        {
+            // data needed for upload
+                //course id -> long m_course_id
+                //assignment id -> long m_assignment_id
+                //student id -> double m_student_id
+                //grade -> double m_grade
+                //comment -> string m_grader_comment
+                //grader id (author) -> string m_grader_username or int m_grader_id
+            cout << "Course ID: "
+                 << m_course_id << ", Assigment ID: "
+                 << m_assignment_id << ", Student ID: "
+                 << m_student_id << ", Assignment Grade: "
+                 << m_grade << ", Assignment Comment: "
+                 << m_grader_comment << ", Grade ID: "
+                 << m_grader_id << endl;
+        }
 };
 
 
