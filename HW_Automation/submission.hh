@@ -90,7 +90,7 @@ class Submission
             //for now, assume it's windows
             //may need to change file path in the future
             //open_sub << "atom.cmd submission_files/assignment_" << m_assignment_id << "Test.cpp&";
-            open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.cpp&";
+            open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.cpp&";
             system(open_sub.str().c_str());
             //cout statement is for checking the path
             //cout << open_sub.str() << endl;
