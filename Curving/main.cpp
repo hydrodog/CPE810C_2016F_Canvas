@@ -1,24 +1,21 @@
-#include <iostream>
 #include "curving.h"
-using namespace std;
+
 
 int main()
 {
-    int length = 10;
-    double data[length] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
-    Curving c(data, length);
+    vector<double> data;
+    for(int i = 50; i <= 100; i+=10)
+        data.push_back(i);
+    cout << data[2] << '\n';
+
+    Curving c(data);
     c.linCurve(10);
+    c.acceptChanges();
+    data = c.returnCurve();
+    cout << data[2] << '\n';
 
-    int length2 = 5;
-    double data2[length2] = {30, 40, 50, 60, 70};
-    Curving c2(data2, length2);
-    c2.rootCurve();
-
-    double* curvedData1 = c2.returnCurve();
-    double* curvedData = c.returnCurve();
-    for(int i =0; i < length; i++)
-        cout << curvedData[i] << '\t';
-    cout << '\n';
-    for(int i =0; i < length2; i++)
-        cout << curvedData1[i] << '\t';
+    c.rootCurve();
+    c.acceptChanges();
+    data = c.returnCurve();
+    cout << data[2];
 }
