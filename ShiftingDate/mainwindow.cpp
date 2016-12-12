@@ -161,7 +161,7 @@ void MainWindow::openFileSlot()
       return;
   }
 }
-/*void MainWindow::saveFileSlot()
+void MainWindow::saveFileSlot()
 {
     QString fileName=QFileDialog::getSaveFileName(this,"Save File",QDir::currentPath());
     if(fileName.isEmpty())
@@ -175,7 +175,7 @@ void MainWindow::openFileSlot()
     if(ok)
     {
         QTextStream out(file);
-        ui->textEdit->toPlainText();
+        out<<ui->textEdit->toPlainText();
         file->close();
         delete file;
     }
@@ -185,7 +185,7 @@ void MainWindow::openFileSlot()
         return;
     }
 }
-*/
+
 void MainWindow:: AddaWeek()
 {/*
 when button is pressed ,judge if it is holiday first.
@@ -275,7 +275,7 @@ void MainWindow::setupConnections()
            this,&MainWindow::resetEntry);
    connect(ui->actionNew,SIGNAL(triggered()),this,SLOT(newFileSlot()));
    connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openFileSlot()));
-    //connect(ui->actionSave,SIGNAL(triggered())),this,SLOT(saveFileSlot());
+    connect(ui->actionSave,SIGNAL(triggered())),this,SLOT(saveFileSlot());
    connect(ui->Button1,&QPushButton::clicked,
            this,&MainWindow::AddaWeek);
    connect(ui->Button2,&QPushButton::clicked,
