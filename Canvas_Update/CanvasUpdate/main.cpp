@@ -1,14 +1,13 @@
 #include <QCoreApplication>
 #include <canvasupdate.h>
 
-
 QString test_auth = "Bearer 1030~4MvxMX4ZFH8LCUAe9pFKhNUwFc6o4PnsFny5vlO4sLdyExxx3B9SR3ULM2nzl211";
 
 grade_info stdtemp[3] = {
-        {"7672","bad job!!!!!","0"},
-        {"19850","bad job too!!!!!!","0"},
-        {"19880","You are much worse!!!!!!","0"}
-        };
+    {"7672","bad job!!!!!","3"},
+    {"19850","bad job too!!!!!!","3"},
+    {"19880","You are much worse!!!!!!","33"}
+};
 
 
 
@@ -22,5 +21,9 @@ int main(int argc, char *argv[])
     }
     Canvas_Update update1(gradelists,"133","46024",test_auth);
     update1.sendRequest();
+//    Canvas_Update update2("133","46024", "test");
+//    update2.setAuthByFile("auth.txt");
+//    update2.addSingle("7672","just joke","59");
+
     return a.exec();
 }

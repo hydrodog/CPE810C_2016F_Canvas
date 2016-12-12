@@ -14,7 +14,6 @@ struct grade_info //define the single submission grades struct
     QString posted_grade;//the grade of the submission
 
     /*the fellowing is the extra data we could put into the Canvas
-
     bool   group_comment;//whether or not this comment should be sent to the entire group(defaults to false).ignored if this is not a group assignment or if no text_comment is provided.
     string media_comment_id//add an audio/video comment to the submission. media comments can be added via this api
     string media_comment_type//type of media comment being added.allow audio, video
@@ -37,15 +36,20 @@ private:
     QString auth;//the Grader's taken access of Canvas
     QString update_API;
 public:
+    Canvas_Update(QString courseId, QString AssignmentsId, QString auth);
     Canvas_Update(vector<grade_info> gradeList, QString courseId, QString AssignmentsId, QString auth);//construction function
     //void getGradeInfo(char *greads_file_dir);
     void convertData(vector<grade_info> dataList);	//convert the grades data into string type
     void sendRequest();//send the request to Canvas
-    void add(QString id, QString comment, QString grade);
+    void addSingle(QString id, QString comment, QString grade);
+    void setAuth(QString auth);
+    void setAuthByFile(QString path);
+    void setCourseId(QString courseId);
+    void setAssignmentsId(QString AssignmentsId);
+
+
+
 };
-
-
-
 
 
 #endif // CANVASUPDATE_H
