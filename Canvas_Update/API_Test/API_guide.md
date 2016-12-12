@@ -32,3 +32,14 @@ here is the example.
 
 you could find there need a top level such like the comment. Just a some details, if you find it, you will know everything.
 The next work is to convert the function into c++ class, come on!
+
+further more, If we want to Grade or comment on multiple submissions. Use the following API:
+POST /api/v1/courses/:course_id/assignments/:assignment_id/submissions/update_grades
+The example:
+{
+	"grade_data":{
+		"7672":{"posted_grade" :"0","text_comment" :"I am Superman!"},
+		"20285":{"posted_grade" :"0","text_comment" :"You are bad"}
+		}
+}
+
