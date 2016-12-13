@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 class Submission
@@ -35,46 +36,6 @@ class Submission
         friend ostream& operator <<(ostream& s, Submission sub)
         {
             return s << "Submission #" << sub.m_submission_num << ", File Name: \'" << sub.m_file_name << "\': Assignment " << sub.m_assignment_id << ", Course " << sub.m_course_id << ", Grader ID: " << sub.m_grader_id << ", Grade: " << sub.m_grade << ", Comments: " << sub.m_grader_comment << std::endl;
-        }
-
-        string getFileName()
-        {
-            return m_file_name;
-        }
-
-        long getAssignmentID()
-        {
-            return m_assignment_id;
-        }
-
-        long getCourseID()
-        {
-            return m_course_id;
-        }
-
-        int getSubmissionNum()
-        {
-            return m_submission_num;
-        }
-
-        int getGraderID()
-        {
-            return m_grader_id;
-        }
-
-        double getGrade()
-        {
-            return m_grade;
-        }
-
-        string getGraderComment()
-        {
-            return m_grader_comment;
-        }
-
-        bool getLate()
-        {
-            return m_late;
         }
 
         //TODO: get public methods from upload and download team so that we can download a submission and then upload a grade
@@ -122,7 +83,7 @@ class Submission
 
         //grades a submitted file, giving 50 points is it compiles and another 50 points if it runs. If neither, it gives a score of 25.
         double grade()
-        {
+        {   display_source_code();
             double grade = 0;
             bool compiled = compile_submission();
             if (compiled)
@@ -134,21 +95,44 @@ class Submission
                     grade += 25;
                 }
             }
-
+            cout << "Please enter grade: ";
+            while (1)
+            {
+                string grade_string;
+                istringstream iss;
+                cin >> grade_string;
+                iss.str(grade_string);
+                if (!(iss >> grade)) //not a valid grade
+                {
+                    cout << "Please enter a valid number: ";
+                }
+                else
+                {
+                    break;
+                }
+            }
             m_grade = grade;
+            string comment = grade_comment();
+            upload();
             return grade;
         }
 
         //returns grade entered by the grader, if he chooses to overwrite the default grade
         double overwrite_grade(double grade)
-        {
+        {            
             m_grade = grade;
             return grade;
         }
 
         //adds a comment from the grader to the submission file
-        string grade_comment(string comment)
+        string grade_comment()
         {
+            cout << "Please enter any submission comments (if none, hit enter): ";
+            string comment ;
+            getline(cin, comment);
+            //char* comment = new char[200];
+            //cin.getline(comment, 200);
+            cout << endl << endl;
             m_grader_comment = comment;
             return comment;
         }
@@ -176,13 +160,53 @@ class Submission
                 //grade -> double m_grade
                 //comment -> string m_grader_comment
                 //grader id (author) -> string m_grader_username or int m_grader_id
-            cout << "Course ID: "
+            cout << "Uploading grades to canvas...\nCourse ID: "
                  << m_course_id << ", Assigment ID: "
                  << m_assignment_id << ", Student ID: "
                  << m_student_id << ", Assignment Grade: "
                  << m_grade << ", Assignment Comment: "
-                 << m_grader_comment << ", Grade ID: "
-                 << m_grader_id << endl;
+                 << m_grader_comment << ", Grader ID: "
+                 << m_grader_id << endl << endl << endl;
+        }
+
+        string getFileName()
+        {
+            return m_file_name;
+        }
+
+        long getAssignmentID()
+        {
+            return m_assignment_id;
+        }
+
+        long getCourseID()
+        {
+            return m_course_id;
+        }
+
+        int getSubmissionNum()
+        {
+            return m_submission_num;
+        }
+
+        int getGraderID()
+        {
+            return m_grader_id;
+        }
+
+        double getGrade()
+        {
+            return m_grade;
+        }
+
+        string getGraderComment()
+        {
+            return m_grader_comment;
+        }
+
+        bool getLate()
+        {
+            return m_late;
         }
 };
 

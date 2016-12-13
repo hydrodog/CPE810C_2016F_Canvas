@@ -164,10 +164,19 @@ class Course
                 //problem - grading the submission file listed in the student object
                     //but where does the students object get it from?
                 //get the submission based on the id of the student
-                cout << "Output for student: " << i << ", ID: " << stu[i].S_info.Stu_ID << endl;
+                cout << "Output for student: " << i + 1 << ", ID: " << stu[i].S_info.Stu_ID << endl;
                 Submission s = assignment.getSubmission(grader_username, stu[i].S_info.Stu_ID);
                 s.grade();
             }
+
+            /*
+            //upload grades
+            for (int i = 0; i < num_students_in_class; i++)
+            {
+                Submission s = assignment.getSubmission(grader_username, stu[i].S_info.Stu_ID);
+                s.upload();
+            }
+            */
         }
 
         //public get methods
