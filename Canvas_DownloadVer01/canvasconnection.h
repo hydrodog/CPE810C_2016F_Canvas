@@ -22,19 +22,30 @@ private:
     //Current url
     QString m_strUrl;
     QString fileName;
+    QNetworkAccessManager *manager;
 public:
+    //explicit Downloader(QObject *parent = 0);
     explicit canvasConnection(QObject *parent = 0);
     //send network requests with url.
     void sendRequest(const QString &strUrl);
+    void sendAssRequest(const QString &strUrl);
     //Read JSON
     void readJson();
-    //Set file name
     void setFilename(QString fN);
+    void doDownload();
+    void extract();
+    void showdata();
+    void everyAssScore();
+    void readAttachment();
+    void downAssignment();
+    void doDownload(const QUrl &a);
+    void sendpostrequest(const QUrl &url, const QByteArray &data);
 signals:
     //declare signal when network requests end
     void signal_requestFinished(bool bSuccess,const QString& strResult);
 public slots:
     //network requests end
     //void quit();
+     void replyFinished (QNetworkReply *reply);
 };
 #endif CANVASCONNECTION_H
