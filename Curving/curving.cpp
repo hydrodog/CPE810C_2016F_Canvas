@@ -88,35 +88,35 @@ int Curving::getStdDevCur(){
 // All-encompassing function to give the user options to do what they want with the data
 void Curving::performCurve(){
     while(1){
-    int i = 0;
-    cout << "The mean of the current grades is: " << getMeanOrig() << '\n';
-    cout << "The standard deviation of the current grades is: " << getStdDevOrig() << '\n';
-    while(1){
-        cout << "What would you like to do with the grades?\n1: Perform a linear curve\n"
-            "2: Perform a root curve\n";
-        cin >> i;
-        if(i == 1){
-            int curve = 0;
-            cout << "How much would you like to curve the grades?\n";
-            cin >> curve;
-            linCurve(curve);
-            break;
+        int i = 0;
+        cout << "The mean of the current grades is: " << getMeanOrig() << '\n';
+        cout << "The standard deviation of the current grades is: " << getStdDevOrig() << '\n';
+        while(1){
+            cout << "What would you like to do with the grades?\n1: Perform a linear curve\n"
+                    "2: Perform a root curve\n";
+            cin >> i;
+            if(i == 1){
+                int curve = 0;
+                cout << "How much would you like to curve the grades?\n";
+                cin >> curve;
+                linCurve(curve);
+                break;
+            }
+            else if (i == 2){
+                rootCurve();
+                break;
+            }
+            else
+                cout << "Please enter 1 or 2 to perform a curve on the grades\n";
         }
-        else if (i == 2){
-            rootCurve();
-            break;
-        }
-        else
-            cout << "Please enter 1 or 2 to perform a curve on the grades\n";
-    }
-    cout << "The new mean of the grades is: " << getMeanCur() << '\n';
-    cout << "The new standard deviation of the grades is: " << getStdDevCur() << '\n';
-    acceptChanges();
+        cout << "The new mean of the grades is: " << getMeanCur() << '\n';
+        cout << "The new standard deviation of the grades is: " << getStdDevCur() << '\n';
+        acceptChanges();
 
-    char c;
-    cout << "Would you like to perform another curve? (Y to curve, anything else to break)\n";
-    cin >> c;
-    if(c != 'n' || c != 'N')
-        break;
+        char c;
+        cout << "Would you like to perform another curve? (Y to curve, anything else to break)\n";
+        cin >> c;
+        if(c != 'n' || c != 'N')
+            break;
     }
 }
