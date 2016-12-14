@@ -1,8 +1,10 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<fstream>
+#include<sstream>
 #include"PlagiarismDetector.hh"
-using namespace std;
+using namespace std; 
 
 
 	int detectPlagiarism::getLocW(string s){
@@ -160,4 +162,32 @@ using namespace std;
 			classResults.push_back(singleLcsTest(targetH, i));
 		}
 		return classResults;
+	}
+
+	vector<vector<string>> detectPlagiarism::getVecs(string fpath1, string fpath2){
+		//Takes in two file paths and converts them into vectors of string to compare using LCS
+		string hw1;
+		string hw2;
+		string line;
+		vector<vector<string>> result = vector<vector<string>>();
+		ifstream file;
+		file.open(fpath1);
+		while(getline(file, line)){
+			hw1 += line;
+			hw1 += " ";
+		}
+		file.close();
+		file.open(fpath2);
+		while(getline(file, line)){
+			hw2 += line;
+			hw2 += " ";
+		}
+		file.close();
+		result.push_back(getTokens(hw1));
+		result.push_back(getTokens(hw2));
+		return result;
+	}
+
+	string detectPlagiarism::quickFileComp(string fpath1, string fpath2){
+		return singleLcsTest(getVecs(fpath1, fpath2),0).at(0);
 	}

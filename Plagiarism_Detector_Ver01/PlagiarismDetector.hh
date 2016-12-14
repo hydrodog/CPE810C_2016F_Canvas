@@ -40,6 +40,10 @@ public:
 
 	vector<vector<string>> getHomeworks(); //Takes in the homeworks and formats them to be compared.
 
+	vector<vector<string>> getVecs(string fpath1, string fpath2); //Takes in two file paths and returns a vector containing both tokenized
+
+	string quickFileComp(string fpath1, string fpath2);//Takes in two assignment file paths and returns the comparison comment
+
 };
 
 #endif // PLAGIARISM_DETECTOR_H
