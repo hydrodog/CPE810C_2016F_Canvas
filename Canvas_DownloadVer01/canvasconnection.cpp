@@ -13,18 +13,18 @@
 #include <QJsonArray>
 #include <vector>
 #include <map>
-#include <QDir>
 
-extern vector<QString> student;
-extern vector<QString> filenames;
-extern vector<QString> userid;
-extern vector<QString> assignmentid;
-extern vector<QString> assignmentscore;
-extern map<QString, vector<QString> > everyAss;
-extern vector<QString> fileApi;
-extern vector<QString> fileAddress;
-extern vector<QString> submissionName;
-extern vector<QString> downloadAdd;
+extern vector<QString> student;// store student api
+extern vector<QString> filenames;// json file of every student
+extern vector<QString> userid;// temporary store student id
+extern vector<QString> assignmentid;// temporary store assignment id
+extern vector<QString> assignmentscore;// temporary store assignment score
+extern map<QString, vector<QString> > everyAss;// hashmap to store score of every assignment( for other team)
+extern vector<QString> fileApi;// store assignment api
+extern vector<QString> fileAddress;// json file of assignment api
+extern vector<QString> submissionName;// store submission name
+extern vector<QString> downloadAdd;// store download Url
+extern vector<QString> AssId;// store assignment id
 
 canvasConnection::canvasConnection(QObject *parent) :
     QObject(parent)
@@ -33,7 +33,7 @@ canvasConnection::canvasConnection(QObject *parent) :
     m_pNetworkReply = NULL;
 }
 
-//Send network requests
+//Send network requests to download students' json files
 void canvasConnection::sendRequest(const QString &strUrl)
 {   static int a = 0;
     m_strUrl = strUrl;
@@ -74,6 +74,7 @@ void canvasConnection::sendRequest(const QString &strUrl)
     }
 }
 
+//Send network requests to download json files of assignments
 void canvasConnection::sendAssRequest(const QString &strUrl)
 {   static int a = 0;
     m_strUrl = strUrl;
@@ -114,31 +115,20 @@ void canvasConnection::sendAssRequest(const QString &strUrl)
     }
 }
 
-//set name of file
-void canvasConnection::setFilename(QString fN){
-    fileName = fN;
-}
-
-//read Json
+//read Json function
 void canvasConnection::readJson(){
-    //vector<double> vec;
     QString settings;
     QFile file;
     file.setFileName(fileName);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     settings = file.readAll();
     file.close();
-    //qWarning() << settings;
     QJsonDocument sd = QJsonDocument::fromJson(settings.toUtf8());
     qWarning() << sd.isNull(); // <- print false :)
     qWarning() << sd.isArray();
     qWarning() << sd.isObject();
     //Json Array
     QJsonArray sett3 = sd.array();
- //  qWarning() << sett3;
-
-    qWarning() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-
     for(int i = 0; i < 10; i++){
         //convert from QJsonValue to QJsonObject
          long double AAA = sett3.at(i).toObject().take(QString("assignment_id")).toDouble();
@@ -148,20 +138,24 @@ void canvasConnection::readJson(){
         std::cout << "score : ";
         //print score.
         qDebug() << sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble();
-
     }
 }
 
-
+//download students' json files
 void canvasConnection::doDownload(){
-//    QString content;
-//    QFile file ;
     vector<QString>::iterator m;
     for (m = student.begin(); m != student.end(); ++m)
-       // qDebug() << *m << endl;
         sendRequest(*m);
 }
 
+//download json file of assignments
+void canvasConnection::downAssignment(){
+    vector<QString>::iterator m;
+    for (m = fileApi.begin(); m != fileApi.end(); ++m)
+        sendAssRequest(*m);
+}
+
+//extract data ( userif, assignmentId, assignmentScore)
 void canvasConnection::extract(){
     QString content;
     QFile file;
@@ -171,50 +165,41 @@ void canvasConnection::extract(){
         content = file.readAll();
         file.close();
         QJsonDocument sd = QJsonDocument::fromJson(content.toUtf8());
-//        qWarning() << "the last 5 digit of user ID" << *m;
-//        qWarning() <<"sd.isNull() :" << sd.isNull(); // <- should print false to prove it is not empty.
-//        qWarning() <<"sd.isArray() :"<< sd.isArray();
-//        qWarning() << "sd.isObject()"<< sd.isObject();
         QJsonArray sett3 = sd.array();
         for(int i = 0; i < 10; i++){
             double assignment_id = sett3.at(i).toObject().take(QString("assignment_id")).toDouble();
             QString assign_id = QString("%1").arg(assignment_id, 0, 'f', 0); //set the precison.
-          //  qDebug().noquote() <<"assignment_id :"<< assign_id ;
             double Score = sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble();
             QString score = QString("%1").arg(Score, 0, 'f', 0)  ;
-          //  qDebug() <<"score :"<< score;
             userid.push_back(*m);
             assignmentid.push_back(assign_id);
             assignmentscore.push_back(score);
         }
-        qDebug() << "\n";
+        cout << "extract" << endl;
     }
 }
 
-
+//show data
 void canvasConnection::showdata() {
 //    for (int i = 0; i < userid.size() ; i++)      //vector userid, assignmentid,assignmentscore have the same size;
 //   qDebug().noquote() << "userid : " <<userid[i] << " assignment_id: " << assignmentid[i] <<" score: " << assignmentscore[i] << '\t';
-
 }
 
+//store score of every assignment in a hashmap
 void canvasConnection::everyAssScore(){
     for(int j = 0; j < 10; ++j){
         vector<QString> ve;
-        vector<QString>::iterator it;
+        AssId.push_back(assignmentid[j]);
         for(int i = j; i < 70; i += 10){
             ve.push_back(assignmentscore[i]);
         }
         QString ass = assignmentid[j];
-      //  qDebug() << "ass = " << assignmentid[j] << endl;
-        for( it = ve.begin(); it != ve.end(); ++it){
-           // qDebug() << *it << endl;
-        }
         everyAss.insert(make_pair(ass, ve));
         ve.clear();
     }
 }
 
+//read attachment in json file
 void canvasConnection::readAttachment(){
     QString settings;
     QFile file;
@@ -229,9 +214,7 @@ void canvasConnection::readAttachment(){
         qWarning() << sd.isObject();
         //Json Array
         QJsonArray sett3 = sd.array();
-       // qWarning() << sett3;
-        qWarning() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-        for(int i = 0; i < 10; ++i){
+        for(int i = 0; i < 8; ++i){
             double userid = sett3.at(i).toObject().take(QString("user_id")).toDouble();
             double si = sett3.at(i).toObject().take(QString("assignment_id")).toDouble();
             QString sii = QString("%1").arg(si, 0, 'f', 0);
@@ -240,79 +223,47 @@ void canvasConnection::readAttachment(){
             QJsonArray address = sett3.at(i).toObject().take(QString("attachments")).toArray();
             QString qAddress = address.at(0).toObject().take(QString("url")).toString();
             QString fileName = address.at(0).toObject().take(QString("filename")).toString();
-           //qWarning() << address;
-            //qWarning() << qAddress;
-           // qWarning() << user_id;
-            QString cour = "7";
-           // qDebug() << cour+user_id;
-          //  QDir().mkdir(cour+user_id);
-
             QString fName = sii + "-"+user_id + "-" + fileName;
-
-
             if(fileName.size() == 0){
                 continue;
             }
             else{
-                qDebug() << "filename = " << fName << endl;
+                //qDebug() << "filename = " << fName << endl;
                 submissionName.push_back(fName);
                 downloadAdd.push_back(qAddress);
-               // const QUrl a(qAddress);
-               // doDownload(a);
-                qDebug() << " 000" << qAddress << endl;
             }
         }
     }
 }
 
-void canvasConnection::downAssignment(){
-    vector<QString>::iterator m;
-    for (m = fileApi.begin(); m != fileApi.end(); ++m)
-        sendAssRequest(*m);
-}
-
-
-
-void canvasConnection::doDownload(const QUrl &a)
-{
-    qDebug()  << "url = " << a << endl;
+// download submissions of students
+void canvasConnection::doDownload(const QUrl &a){
+  //  qDebug()  << "url = " << a << endl;
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
     manager->get(QNetworkRequest(a));
 }
 
-void canvasConnection::replyFinished (QNetworkReply *reply)
-{
-    if(reply->error())
-    {
+void canvasConnection::replyFinished (QNetworkReply *reply){
+    if(reply->error()){
         qDebug() << "ERROR!";
-      //  qDebug() << reply->errorString();
     }
-    else
-    {
-     /*   qDebug() << reply->header(QNetworkRequest::ContentTypeHeader).toString();
-        qDebug() << reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toString();
-        qDebug() << reply->header(QNetworkRequest::ContentLengthHeader).toULongLong();
-        qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-        qDebug() << reply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();  */
+    else{
         qDebug() << "SUCCESS!";
         int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-       // qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if(statusCode == 302) //website is redirected
         {
             QUrl newUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
             QNetworkRequest newRequest(newUrl);
-           // qDebug() << " redirected" ;
+            qDebug() << " redirected" ;
             manager->get(newRequest);
             return;
         }
         static int a = 0;
-        qDebug() << "qqqq = " << submissionName[a] << endl;
+        qDebug() << "filename = " << submissionName[a] << endl;
         QFile *file = new QFile(submissionName[a]);
-        a++;
-        if(file->open(QFile::WriteOnly))
-        {
-            cout << " pppppppppppppppppppppp" << endl;
+        ++a;
+        if(file->open(QFile::WriteOnly)){
            file->write(reply->readAll());
            file->flush();
            file->close();
@@ -320,4 +271,9 @@ void canvasConnection::replyFinished (QNetworkReply *reply)
         delete file;
     }
     reply->deleteLater();
+}
+
+void canvasConnection::DO(const QUrl &a)
+{
+    this->doDownload(a);
 }
