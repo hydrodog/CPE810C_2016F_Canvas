@@ -23,4 +23,7 @@ int main()
     */
 
     c.performCurve();
+    data = c.returnCurve();
+    for(int i = 0; i < data.size(); i++)
+        cout << data[i] << '\t';
 }

@@ -116,7 +116,7 @@ void Curving::performCurve(){
         char c;
         cout << "Would you like to perform another curve? (Y to curve, anything else to break)\n";
         cin >> c;
-        if(c != 'n' || c != 'N')
+        if(c != 'Y' && c != 'y')
             break;
     }
 }
