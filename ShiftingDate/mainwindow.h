@@ -42,7 +42,7 @@ public slots:
     void AddaDay();
     void MinusaWeek();
     void MinusaDay();
-    void saveFileSlot();
+    //void saveFileSlot();
 private:
     Ui::MainWindow *ui;
     createassignmentcontroller *m_controller;
