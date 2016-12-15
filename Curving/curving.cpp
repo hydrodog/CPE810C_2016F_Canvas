@@ -37,7 +37,8 @@ void Curving::acceptChanges(){
     char c;
     while(1){
         cout << "You performed a " << s << " on the grades\n"
-                "Do you want to keep these changes? (Y or N)\n";
+                "Do you want to keep these changes? (Y or N)\n"
+                "---------------------------------------------\n";
         cin >> c;
         if(c == 'N' || c == 'n'){
             m_curvedGrades = m_originalGrades;
@@ -50,7 +51,7 @@ void Curving::acceptChanges(){
             break;
         }
         else
-            cout << "Please enter Y for yes or N for no\n";
+            cout << "\nPlease enter Y for yes or N for no\n\n";
     }
 
 }
@@ -93,7 +94,8 @@ void Curving::performCurve(){
         cout << "The standard deviation of the current grades is: " << getStdDevOrig() << '\n';
         while(1){
             cout << "What would you like to do with the grades?\n1: Perform a linear curve\n"
-                    "2: Perform a root curve\n";
+                    "2: Perform a root curve\n"
+                    "------------------------------------------\n";
             cin >> i;
             if(i == 1){
                 int curve = 0;
