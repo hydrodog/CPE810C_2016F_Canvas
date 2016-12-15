@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "PlagiarismDetector.hh"
+#include "detectPlagiarism.hh"
 
 using namespace std;
 
@@ -15,8 +15,15 @@ int main (){
   vector<vector<string>> students = vector<vector<string>>();
   students.push_back(student1);
   students.push_back(student2);
-  cout << test.LCS(student1,student2) << endl;
   cout << test.singleLcsTest(students, 1).at(0) << endl;
+
+  vector<vector<string>> files = vector<vector<string>>();
+
+  cout << test.quickFileComp("test3.txt", "test4.cpp") << endl;
+
+  vector<string> inpTest = test.fileSingleLcsTest();
+
+  cout << inpTest.at(0) << endl;
 
   system("pause");
   return 0;
