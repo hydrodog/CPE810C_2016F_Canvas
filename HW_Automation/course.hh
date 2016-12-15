@@ -7,6 +7,8 @@
 #include <sstream>
 #include "Assignment.hh"
 #include "Assignment_Unzip.hh"
+#include "../Curving/curving.cpp"
+
 using namespace std;
 
 //class Assignment;
@@ -22,9 +24,7 @@ class Course
         //long m_student_id;
         Student *stu = new Student[5];//course object contains the list of students in the course (each student is a student object)
         int num_students_in_class = 5; //place holder, we will need to get this information from canvas, add method to set this value
-
         //need an array of students - each student contains information, file, and assignment
-
         //string m_student_name;
 
     public:
@@ -156,6 +156,7 @@ class Course
         {
             //student objects have assigment info, but not assignment objects
             Assignment assignment = addAssignmentToStudents();
+            vector<double> grades; //used for each assignment, cleared after each use
             for (int i = 0; i < num_students_in_class; i++)
             {
                 //get assignment submission and grade it
@@ -166,17 +167,25 @@ class Course
                 //get the submission based on the id of the student
                 cout << "Output for student: " << i + 1 << ", ID: " << stu[i].S_info.Stu_ID << endl;
                 Submission s = assignment.getSubmission(grader_username, stu[i].S_info.Stu_ID);
-                s.grade();
+                stu[i].S_info.Stu_Assigment_Grade_Current = s.grade();
+                stu[i].A_info.Assigment_Comment = s.grade_comment();
+                s.upload(); //upload grade to canvas, maybe just do once at end for everyone
+                grades.push_back((double)stu[i].S_info.Stu_Assigment_Grade_Current);
             }
 
-            /*
-            //upload grades
+            cout << endl << endl;
+
+            //curve grades
+            Curving curve(grades);
+
+            curve.performCurve();
+            grades = curve.returnCurve(); //saves curved grades in the vector
+            //reinput curved grades
             for (int i = 0; i < num_students_in_class; i++)
             {
-                Submission s = assignment.getSubmission(grader_username, stu[i].S_info.Stu_ID);
-                s.upload();
+                stu[i].S_info.Stu_Assigment_Grade_Current = grades[i];
             }
-            */
+
         }
 
         //public get methods
@@ -200,6 +209,16 @@ class Course
             return m_account_id;
         }
 
+        //testing
+        void showStudentGradesAndComments()
+        {
+            cout << "\nGRADES AND COMMENTS AFTER GRADING" << endl;
+            for (int i = 0; i < num_students_in_class; i++)
+            {
+                cout << "Student " << i + 1 << ", ID: " << stu[i].S_info.Stu_ID
+                     << " - Grade: " << stu[i].S_info.Stu_Assigment_Grade_Current << ", Comment: " << stu[i].A_info.Assigment_Comment << endl;
+            }
+        }
 
         //testing
         void getAssignmentsFromStudent()

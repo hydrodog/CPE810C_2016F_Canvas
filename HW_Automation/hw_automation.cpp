@@ -1,5 +1,7 @@
 #include <iostream>
 #include "hw_automation.hh"
+#include "../Curving/curving.h"
+
 using namespace std;
 
 
@@ -60,8 +62,10 @@ int main()
     //c.addAssignmentToStudents();
 
     c.gradeStudents(grader_username);
+    cout << endl;
+    c.showStudentGradesAndComments();
 
-
+    Curving curve(vector<double> data);
     //vector<Assignment> assignment_vect = c.getAssignments(); //print out all assignments
     //c.getStudents(); //outputs nothing as of now
     //c.getAssignmentsFromStudent(); //prints out students and assignment informtion from the student object

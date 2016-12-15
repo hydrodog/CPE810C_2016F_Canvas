@@ -38,7 +38,7 @@ typedef struct{
 
     typedef struct{
         int Stu_Index;                              // index for retrieving information of student
-        int Stu_Assigment_Grade_Current;            // grade students will get from this assignment
+        double Stu_Assigment_Grade_Current;            // grade students will get from this assignment
         int Stu_Assigment_Grade_Min;                // the minimum grade that students can get
         int Stu_Assigment_Grade_Max;                // the maximum grade that students can get
         double Stu_ID;                              // the ID number of student
@@ -91,7 +91,7 @@ typedef struct{
         long assignment_id;
         long course_id;
         double grade;
-        const char *Assigment_Comment;                // grader's comment to a assignment
+        string Assigment_Comment;                // grader's comment to a assignment
         const char *Assignment_Graph_Title;
         const char *Assignment_Title;           //
     } Assignment_info;                          // all the things about assignment

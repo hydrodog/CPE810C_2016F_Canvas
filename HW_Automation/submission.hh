@@ -19,7 +19,7 @@ class Submission
         int m_submission_num; //submission attempt number
         //long m_student_id;
         int m_grader_id;
-        double m_grade; //number grades, not letter grades
+        double m_grade; //number grades, not letter grades, eventually make a double
         string m_grader_comment = "";
         bool m_late;
         //bool excused; //if not completed, it doesn't affect the grade
@@ -48,7 +48,7 @@ class Submission
         {
             //iterator up until the period
             int index = 0; //index of period in file name
-            for (int i = 0; i < m_submission_file.size(); i++)
+            for (unsigned int i = 0; i < m_submission_file.size(); i++)
             {
                 if (m_submission_file[i] == '.')
                 {
@@ -58,7 +58,7 @@ class Submission
             }
 
             stringstream ss;
-            for (int i = index + 1; i < m_submission_file.size(); i++)
+            for (unsigned int i = index + 1; i < m_submission_file.size(); i++)
             {
                 ss << m_submission_file[i];
             }
@@ -120,7 +120,7 @@ class Submission
         }
 
         //grades a submitted file, giving 50 points is it compiles and another 50 points if it runs. If neither, it gives a score of 25.
-        double grade()
+        double  grade()
         {   display_source_code();
             double grade = 0;
             bool compiled = compile_submission();
@@ -150,8 +150,8 @@ class Submission
                 }
             }
             m_grade = grade;
-            string comment = grade_comment();
-            upload();
+            //string comment = grade_comment(); //this is called in the course class in the gradeStudents method
+            //upload();
             return grade;
         }
 
