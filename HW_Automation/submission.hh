@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#include "../Plagiarism_Detector_Ver01/PlagiarismDetector.cpp"
 using namespace std;
 
 class Submission
@@ -189,6 +190,10 @@ class Submission
                 }
             }
             m_grade = grade;
+            if (m_student_id == 1231 || m_student_id == 1232)
+            {
+                plag_detector();
+            }
             //string comment = grade_comment(); //this is called in the course class in the gradeStudents method
             //upload();
             return grade;
@@ -217,9 +222,24 @@ class Submission
 
         //TODO: Get function from plagiarism detector group
         //returns a similarity score between the submitted file and other files
-        double plag_detector()
+        void plag_detector()
         {
-            return 0;
+            cout << "Plag Detector" << endl;
+            stringstream s1;
+            stringstream s2;
+
+            //s1 << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/1231/" << m_file_name << "." << m_file_ext;
+            s1 << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/course.hh";
+            s2 << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/1232/" << m_file_name << "." << m_file_ext;
+
+            string file1 = s1.str();
+            string file2 = s2.str();
+
+            cout << file1 << endl;
+            cout << file2 << endl;
+
+            detectPlagiarism dp;
+            cout << "PLAG: " << dp.quickFileComp(file1, file2) << endl;
         }
 
         void setGraderUsername(string name)

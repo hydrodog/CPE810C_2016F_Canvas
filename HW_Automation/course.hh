@@ -8,29 +8,41 @@
 #include "Assignment.hh"
 #include "Assignment_Unzip.hh"
 #include "../Curving/curving.cpp"
+#include "../Canvas_Update/CanvasUpdate/canvasupdate.h"
 
 using namespace std;
 
 //class Assignment;
 //struct Student;
 
+/*
+struct grade_information
+{
+    double stu_id;
+    string sub_comment;
+    double sub_grade;
+
+    grade_information(double stu_id, double sub_grade, string sub_comment) :
+        stu_id(stu_id), sub_grade(sub_grade), sub_comment(sub_comment) {}
+};
+*/
+
 class Course
 {
     private:
-        long m_course_id;
-        string m_course_name;
-        string m_course_code;
-        long m_account_id;
-        //long m_student_id;
-        Student *stu = new Student[5];//course object contains the list of students in the course (each student is a student object)
+        long m_course_id; //course id
+        string m_course_name; //course name
+        string m_course_code; //course code, i.e. EE810
+        long m_account_id; //ADD SOMETHING
+        Student *stu = new Student[5];//array of students in the course (each student is a student object), there is a set number of students for now
         int num_students_in_class = 5; //place holder, we will need to get this information from canvas, add method to set this value
-        //need an array of students - each student contains information, file, and assignment
-        //string m_student_name;
 
     public:
+        //Course object constructor
         Course(int course_id, string course_name, string course_code, long account_id) :
             m_course_id(course_id), m_course_name(course_name), m_course_code(course_code), m_account_id(account_id)
         {
+            //gets the list of students in the class upon constructing the course object
             getStudents();
         }
 
@@ -39,23 +51,24 @@ class Course
         //get information from download team
         void getStudents()
         {
-            //might need a constructor for Studentt object
-            double student_id[5] = {1231, 1232, 1233, 1234, 1235};           // the ID number of student
-            const char *student_name[5] = {"Sheng", "Suyog", "Zac", "Dov", "Marc"};    // student's name which has to be english
-            const char *student_email[5] = {"sheng@stevens.edu", "suyog@stevens.edu", "zac@stevens.edu", "dov@stevens.edu", "marc@stevens.edu"};
+            double student_id[5] = {5902, 5126, 5498, 4712, 6912}; // the ID numbers of the students
+            const char *student_name[5] = {"Sheng Hsu", "Suyog Deshmuk", "Zachary Binger", "Dov Kruger", "Marc Greenfield"};    // student's name which has to be english
+            const char *student_email[5] = {"sheng@stevens.edu", "suyog@stevens.edu", "zbinger@stevens.edu", "dov.kruger@gmail.com", "marc@stevens.edu"}; //student e-mail addresses
 
-            //set information for each student
+            //currently uses preset data
             for (int i = 0; i < num_students_in_class; i++)
             {
-                stu[i].S_info.Stu_ID = student_id[i];
-                stu[i].S_info.Stu_Name = student_name[i];
-                stu[i].S_info.Stu_Mail_Addr = student_email[i];
+                stu[i].S_info.Stu_ID = student_id[i]; //set the student ID
+                stu[i].S_info.Stu_Name = student_name[i]; //set the student name
+                stu[i].S_info.Stu_Mail_Addr = student_email[i]; //set the student e-mail address
 
                 //testing
                 //cout << "Student " << i << ": " << student_id[i] << " " << student_name[i] << " " << student_email[i] << endl;
             }
         }
 
+        //this is called after an assignment is chosen
+        //sets the file name attribute of the student object from the submission object for that student for the chosen assignment
         void getFileInfo(Submission s, Student & stu)
         {
             //fill in file info for each student object
@@ -63,6 +76,8 @@ class Course
             stu.F_info.file_number = s.getSubmissionNum();
         }
 
+        //gets all of the assignments for the given course
+        //returns a vector of assignment objects
         vector<Assignment>  getAssignments()
         {
             //List assignments
@@ -70,7 +85,7 @@ class Course
             //get each assignment, and store the info within each student object - students have an assignment subclass
 
             //1 - Get all assignments
-            //fake vector of assignments for testing
+            //fake vector of 3 assignments for testing
             vector<Assignment> assignment_vect;
             Assignment assignment1(1, 10311, 0);
             assignment_vect.push_back(assignment1);
@@ -82,13 +97,17 @@ class Course
             return assignment_vect;
         }
 
+        //sets assignment attributes of student object based on the chosen assignment for the given course
         Assignment addAssignmentToStudents()
         {
+            //get all of the assignments and store it in a vector
             vector<Assignment> assignment_vect = getAssignments();
-            Assignment assignment; //will be set to the chosen assignment
-            //grader chooses which assignment to grade
+            //assignment object to be set to the chosen assignment
+            Assignment assignment;
+
+            //prompt grader to choose which assignment to grade
             cout << "Which assignment would you like to grade? (Please enter the assignment number)\n";
-            //2 - Put Assignment info in each student object
+
             //list all assignments for the given course
             for (std::vector<Assignment>::iterator it = assignment_vect.begin(); it != assignment_vect.end(); ++it)
             {
@@ -97,6 +116,7 @@ class Course
             long chosen_assignment = 0;
             bool correct_name = true;
 
+            //grader chooses assignment based on assignment number
             while (correct_name)
             {
                 correct_name = false;
@@ -115,7 +135,7 @@ class Course
                     cout << endl;
                     break;
                 }
-                else
+                else //bad input
                 {
                     cout << "Invalid assignment id. Please enter a valid assignment id.\n";
                     chosen_assignment = 0;
@@ -123,6 +143,7 @@ class Course
                 }
             }
 
+            //START HERE
             //Need this information from canvas - set to values for now
             const char *comment = "comment";
             const char *graph_title = "title";
@@ -157,6 +178,7 @@ class Course
             //student objects have assigment info, but not assignment objects
             Assignment assignment = addAssignmentToStudents();
             vector<double> grades; //used for each assignment, cleared after each use
+            vector<grade_information> grade_objects;
             for (int i = 0; i < num_students_in_class; i++)
             {
                 //get assignment submission and grade it
@@ -173,6 +195,7 @@ class Course
                 stu[i].A_info.Assigment_Comment = s.grade_comment();
                 s.upload(); //upload grade to canvas, maybe just do once at end for everyone
                 grades.push_back((double)stu[i].S_info.Stu_Assigment_Grade_Current);
+                grade_objects.push_back(grade_information(stu[i].S_info.Stu_ID, stu[i].S_info.Stu_Assigment_Grade_Current, stu[i].A_info.Assigment_Comment));
             }
 
             cout << endl;
@@ -193,7 +216,10 @@ class Course
             for (int i = 0; i < num_students_in_class; i++)
             {
                 stu[i].S_info.Stu_Assigment_Grade_Current = grades[i];
+                grade_objects[i].posted_grade = grades[i];
             }
+
+            cout << "\nUploading to Canvas:" << endl;
 
         }
 

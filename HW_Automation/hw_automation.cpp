@@ -4,30 +4,11 @@
 
 using namespace std;
 
-
-//class hw_automation
-//{
-    /*
-    private:
-        Course course;
-
-    public:
-        hw_automation(string course_name, long course_id, string course_code, long account_id, long student_id)
-            : course(course_id, course_name, course_code, account_id, student_id) {}
-
-        //returns course object
-        Course getCourse()
-        {
-            //GET /api/v1/courses/:id
-            return course;
-        }
-        */
-//};
-
 int main()
 {
+    //Create a fake course for testing
     string course_name = "C++";
-    long course_id = 123;
+    //long course_id = 123;
     string course_code = "EE810";
     long account_id = 234; //account associated with the course, maybe for the professor?
 
@@ -50,24 +31,35 @@ int main()
     }
     */
 
-
+    //Get username for file path on grader's computer
     cout << "What is your computer's username? ";
     string grader_username;
     //assume input is a string and is correct, for now
     cin >> grader_username;
     cout << "\n\n";
 
-    hw_automation hwa(course_name, course_id, course_code, account_id);
+    cout << "Please enter the course ID: ";
+    long cid;
+    cin >> cid;
 
+    cout << endl << endl;
+
+    //create hw automation object
+    hw_automation hwa(course_name, cid, course_code, account_id);
+
+    //Display course information from hw automation object
     cout << "Course: " << hwa.getCourse().getCourseName() << " " << hwa.getCourse().getCourseID() << " " << hwa.getCourse().getCourseCode() << " " << hwa.getCourse().getAccountID() << endl;
+    //create course object from hw automation object
     Course c = hwa.getCourse();
     //c.addAssignmentToStudents();
 
+    //grade each students assignment submssion
     c.gradeStudents(grader_username);
     cout << endl;
+
+    //display student grades and grade comments for the assignment that was graded
     c.showStudentGradesAndComments();
 
-    Curving curve(vector<double> data);
     //vector<Assignment> assignment_vect = c.getAssignments(); //print out all assignments
     //c.getStudents(); //outputs nothing as of now
     //c.getAssignmentsFromStudent(); //prints out students and assignment informtion from the student object

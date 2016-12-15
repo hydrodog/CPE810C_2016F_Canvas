@@ -10,9 +10,11 @@ using namespace std;
 class hw_automation
 {
     private:
+        //course that the assignments that are to be graded fall under
         Course course;
 
     public:
+        //Constructor, builds course object
         hw_automation(string course_name, long course_id, string course_code, long account_id)
             : course(course_id, course_name, course_code, account_id) {}
 
@@ -23,12 +25,5 @@ class hw_automation
         return course;
     }
 };
-
-/*
-int main()
-{
-    return 0;
-}
-*/
 
 #endif // HW_AUTOMATION_HH

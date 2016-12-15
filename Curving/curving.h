@@ -19,12 +19,6 @@ using namespace std;
   This class is used to take grades and curve them based on the needs of the user
 */
 
-struct grade_info
-{
-    QString Stu_ID;
-    QString text_comment;
-    QString posted_grade;
-};
 
 class Curving {
 private:
