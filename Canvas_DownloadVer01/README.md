@@ -7,7 +7,7 @@
 	qt.network.ssl: QSslSocket: cannot call unresolved function SSL_CTX_new
 	qt.network.ssl: QSslSocket: cannot call unresolved function SSL_library_init
 	qt.network.ssl: QSslSocket: cannot call unresolved function ERR_get_error
-Please fild two file 'libeay32.dll' and 'ssleay32.dll' under D:\Qt\Qt5.7\Tools\mingw530_32\opt\bin. Then copy them and put them under D:\Qt\Qt5.7\5.7\mingw53_32\bin. The problems are solved.**
+Please find two file 'libeay32.dll' and 'ssleay32.dll' under D:\Qt\Qt5.7\Tools\mingw530_32\opt\bin. Then copy them and put them under D:\Qt\Qt5.7\5.7\mingw53_32\bin. The problems are solved.**
 
 /*
 @author = Shengjie Hu, Mingju He, Jingyi Hu. 
