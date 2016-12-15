@@ -34,18 +34,18 @@ void Curving::acceptChanges(){
     else
         s = "linear curve";
 
-    char c;
+    string c;
     while(1){
         cout << "You performed a " << s << " on the grades\n"
                 "Do you want to keep these changes? (Y or N)\n"
                 "---------------------------------------------\n";
         cin >> c;
-        if(c == 'N' || c == 'n'){
+        if(c == "N" || c == "n" || c == "No" || c == "no"){
             m_curvedGrades = m_originalGrades;
             cout << "Your changes have not been saved\n";
             break;
         }
-        else if(c == 'Y' || c == 'y') {
+        else if(c == "Y" || c == "y" || c == "Yes" || c == "yes") {
             m_originalGrades = m_curvedGrades;
             cout << "Your changes have been saved\n";
             break;
@@ -89,7 +89,7 @@ int Curving::getStdDevCur(){
 // All-encompassing function to give the user options to do what they want with the data
 void Curving::performCurve(){
     while(1){
-        int i = 0;
+        string s;
         cout << "The mean of the current grades is: " << getMeanOrig() << '\n';
         cout << "The standard deviation of the current grades is: " << getStdDevOrig() << '\n';
         while(1){
@@ -97,19 +97,19 @@ void Curving::performCurve(){
                     "2: Perform a root curve\n"
                     "3: Break from curving program\n"
                     "------------------------------------------\n";
-            cin >> i;
-            if(i == 1){
+            cin >> s;
+            if(s == "1"){
                 int curve = 0;
                 cout << "How much would you like to curve the grades?\n";
                 cin >> curve;
                 linCurve(curve);
                 break;
             }
-            else if (i == 2){
+            else if (s == "2"){
                 rootCurve();
                 break;
             }
-            else if (i==3){
+            else if (s == "3"){
                 cout << "Ending curving process...\n";
                 return;
             }
@@ -120,11 +120,11 @@ void Curving::performCurve(){
         cout << "The new standard deviation of the grades is: " << getStdDevCur() << '\n';
         acceptChanges();
 
-        char c;
+        string c;
         cout << "Would you like to perform another curve? (Y to curve, anything else to break)\n"
                 "-----------------------------------------------------------------------------\n";
         cin >> c;
-        if(c != 'Y' && c != 'y')
+        if(c != "Y" && c != "y" && c != "Yes" && c != "yes")
             break;
     }
 }
