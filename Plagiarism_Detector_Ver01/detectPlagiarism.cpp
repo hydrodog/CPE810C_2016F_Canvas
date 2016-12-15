@@ -269,3 +269,31 @@ using namespace std;
 
 		return results;
 	}
+
+
+	vector<vector<string>> detectPlagiarism::vecClassLcsTest(vector<string> paths){
+
+		vector<vector<string>> results;
+		vector<vector<string>> vecs;
+
+		vecs = getDynVecs(paths);
+
+		results = classLcsTest(vecs);
+
+		return results;
+
+	}
+
+	
+	vector<string> detectPlagiarism::vecSingleLcsTest(vector<string> paths){
+
+		vector<string> results;
+		vector<vector<string>> vecs;
+
+		vecs = getDynVecs(paths);
+
+		results = singleLcsTest(vecs, 0);
+
+		return results;
+
+	}

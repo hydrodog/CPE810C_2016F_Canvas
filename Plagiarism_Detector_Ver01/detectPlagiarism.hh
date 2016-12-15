@@ -53,6 +53,10 @@ public:
 
 	vector<vector<string>> fileClassLcsTest(); //This function allows the user to input as many file paths as needed and runs classLcsTest on the files.
 
+	vector<vector<string>> vecClassLcsTest(vector<string> paths);
+
+	vector<string> vecSingleLcsTest(vector<string> paths);
+
 };
 
 #endif // DETECT_PLAGIARISM_H
