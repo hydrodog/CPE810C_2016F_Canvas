@@ -51,7 +51,10 @@ OBJECTS       = debug/hw_automation.o \
 DIST          =  ../HW_Automation/hw_automation.hh \
 		../HW_Automation/course.hh \
 		../HW_Automation/assignment.hh \
-		../HW_Automation/submission.hh ../HW_Automation/hw_automation.cpp \
+		../HW_Automation/submission.hh \
+		../Canvas_Update/CanvasUpdate/canvasupdate.h \
+		../Curving/curving.h \
+		../Plagiarism_Detector_Ver01/PlagiarismDetector.hh ../HW_Automation/hw_automation.cpp \
 		../HW_Automation/Course.cpp
 QMAKE_TARGET  = Final_Project
 DESTDIR        = debug/ #avoid trailing-slash linebreak
@@ -113,10 +116,8 @@ debug/hw_automation.o: ../HW_Automation/hw_automation.cpp ../HW_Automation/hw_au
 		../HW_Automation/Course.hh \
 		../HW_Automation/Assignment.hh \
 		../HW_Automation/Submission.hh \
-		../Plagiarism_Detector_Ver01/PlagiarismDetector.cpp \
 		../Plagiarism_Detector_Ver01/PlagiarismDetector.hh \
 		../HW_Automation/Assignment_Unzip.hh \
-		../Curving/curving.cpp \
 		../Curving/curving.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qstring.h \

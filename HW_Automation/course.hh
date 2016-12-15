@@ -31,6 +31,7 @@ class Course
 {
     private:
         long m_course_id; //course id
+        long m_assignment_id; //assignment id - to be decided by grader
         string m_course_name; //course name
         string m_course_code; //course code, i.e. EE810
         long m_account_id; //ADD SOMETHING
@@ -148,7 +149,7 @@ class Course
             const char *comment = "comment";
             const char *graph_title = "title";
             const char *title = "Assignment";
-            long assignment_id = assignment.get_assignment_id(); //random number
+            m_assignment_id = assignment.get_assignment_id(); //random number
             long course_id = assignment.get_course_id(); //random number
             //double m_grade; //changes after grading
 
@@ -158,7 +159,7 @@ class Course
                 stu[i].A_info.Assigment_Comment = comment;
                 stu[i].A_info.Assignment_Graph_Title = graph_title;
                 stu[i].A_info.Assignment_Title = title;
-                stu[i].A_info.assignment_id = assignment_id;
+                stu[i].A_info.assignment_id = m_assignment_id;
                 stu[i].A_info.course_id = course_id;
                 //adds submission details to student object
                 //may not need this
@@ -220,7 +221,10 @@ class Course
             }
 
             cout << "\nUploading to Canvas:" << endl;
-
+            //create Canvas_Update object
+            Canvas_Update cu(grade_objects, m_course_id, m_assignment_id);
+            cu.sendRequest();
+            cout << "Uploaded.";
         }
 
         //public get methods

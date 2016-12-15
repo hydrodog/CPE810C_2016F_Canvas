@@ -74,7 +74,7 @@ class Submission
             {
                 m_file_type = "java";
             }
-            else if (ss2.str() == "cpp" || ss2.str() == "cc" || ss2.str() == "hh")
+            else if (ss2.str() == "cpp" || ss2.str() == "cc" || ss2.str() == "hh" || ss2.str() == "h")
             {
                 m_file_type = "c++";
             }

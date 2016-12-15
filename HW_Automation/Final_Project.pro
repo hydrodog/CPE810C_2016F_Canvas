@@ -20,4 +20,7 @@ HEADERS += \
     hw_automation.hh \
     course.hh \
     assignment.hh \
-    submission.hh
+    submission.hh \
+    ../Canvas_Update/CanvasUpdate/canvasupdate.h \
+    ../Curving/curving.h \
+    ../Plagiarism_Detector_Ver01/PlagiarismDetector.hh
