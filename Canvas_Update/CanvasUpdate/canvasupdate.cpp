@@ -2,17 +2,15 @@
 
 Canvas_Update::Canvas_Update(vector<grade_information> gradeList, long courseId, long AssignmentsId)
 {
-    this->gradeList = new grade_info[gradeList.size()];
+
     for(int i=0;i<gradeList.size();i++)
     {
-        this->gradeList[i].Stu_ID = QString::number(gradeList[i].Stu_ID);
-        this->gradeList[i].text_comment = QString::fromStdString(gradeList[i].text_comment);
-        this->gradeList[i].posted_grade = QString::number(gradeList[i].posted_grade);
+        grade_info gradetemp(gradeList[i]);
+        this->gradeList.push_back(gradetemp);
     };
-    this->courseId = (int)courseId;
-    this->AssignmentsId = (int)AssignmentsId;
-    this->auth = auth;
-    this->update_API = "https://sit.instructure.com/api/v1/courses/"+courseId+"/assignments/"+AssignmentsId+"/submissions/update_grades";
+    this->courseId = QString::number(courseId);
+    this->AssignmentsId = QString::number(AssignmentsId);
+    this->update_API = "https://sit.instructure.com/api/v1/courses/"+QString::number(courseId)+"/assignments/"+QString::number(AssignmentsId)+"/submissions/update_grades";
     convertData(this->gradeList);
 
 }
