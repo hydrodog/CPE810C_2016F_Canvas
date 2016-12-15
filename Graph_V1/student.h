@@ -18,12 +18,12 @@ private:
     double StudentGradeSheet[]; // grade in the course till this assignment
     static int numAssignments;
     static int numTests;
-    std::vector<double> Assignment_Marks;
-    std::vector<double> Test_Marks;
     int scoreInterval[21]={0};
 public:
     Student();
     //~Student();
+    std::vector<double> Assignment_Marks;
+    std::vector<double> Test_Marks;
     void Setstudent_id(int id);
     int Getstudent_id();
     void SetAssignment_Marks(double Marks);

@@ -17,14 +17,14 @@
 extern vector<QString> student;// store student api
 extern vector<QString> filenames;// json file of every student
 extern vector<QString> userid;// temporary store student id
-extern vector<QString> assignmentid;// temporary store assignment id
-extern vector<QString> assignmentscore;// temporary store assignment score
-extern map<QString, vector<QString> > everyAss;// hashmap to store score of every assignment( for other team)
+extern vector<double> assignmentid;// temporary store assignment id
+extern vector<double> assignmentscore;// temporary store assignment score
+extern map<double, vector<double> > everyAss;// hashmap to store score of every assignment( for other team)
 extern vector<QString> fileApi;// store assignment api
 extern vector<QString> fileAddress;// json file of assignment api
 extern vector<QString> submissionName;// store submission name
 extern vector<QString> downloadAdd;// store download Url
-extern vector<QString> AssId;// store assignment id
+extern vector<double> AssId;// store assignment id
 
 canvasConnection::canvasConnection(QObject *parent) :
     QObject(parent)
@@ -172,8 +172,8 @@ void canvasConnection::extract(){
             double Score = sett3.at(i).toObject().take(QString("submission")).toObject().take(QString("score")).toDouble();
             QString score = QString("%1").arg(Score, 0, 'f', 0)  ;
             userid.push_back(*m);
-            assignmentid.push_back(assign_id);
-            assignmentscore.push_back(score);
+            assignmentid.push_back(assignment_id);
+            assignmentscore.push_back(Score);
         }
         cout << "extract" << endl;
     }
@@ -188,12 +188,12 @@ void canvasConnection::showdata() {
 //store score of every assignment in a hashmap
 void canvasConnection::everyAssScore(){
     for(int j = 0; j < 10; ++j){
-        vector<QString> ve;
+        vector<double> ve;
         AssId.push_back(assignmentid[j]);
         for(int i = j; i < 70; i += 10){
             ve.push_back(assignmentscore[i]);
         }
-        QString ass = assignmentid[j];
+        double ass = assignmentid[j];
         everyAss.insert(make_pair(ass, ve));
         ve.clear();
     }
