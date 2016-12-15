@@ -27,6 +27,8 @@ class Submission
         string m_grader_username; //determines the path used to get to the submission file
                                 //ex. "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&"
         double m_student_id;
+        string m_submission_file; //file name, ADD TO INITIALIZER LIST
+        string m_file_type; //file type, i.e. cpp, java, python
 
     public:
 
@@ -38,11 +40,47 @@ class Submission
             return s << "Submission #" << sub.m_submission_num << ", File Name: \'" << sub.m_file_name << "\': Assignment " << sub.m_assignment_id << ", Course " << sub.m_course_id << ", Grader ID: " << sub.m_grader_id << ", Grade: " << sub.m_grade << ", Comments: " << sub.m_grader_comment << std::endl;
         }
 
-        //TODO: get public methods from upload and download team so that we can download a submission and then upload a grade
-
         //TODO: get download method from other group
         //downloads the submitted file from a submissions object
         void download() {}
+
+        void check_file_type()
+        {
+            //iterator up until the period
+            int index = 0; //index of period in file name
+            for (int i = 0; i < m_submission_file.size(); i++)
+            {
+                if (m_submission_file[i] == '.')
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            stringstream ss;
+            for (int i = index + 1; i < m_submission_file.size(); i++)
+            {
+                ss << m_submission_file[i];
+            }
+            if (ss.str() == "py")
+            {
+                m_file_type = "python";
+            }
+            else if (ss.str() == "java")
+            {
+                m_file_type = "java";
+            }
+            else if (ss.str() == "cpp" || ss.str() == "cc" || ss.str() == "hh")
+            {
+                m_file_type = "c++";
+            }
+            else
+            {
+                //error message?
+                cout << "Not a valid file type. File: " << m_submission_file << endl;
+                m_file_type = "error";
+            }
+        }
 
         //opens and displays file/source code from the submissions object
         void display_source_code()
@@ -129,10 +167,11 @@ class Submission
         {
             cout << "Please enter any submission comments (if none, hit enter): ";
             string comment ;
+            cin.ignore();
             getline(cin, comment);
             //char* comment = new char[200];
             //cin.getline(comment, 200);
-            cout << endl << endl;
+            cout << endl;
             m_grader_comment = comment;
             return comment;
         }
