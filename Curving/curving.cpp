@@ -95,6 +95,7 @@ void Curving::performCurve(){
         while(1){
             cout << "What would you like to do with the grades?\n1: Perform a linear curve\n"
                     "2: Perform a root curve\n"
+                    "3: Break from curving program\n"
                     "------------------------------------------\n";
             cin >> i;
             if(i == 1){
@@ -108,6 +109,10 @@ void Curving::performCurve(){
                 rootCurve();
                 break;
             }
+            else if (i==3){
+                cout << "Ending curving process...\n";
+                return;
+            }
             else
                 cout << "Please enter 1 or 2 to perform a curve on the grades\n";
         }
@@ -116,7 +121,8 @@ void Curving::performCurve(){
         acceptChanges();
 
         char c;
-        cout << "Would you like to perform another curve? (Y to curve, anything else to break)\n";
+        cout << "Would you like to perform another curve? (Y to curve, anything else to break)\n"
+                "-----------------------------------------------------------------------------\n";
         cin >> c;
         if(c != 'Y' && c != 'y')
             break;
