@@ -99,10 +99,19 @@ void Curving::performCurve(){
                     "------------------------------------------\n";
             cin >> s;
             if(s == "1"){
-                int curve = 0;
                 cout << "How much would you like to curve the grades?\n";
-                cin >> curve;
-                linCurve(curve);
+                double curve_num;
+                while(1){
+                    string curve_string;
+                    cin >> curve_string;
+                    istringstream iss;
+                    iss.str(curve_string);
+                    if(!(iss >> curve_num))
+                        cout << "Please enter a valid number: ";
+                    else
+                        break;
+                }
+                linCurve(curve_num);
                 break;
             }
             else if (s == "2"){
@@ -116,12 +125,12 @@ void Curving::performCurve(){
             else
                 cout << "Please enter 1 or 2 to perform a curve on the grades\n";
         }
-        cout << "The new mean of the grades is: " << getMeanCur() << '\n';
+        cout << "\nThe new mean of the grades is: " << getMeanCur() << '\n';
         cout << "The new standard deviation of the grades is: " << getStdDevCur() << '\n';
         acceptChanges();
 
         string c;
-        cout << "Would you like to perform another curve? (Y to curve, anything else to break)\n"
+        cout << "\nWould you like to perform another curve? (Y to curve, anything else to break)\n"
                 "-----------------------------------------------------------------------------\n";
         cin >> c;
         if(c != "Y" && c != "y" && c != "Yes" && c != "yes")

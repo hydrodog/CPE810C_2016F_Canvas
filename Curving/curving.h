@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <QString>
+#include <sstream>
 using namespace std;
 
 /*
