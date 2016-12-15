@@ -72,11 +72,11 @@ class Course
             //1 - Get all assignments
             //fake vector of assignments for testing
             vector<Assignment> assignment_vect;
-            Assignment assignment1(125, 10311, 0);
+            Assignment assignment1(1, 10311, 0);
             assignment_vect.push_back(assignment1);
-            Assignment assignment2(126, 10311, 0);
+            Assignment assignment2(2, 10311, 0);
             assignment_vect.push_back(assignment2);
-            Assignment assignment3(127, 10311, 0);
+            Assignment assignment3(3, 10311, 0);
             assignment_vect.push_back(assignment3);
 
             return assignment_vect;
@@ -166,11 +166,20 @@ class Course
                     //but where does the students object get it from?
                 //get the submission based on the id of the student
                 cout << "Output for student: " << i + 1 << ", ID: " << stu[i].S_info.Stu_ID << endl;
-                Submission s = assignment.getSubmission(grader_username, stu[i].S_info.Stu_ID);
+
+
+                Submission s = assignment.getSubmission("Test.cpp", grader_username, stu[i].S_info.Stu_ID);
                 stu[i].S_info.Stu_Assigment_Grade_Current = s.grade();
                 stu[i].A_info.Assigment_Comment = s.grade_comment();
                 s.upload(); //upload grade to canvas, maybe just do once at end for everyone
                 grades.push_back((double)stu[i].S_info.Stu_Assigment_Grade_Current);
+            }
+
+            cout << endl;
+            //Display grades before curving
+            for (int i = 0; i < num_students_in_class; i++)
+            {
+                cout << "Student " << i + 1 << ", " <<  stu[i].S_info.Stu_Name << ": " << stu[i].S_info.Stu_Assigment_Grade_Current << endl;
             }
 
             cout << endl << endl;

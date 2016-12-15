@@ -33,6 +33,7 @@ int main()
 
     //doesn't yet affect anything in the program
     //will eventually modify code based on whether os is "windows" or "mac"
+    /*
     while (1)
     {
         cout << "Are you using windows or mac? ";
@@ -47,6 +48,7 @@ int main()
             cout << "Error: Please enter \'windows\' or \'mac\'.\n";
         }
     }
+    */
 
 
     cout << "What is your computer's username? ";

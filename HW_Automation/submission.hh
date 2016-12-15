@@ -27,8 +27,8 @@ class Submission
         string m_grader_username; //determines the path used to get to the submission file
                                 //ex. "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&"
         double m_student_id;
-        string m_submission_file; //file name, ADD TO INITIALIZER LIST
         string m_file_type; //file type, i.e. cpp, java, python
+        string m_file_ext; //file extension
 
     public:
 
@@ -46,40 +46,48 @@ class Submission
 
         void check_file_type()
         {
+            stringstream ss1;
             //iterator up until the period
             int index = 0; //index of period in file name
-            for (unsigned int i = 0; i < m_submission_file.size(); i++)
+            for (unsigned int i = 0; i < m_file_name.size(); i++)
             {
-                if (m_submission_file[i] == '.')
+                if (m_file_name[i] == '.')
                 {
                     index = i;
                     break;
                 }
+                ss1 << m_file_name[i];
             }
 
-            stringstream ss;
-            for (unsigned int i = index + 1; i < m_submission_file.size(); i++)
+            stringstream ss2;
+            for (unsigned int i = index + 1; i < m_file_name.size(); i++)
             {
-                ss << m_submission_file[i];
+                //cout << m_file_name[i];
+                ss2 << m_file_name[i];
             }
-            if (ss.str() == "py")
+            if (ss2.str() == "py")
             {
                 m_file_type = "python";
             }
-            else if (ss.str() == "java")
+            else if (ss2.str() == "java")
             {
                 m_file_type = "java";
             }
-            else if (ss.str() == "cpp" || ss.str() == "cc" || ss.str() == "hh")
+            else if (ss2.str() == "cpp" || ss2.str() == "cc" || ss2.str() == "hh")
             {
                 m_file_type = "c++";
             }
             else
             {
                 //error message?
-                cout << "Not a valid file type. File: " << m_submission_file << endl;
-                m_file_type = "error";
+                //cout << "Not a valid file type. File: " << m_file_name << endl;
+                m_file_type = "Error: Bad File Name";
             }
+            //cout << "SS1 " << ss1.str() << endl;
+            m_file_ext = ss2.str();
+            m_file_name = ss1.str();
+            //cout << "Ext: " << m_file_ext << endl;
+            cout << "File Type: " << m_file_type << endl;
         }
 
         //opens and displays file/source code from the submissions object
@@ -89,7 +97,11 @@ class Submission
             //for now, assume it's windows
             //may need to change file path in the future
             //open_sub << "atom.cmd submission_files/assignment_" << m_assignment_id << "Test.cpp&";
-            open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.cpp&";
+
+            //cout << "OPEN" << endl;
+            //cout << "NAME " << m_file_name << endl;
+            open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext << "&";
+            //cout << open_sub.str() << endl;
             system(open_sub.str().c_str());
             //cout statement is for checking the path
             //cout << open_sub.str() << endl;
@@ -98,12 +110,25 @@ class Submission
         //compiles a submitted file, return true if compiles, return false if not compiled
         bool compile_submission()
         {
-            //cout << "compile" << endl;
-            compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.cpp";
-            compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
-            //cout statement is for checking the path
-            //cout << compile_sub.str() << endl;
-            //cout << compile_sub.str() << endl;
+            if (m_file_type == "c++")
+            {
+                compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
+                compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_file_name;
+            }
+
+            else if (m_file_type == "java")
+            {
+                compile_sub << "javac -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
+                //compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
+            }
+
+            else if (m_file_type == "python")
+            {
+                cout << "Python file: cannot compile" << endl;
+            }
+
+            //compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.cpp";
+            //compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
             system(compile_sub.str().c_str());
             return true;
         }
@@ -111,17 +136,31 @@ class Submission
         //runs a submitted file, returns true if run, returns false, if not run
         bool run_submission()
         {
-            //cout << "run" << endl;
-            run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.exe&";
-            //cout statement is for checking the path
-            //cout << run_sub.str() << endl;
+            if (m_file_type == "c++")
+            {
+                run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;// <<".exe&";
+            }
+
+            else if (m_file_type == "java")
+            {
+                run_sub << "java C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
+            }
+
+            else if (m_file_type == "python")
+            {
+                cout << "Python file: cannot run" << endl;
+            }
+
+            //run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.exe&";
             system(run_sub.str().c_str());
             return true;
         }
 
         //grades a submitted file, giving 50 points is it compiles and another 50 points if it runs. If neither, it gives a score of 25.
         double  grade()
-        {   display_source_code();
+        {
+            check_file_type(); //checkes file type and sets m_file_type to python, java, or c++
+            display_source_code();
             double grade = 0;
             bool compiled = compile_submission();
             if (compiled)
