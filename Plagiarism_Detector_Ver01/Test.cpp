@@ -19,11 +19,16 @@ int main (){
 
   vector<vector<string>> files = vector<vector<string>>();
 
-  cout << test.quickFileComp("test3.txt", "test4.cpp") << endl;
+  //cout << test.quickComp("test3.txt", "test4.cpp") << endl;
 
-  vector<string> inpTest = test.fileSingleLcsTest();
+  //vector<string> paths;
 
-  cout << inpTest.at(0) << endl;
+ // paths.push_back("test4.cpp");
+ // paths.push_back("test3.txt");
+
+  //vector<string> inpTest = test.singleLcsTest(paths);
+
+  //cout << inpTest.at(0) << endl;
 
   system("pause");
   return 0;

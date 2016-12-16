@@ -134,19 +134,13 @@ using namespace std;
 	}
 
 
-	vector<vector<string>> detectPlagiarism::getHomeworks() {
-		//This function will be used to pull the assignments to be compared.
-		return vector<vector<string>>();
-	}
-
-
 	vector<string> detectPlagiarism::singleLcsTest(vector<vector<string>> targetH, int student){
 		//This function takes in a vector of assignments and compares a chosen assignment to the rest of the assignments
 		vector<string> results = vector<string>();
 		vector<string> testH = targetH.at(student);
 		for(int i = 0; i < targetH.size(); i++) {
 			if(i != student)
-				results.push_back("Submission " + to_string(student) + " is " + to_string((LCS(testH, targetH.at(i)) * 100) / testH.size()) + "% similar to submission " + to_string(i) + ". ");  
+				results.push_back("Submission " + to_string(student + 1) + " is " + to_string((LCS(testH, targetH.at(i)) * 100) / testH.size()) + "% similar to submission " + to_string(i + 1) + ". ");  
 		}
 		return results;
 	}
@@ -164,7 +158,7 @@ using namespace std;
 	string detectPlagiarism::quickComp(vector<string> a1, vector<string> a2){
 		//Returns a sentence saying the comparsion of two assignments (String).
 		int lt = LCS(a1, a2) * 100;
-		return "Submission 1 is " + to_string(lt / a1.size()) + "% similar to submission 2. Submission 1 is " + to_string(lt / a2.size()) + "% similar to submission 2.";
+		return "Submission 1 is " + to_string(lt / a1.size()) + "% similar to submission 2. Submission 2 is " + to_string(lt / a2.size()) + "% similar to submission 1.";
 	}
 
 	vector<string> detectPlagiarism::getVec(string fpath1){
@@ -208,7 +202,7 @@ using namespace std;
 	}
 
 
-	string detectPlagiarism::quickFileComp(string fpath1, string fpath2){
+	string detectPlagiarism::quickComp(string fpath1, string fpath2){
 		//Takes in two assignment file paths and returns a sentence saying the comparison of the two assignments (string).
 		return quickComp(getVec(fpath1), getVec(fpath2));
 	}
@@ -223,7 +217,7 @@ using namespace std;
 		return assignments;
 	}
 
-	vector<string> detectPlagiarism::fileSingleLcsTest(){
+	vector<string> detectPlagiarism::singleLcsTest(){
 		//This function allows the user to input as many file paths as needed and runs singleLcsTest with the first file as the target.
 		vector<string> result;
 		vector<vector<string>> vecs;
@@ -247,7 +241,7 @@ using namespace std;
 	}
 
 
-	vector<vector<string>> detectPlagiarism::fileClassLcsTest(){
+	vector<vector<string>> detectPlagiarism::classLcsTest(){
 		//This function allows the user to input as many file paths as needed and runs classLcsTest on the files.
 		vector<vector<string>> results;
 		vector<vector<string>> vecs;
@@ -271,7 +265,7 @@ using namespace std;
 	}
 
 
-	vector<vector<string>> detectPlagiarism::vecClassLcsTest(vector<string> paths){
+	vector<vector<string>> detectPlagiarism::classLcsTest(vector<string> paths){
 
 		vector<vector<string>> results;
 		vector<vector<string>> vecs;
@@ -285,7 +279,7 @@ using namespace std;
 	}
 
 	
-	vector<string> detectPlagiarism::vecSingleLcsTest(vector<string> paths){
+	vector<string> detectPlagiarism::singleLcsTest(vector<string> paths){
 
 		vector<string> results;
 		vector<vector<string>> vecs;

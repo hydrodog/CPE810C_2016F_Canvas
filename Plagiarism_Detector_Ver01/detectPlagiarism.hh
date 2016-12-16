@@ -31,32 +31,25 @@ private:
 
 public:
 
-
-	//This line divides the true public functions with those that are public for testing. The above two are critical to work so they are public now for testing
-	//In the final implementation they will solely be called by the below functions
-
 	detectPlagiarism(); //generic constructor
 
 	vector<string> getTokens(string s); //this function takes in a string and tokenizes it, currently only views words or alphanumerics as tokens
+	
+	string quickComp(vector<string> a1, vector<string> a2); //Returns a sentence saying the comparsion of two assignments (String).
+
+	string quickComp(string fpath1, string fpath2); //Takes in two assignment file paths and returns a sentence saying the comparison of the two assignments (string).
 
 	vector<string> singleLcsTest(vector<vector<string>> targetH, int student); //This function takes in a vector of assignments and compares a chosen assignment to the rest of the assignments in the vector.
 
+	vector<string> singleLcsTest(); //This function allows the user to input as many file paths as needed and runs singleLcsTest with the first file as the target.
+	
+	vector<string> singleLcsTest(vector<string> paths); //This function allows the user to add as many file paths as needed through a vector of strings and then calls singleLcsTest.
+
 	vector<vector<string>> classLcsTest(vector<vector<string>> targetH); //Runs a comparison of each assignment with all the others.
 
-	string quickComp(vector<string> a1, vector<string> a2); //Returns a sentence saying the comparsion of two assignments (String).
+	vector<vector<string>> classLcsTest(); //This function allows the user to input as many file paths as needed and runs classLcsTest on the files.
 
-	vector<vector<string>> getHomeworks(); //Takes in the homeworks and formats them to be compared.
-
-	string quickFileComp(string fpath1, string fpath2); //Takes in two assignment file paths and returns a sentence saying the comparison of the two assignments (string).
-
-	vector<string> fileSingleLcsTest(); //This function allows the user to input as many file paths as needed and runs singleLcsTest with the first file as the target.
-
-	vector<vector<string>> fileClassLcsTest(); //This function allows the user to input as many file paths as needed and runs classLcsTest on the files.
-
-	vector<vector<string>> vecClassLcsTest(vector<string> paths);
-
-	vector<string> vecSingleLcsTest(vector<string> paths);
-
+	vector<vector<string>> classLcsTest(vector<string> paths); //This function allow sthe user to add as many file paths as needed through a vector of strings and then calls classLcsTest.
 };
 
 #endif // DETECT_PLAGIARISM_H
