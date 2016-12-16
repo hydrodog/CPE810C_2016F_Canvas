@@ -7,6 +7,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+    //for canvas upload
     QCoreApplication g(argc, argv);
     //Create a fake course for testing
     string course_name = "C++";

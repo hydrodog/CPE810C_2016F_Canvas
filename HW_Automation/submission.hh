@@ -118,7 +118,6 @@ class Submission
             else if (m_file_type == "java")
             {
                 compile_sub << "javac C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
-                //compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
                 //cout << compile_sub.str() << endl;
             }
 
@@ -146,7 +145,7 @@ class Submission
             {
                 //cout << "RUN" << endl;
                 cout << "\nOutput:" << endl;
-                run_sub << "java C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
+                run_sub << "java -cp C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << " " << m_file_name;
                 cout << run_sub.str() << endl;
             }
 
@@ -181,7 +180,7 @@ class Submission
                 }
             }
             //prompt grader to enter grade
-            cout << "Please enter grade: ";
+            cout << "\nPlease enter grade: ";
             while (1)
             {
                 string grade_string;

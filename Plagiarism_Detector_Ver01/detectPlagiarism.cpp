@@ -11,7 +11,7 @@ using namespace std;
 	//This function determines where a token is in a string consisting of multiple tokens separated by non tokens
 
 		int loc = 0;
-		for(int i = 0; i < s.size(); i++)
+                for(unsigned int i = 0; i < s.size(); i++)
 		{
 			if((i == s.size() - 1) && s[i] != ' ')
 			{

@@ -54,7 +54,7 @@ class Course
         void getStudents()
         {
             double student_id[5] = {5902, 5126, 5498, 4712, 6912}; // the ID numbers of the students
-            const char *student_name[5] = {"Sheng Hsu", "Suyog Deshmuk", "Zachary Binger", "Dov Kruger", "Marc Greenfield"};    // student's name which has to be english
+            const char *student_name[5] = {"Sheng Hsu", "Suyog Deshmuk", "Zachary Binger", "Alex Buhse", "Marc Greenfield"};    // student's name which has to be english
             const char *student_email[5] = {"sheng@stevens.edu", "suyog@stevens.edu", "zbinger@stevens.edu", "dov.kruger@gmail.com", "marc@stevens.edu"}; //student e-mail addresses
 
             //currently uses preset data
