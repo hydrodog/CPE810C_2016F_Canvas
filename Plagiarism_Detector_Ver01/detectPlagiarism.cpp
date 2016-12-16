@@ -149,7 +149,7 @@ using namespace std;
 	vector<vector<string>> detectPlagiarism::classLcsTest(vector<vector<string>> targetH){ 
 		//Runs a comparison of each assignment with all the others
 		vector<vector<string>> classResults = vector<vector<string>>();
-		for(int i = 0; i < targetH.size(); i++){
+                for(unsigned int i = 0; i < targetH.size(); i++){
 			classResults.push_back(singleLcsTest(targetH, i));
 		}
 		return classResults;
