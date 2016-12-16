@@ -99,7 +99,8 @@ class Submission
             }
             else
             {
-                open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext << "&";
+                open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id
+                         << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext << "&";
                 system(open_sub.str().c_str());
             }
         }
@@ -111,13 +112,16 @@ class Submission
 
             if (m_file_type == "c++")
             {
-                compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
-                compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_file_name;
+                compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_"
+                            << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
+                compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_"
+                            << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
             }
 
             else if (m_file_type == "java")
             {
-                compile_sub << "javac C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
+                compile_sub << "javac C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_"
+                            << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
                 //cout << compile_sub.str() << endl;
             }
 
@@ -138,14 +142,16 @@ class Submission
             if (m_file_type == "c++")
             {
                 cout << "\nOutput:" << endl;
-                run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;// <<".exe&";
+                run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_"
+                        << m_assignment_id << "/" << m_student_id << "/" << m_file_name;// <<".exe&";
             }
 
             else if (m_file_type == "java")
             {
                 //cout << "RUN" << endl;
                 cout << "\nOutput:" << endl;
-                run_sub << "java -cp C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << " " << m_file_name;
+                run_sub << "java -cp C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_"
+                        << m_assignment_id << "/" << m_student_id << " " << m_file_name;
                 cout << run_sub.str() << endl;
             }
 

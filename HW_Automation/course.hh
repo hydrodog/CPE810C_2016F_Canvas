@@ -175,7 +175,8 @@ class Course
                 stu[i].F_info.File_name_Origin = s.getFileName(); //set submission file name of student object
                 stringstream ss; //used for file paths
                 //fix paths
-                ss << "C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << stu[i].S_info.Stu_ID << "/" << stu[i].F_info.File_name_Origin;
+                ss << "C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/"
+                   << stu[i].S_info.Stu_ID << "/" << stu[i].F_info.File_name_Origin;
                 file_paths.push_back(ss.str());
             }
 
@@ -210,7 +211,8 @@ class Course
             //Display grades before curving
             for (int i = 0; i < num_students_in_class; i++)
             {
-                cout << "Student " << i + 1 << ", " <<  stu[i].S_info.Stu_Name << ": " << stu[i].S_info.Stu_Assigment_Grade_Current << endl;
+                cout << "Student " << i + 1 << ", " <<  stu[i].S_info.Stu_Name
+                     << ": " << stu[i].S_info.Stu_Assigment_Grade_Current << endl;
             }
 
             cout << endl;
