@@ -6,30 +6,28 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-#include "../Plagiarism_Detector_Ver01/PlagiarismDetector.cpp"
+//#include "../Plagiarism_Detector_Ver01/PlagiarismDetector.cpp"
 using namespace std;
 
 class Submission
 {
     private:
-        string m_file_name;
-        long m_assignment_id;
-        //Assignment m_assignment;
-        long m_course_id;
-        //Course m_course;
+        string m_file_name; //submission file name
+        long m_assignment_id; //assignment id
+        long m_course_id; //course id
         int m_submission_num; //submission attempt number
-        //long m_student_id;
-        int m_grader_id;
-        double m_grade; //number grades, not letter grades, eventually make a double
-        string m_grader_comment = "";
-        bool m_late;
-        //bool excused; //if not completed, it doesn't affect the grade
-        stringstream open_sub, compile_sub, run_sub;
+        int m_grader_id; //id for grader
+        double m_grade; //number grades, not letter grades
+        string m_grader_comment = ""; //grader comment on submission
+        bool m_late; //true if late, fale if not late
+        stringstream open_sub, compile_sub, run_sub; //string streams for system commands to display, compile, and run submission files
         string m_grader_username; //determines the path used to get to the submission file
-                                //ex. "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test.exe&"
-        double m_student_id;
+        double m_student_id; //student ID, also used for file path
         string m_file_type; //file type, i.e. cpp, java, python
         string m_file_ext; //file extension
+
+        //example file path: "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext << "&";
+
 
     public:
 
@@ -42,14 +40,16 @@ class Submission
         }
 
         //TODO: get download method from other group
-        //downloads the submitted file from a submissions object
+        //downloads the submitted file from canvas based on course ID, assignment ID, and student ID
         void download() {}
 
+        //checks the file type of the submssion file
+        //sets m_file_ext and m_file_type variables
         void check_file_type()
         {
-            stringstream ss1;
-            //iterator up until the period
+            stringstream ss1; //used to get filename without the extension
             int index = 0; //index of period in file name
+            //iterator up until the period
             for (unsigned int i = 0; i < m_file_name.size(); i++)
             {
                 if (m_file_name[i] == '.')
@@ -60,21 +60,20 @@ class Submission
                 ss1 << m_file_name[i];
             }
 
-            stringstream ss2;
+            stringstream ss2; //used to get the filename extension and from that, to determine the file type
             for (unsigned int i = index + 1; i < m_file_name.size(); i++)
             {
-                //cout << m_file_name[i];
                 ss2 << m_file_name[i];
             }
-            if (ss2.str() == "py")
+            if (ss2.str() == "py") //python
             {
                 m_file_type = "python";
             }
-            else if (ss2.str() == "java")
+            else if (ss2.str() == "java") //java
             {
                 m_file_type = "java";
             }
-            else if (ss2.str() == "cpp" || ss2.str() == "cc" || ss2.str() == "hh" || ss2.str() == "h")
+            else if (ss2.str() == "cpp" || ss2.str() == "cc" || ss2.str() == "hh" || ss2.str() == "h") //c++
             {
                 m_file_type = "c++";
             }
@@ -84,33 +83,32 @@ class Submission
                 //cout << "Not a valid file type. File: " << m_file_name << endl;
                 m_file_type = "Error: Bad File Name";
             }
-            //cout << "SS1 " << ss1.str() << endl;
-            m_file_ext = ss2.str();
-            m_file_name = ss1.str();
+            m_file_ext = ss2.str(); //set file extension
+            m_file_name = ss1.str(); //set file name without file extension
             //cout << "Ext: " << m_file_ext << endl;
-            cout << "File Type: " << m_file_type << endl;
+            cout << "File Type: " << m_file_type << endl; //prints out the recognized file type
         }
 
         //opens and displays file/source code from the submissions object
         void display_source_code()
         {
-            //open submission file
-            //for now, assume it's windows
-            //may need to change file path in the future
-            //open_sub << "atom.cmd submission_files/assignment_" << m_assignment_id << "Test.cpp&";
-
-            //cout << "OPEN" << endl;
-            //cout << "NAME " << m_file_name << endl;
-            open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext << "&";
-            //cout << open_sub.str() << endl;
-            system(open_sub.str().c_str());
-            //cout statement is for checking the path
-            //cout << open_sub.str() << endl;
+            //open submission file, opens in Qt
+            if (m_file_type == "Error: Bad File Name")
+            {
+                cout << "Could not open the file - bad file name." << endl;
+            }
+            else
+            {
+                open_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext << "&";
+                system(open_sub.str().c_str());
+            }
         }
 
-        //compiles a submitted file, return true if compiles, return false if not compiled
+        //compiles a submitted file
         bool compile_submission()
         {
+            //check for file type and run corresponding command
+
             if (m_file_type == "c++")
             {
                 compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
@@ -119,8 +117,9 @@ class Submission
 
             else if (m_file_type == "java")
             {
-                compile_sub << "javac -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
+                compile_sub << "javac C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name << "." << m_file_ext;
                 //compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
+                //cout << compile_sub.str() << endl;
             }
 
             else if (m_file_type == "python")
@@ -128,23 +127,27 @@ class Submission
                 cout << "Python file: cannot compile" << endl;
             }
 
-            //compile_sub << "g++ -std=c++11 C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/Test.cpp";
-            //compile_sub << " -o C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/Test";
             system(compile_sub.str().c_str());
             return true;
         }
 
-        //runs a submitted file, returns true if run, returns false, if not run
+        //runs a submitted file
         bool run_submission()
         {
+            //check for file type and run corresponding command
+
             if (m_file_type == "c++")
             {
+                cout << "\nOutput:" << endl;
                 run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;// <<".exe&";
             }
 
             else if (m_file_type == "java")
             {
+                //cout << "RUN" << endl;
+                cout << "\nOutput:" << endl;
                 run_sub << "java C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
+                cout << run_sub.str() << endl;
             }
 
             else if (m_file_type == "python")
@@ -157,22 +160,27 @@ class Submission
             return true;
         }
 
-        //grades a submitted file, giving 50 points is it compiles and another 50 points if it runs. If neither, it gives a score of 25.
-        double  grade()
+        //grades a submitted file, grade provided by grader (user)
+        double grade()
         {
-            check_file_type(); //checkes file type and sets m_file_type to python, java, or c++
+            check_file_type(); //checkes file type and sets m_file_type to python, java, or c++ and m_file_name to the file name without the extension
+            //display the source code
             display_source_code();
+            //initially set grade to 0
             double grade = 0;
+            //compile the submission
             bool compiled = compile_submission();
             if (compiled)
             {
                 grade += 75;
+                //run submssion
                 bool ran = run_submission();
                 if (ran)
                 {
                     grade += 25;
                 }
             }
+            //prompt grader to enter grade
             cout << "Please enter grade: ";
             while (1)
             {
@@ -190,82 +198,39 @@ class Submission
                 }
             }
             m_grade = grade;
-            if (m_student_id == 1231 || m_student_id == 1232)
-            {
-                plag_detector();
-            }
             //string comment = grade_comment(); //this is called in the course class in the gradeStudents method
-            //upload();
             return grade;
         }
 
         //returns grade entered by the grader, if he chooses to overwrite the default grade
+        //not currently used
         double overwrite_grade(double grade)
         {            
             m_grade = grade;
             return grade;
         }
 
-        //adds a comment from the grader to the submission file
+        //returns a comment from the grader to the submission file as a string
+        //sets m_grade_comment variable
         string grade_comment()
         {
             cout << "Please enter any submission comments (if none, hit enter): ";
-            string comment ;
+            string comment;
             cin.ignore();
             getline(cin, comment);
-            //char* comment = new char[200];
-            //cin.getline(comment, 200);
             cout << endl;
             m_grader_comment = comment;
             return comment;
         }
 
-        //TODO: Get function from plagiarism detector group
-        //returns a similarity score between the submitted file and other files
-        void plag_detector()
-        {
-            cout << "Plag Detector" << endl;
-            stringstream s1;
-            stringstream s2;
-
-            //s1 << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/1231/" << m_file_name << "." << m_file_ext;
-            s1 << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/course.hh";
-            s2 << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/1232/" << m_file_name << "." << m_file_ext;
-
-            string file1 = s1.str();
-            string file2 = s2.str();
-
-            cout << file1 << endl;
-            cout << file2 << endl;
-
-            detectPlagiarism dp;
-            cout << "PLAG: " << dp.quickFileComp(file1, file2) << endl;
-        }
-
+        //sets the grader username for file path
+        //not currently used
         void setGraderUsername(string name)
         {
             m_grader_username = name;
         }
 
-        //TODO: Get upload function from upload group
-        //uploads a grade and possibly a comment to the submission object
-        void upload()
-        {
-            // data needed for upload
-                //course id -> long m_course_id
-                //assignment id -> long m_assignment_id
-                //student id -> double m_student_id
-                //grade -> double m_grade
-                //comment -> string m_grader_comment
-                //grader id (author) -> string m_grader_username or int m_grader_id
-            cout << "Uploading grades to canvas...\nCourse ID: "
-                 << m_course_id << ", Assigment ID: "
-                 << m_assignment_id << ", Student ID: "
-                 << m_student_id << ", Assignment Grade: "
-                 << m_grade << ", Assignment Comment: "
-                 << m_grader_comment << ", Grader ID: "
-                 << m_grader_id << endl << endl << endl;
-        }
+        //public get methods
 
         string getFileName()
         {

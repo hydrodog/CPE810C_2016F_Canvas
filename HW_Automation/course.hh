@@ -8,7 +8,8 @@
 #include "Assignment.hh"
 #include "Assignment_Unzip.hh"
 #include "../Curving/curving.cpp"
-#include "../Canvas_Update/CanvasUpdate/canvasupdate.h"
+#include "canvasupdate.cpp"
+#include "../Plagiarism_Detector_Ver01/detectPlagiarism.cpp"
 
 using namespace std;
 
@@ -98,8 +99,8 @@ class Course
             return assignment_vect;
         }
 
-        //sets assignment attributes of student object based on the chosen assignment for the given course
-        Assignment addAssignmentToStudents()
+        //sets assignment attributes of student object based on the assignment chosen by the grader for the given course
+        Assignment chooseAssignment()
         {
             //get all of the assignments and store it in a vector
             vector<Assignment> assignment_vect = getAssignments();
@@ -117,7 +118,7 @@ class Course
             long chosen_assignment = 0;
             bool correct_name = true;
 
-            //grader chooses assignment based on assignment number
+            //grader chooses assignment based on assignment id
             while (correct_name)
             {
                 correct_name = false;
@@ -144,90 +145,97 @@ class Course
                 }
             }
 
-            //START HERE
-            //Need this information from canvas - set to values for now
-            const char *comment = "comment";
-            const char *graph_title = "title";
-            const char *title = "Assignment";
-            m_assignment_id = assignment.get_assignment_id(); //random number
-            long course_id = assignment.get_course_id(); //random number
-            //double m_grade; //changes after grading
+            //set to ID to the assignment chosen by the grader
+            m_assignment_id = assignment.get_assignment_id(); //set number for now
 
-            //sets assignment and submission info for student object
+            //sets assignment info for student object
             for (int i = 0; i < num_students_in_class; i++)
             {
-                stu[i].A_info.Assigment_Comment = comment;
-                stu[i].A_info.Assignment_Graph_Title = graph_title;
-                stu[i].A_info.Assignment_Title = title;
                 stu[i].A_info.assignment_id = m_assignment_id;
-                stu[i].A_info.course_id = course_id;
-                //adds submission details to student object
-                //may not need this
-                //getFileInfo(assignment.getSubmission("USER", stu->S_info.Stu_ID), stu[i]);
-
-                //cout << "Student " << i << ": course - " << stu[i].A_info.course_id << ", assignment - " << stu[i].A_info.assignment_id << endl;
+                stu[i].A_info.course_id = m_course_id;
             }
-            //at this point, each student object has all the information about the current assignment
-            //next step -> iterate through each student, and grade the submission
             return assignment;
         }
 
         //iterate through array of students, and grade their assignment submissions
-        //takes in grader_username for file path
+        //takes in grader_username as a parameter for file path
         void gradeStudents(string grader_username)
         {
-            //student objects have assigment info, but not assignment objects
-            Assignment assignment = addAssignmentToStudents();
-            vector<double> grades; //used for each assignment, cleared after each use
-            vector<grade_information> grade_objects;
+            //grader chooses assignment to grade
+            Assignment assignment = chooseAssignment();
+
+            vector<double> grades; //vecor of grades used for each assignment to perform curving
+            vector<grade_information> grade_objects; //used for canvas upload object
+            vector<string> file_paths; //used for plagiarism detector object
+            //create submission objects for each student in the class
             for (int i = 0; i < num_students_in_class; i++)
             {
-                //get assignment submission and grade it
-                //get submission from object, based on student id
-
-                //problem - grading the submission file listed in the student object
-                    //but where does the students object get it from?
-                //get the submission based on the id of the student
-                cout << "Output for student: " << i + 1 << ", ID: " << stu[i].S_info.Stu_ID << endl;
-
-
+                //create submission object based on current student's information
                 Submission s = assignment.getSubmission("Test.cpp", grader_username, stu[i].S_info.Stu_ID);
+                stu[i].F_info.File_name_Origin = s.getFileName(); //set submission file name of student object
+                stringstream ss; //used for file paths
+                //fix paths
+                ss << "C:/Users/Class2017/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << stu[i].S_info.Stu_ID << "/" << stu[i].F_info.File_name_Origin;
+                file_paths.push_back(ss.str());
+            }
+
+            //Plagiarism Detector
+            detectPlagiarism dp;
+            vector< vector<string> > plag_detect = dp.classLcsTest(file_paths); //contains information for each file submssion concerning similarity score
+            //grade submission for each student
+            for (int i = 0; i < num_students_in_class; i++)
+            {
+                cout << "Student: " << i + 1 << ", " << stu[i].S_info.Stu_Name << ", ID: " << stu[i].S_info.Stu_ID << endl;
+                Submission s = assignment.getSubmission("Test.cpp", grader_username, stu[i].S_info.Stu_ID);
+
+                //plagiarism detector output - similarity scores to other students' submissions
+                for (int j = 0; j < 4; ++j)
+                {
+                    cout << plag_detect.at(i).at(j) << endl;
+                }
+
+                //grade assignment
                 stu[i].S_info.Stu_Assigment_Grade_Current = s.grade();
+                //prompt grader for a comment
                 stu[i].A_info.Assigment_Comment = s.grade_comment();
-                s.upload(); //upload grade to canvas, maybe just do once at end for everyone
+
+                //add grade to grades vector
                 grades.push_back((double)stu[i].S_info.Stu_Assigment_Grade_Current);
+                //create and add grade object to grade_objects vecotr based on current student's information
                 grade_objects.push_back(grade_information(stu[i].S_info.Stu_ID, stu[i].S_info.Stu_Assigment_Grade_Current, stu[i].A_info.Assigment_Comment));
             }
 
             cout << endl;
+
             //Display grades before curving
             for (int i = 0; i < num_students_in_class; i++)
             {
                 cout << "Student " << i + 1 << ", " <<  stu[i].S_info.Stu_Name << ": " << stu[i].S_info.Stu_Assigment_Grade_Current << endl;
             }
 
-            cout << endl << endl;
+            cout << endl;
 
             //curve grades
             Curving curve(grades);
-
             curve.performCurve();
             grades = curve.returnCurve(); //saves curved grades in the vector
+
             //reinput curved grades
             for (int i = 0; i < num_students_in_class; i++)
             {
                 stu[i].S_info.Stu_Assigment_Grade_Current = grades[i];
-                grade_objects[i].posted_grade = grades[i];
+                //grade_objects[i].posted_grade = grades[i];
             }
 
+            //Upload grades to canvas
             cout << "\nUploading to Canvas:" << endl;
             //create Canvas_Update object
             Canvas_Update cu(grade_objects, m_course_id, m_assignment_id);
             cu.sendRequest();
-            cout << "Uploaded.";
         }
 
         //public get methods
+
         string getCourseName()
         {
             return m_course_name;
@@ -248,18 +256,18 @@ class Course
             return m_account_id;
         }
 
-        //testing
+        //display student grades and comments for the chosen assignment for the chosen course
         void showStudentGradesAndComments()
         {
-            cout << "\nGRADES AND COMMENTS AFTER GRADING" << endl;
+            cout << "\nGRADES AND COMMENTS FOR ASSIGNMENT " << m_assignment_id << ":" << endl;
             for (int i = 0; i < num_students_in_class; i++)
             {
-                cout << "Student " << i + 1 << ", ID: " << stu[i].S_info.Stu_ID
+                cout << "Student " << i + 1 << ", " << stu[i].S_info.Stu_Name << ", ID: " << stu[i].S_info.Stu_ID
                      << " - Grade: " << stu[i].S_info.Stu_Assigment_Grade_Current << ", Comment: " << stu[i].A_info.Assigment_Comment << endl;
             }
         }
 
-        //testing
+        //testing to make sure student object hold necessary information
         void getAssignmentsFromStudent()
         {
             cout << std::endl;

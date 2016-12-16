@@ -147,7 +147,7 @@ using namespace std;
 		//This function takes in a vector of assignments and compares a chosen assignment to the rest of the assignments
 		vector<string> results = vector<string>();
 		vector<string> testH = targetH.at(student);
-		for(int i = 0; i < targetH.size(); i++) {
+                for(unsigned int i = 0; i < targetH.size(); i++) {
 			if(i != student)
 				results.push_back("Submission " + to_string(student) + " is " + to_string((LCS(testH, targetH.at(i)) * 100) / testH.size()) + "% similar to submission " + to_string(i));  
 		}
@@ -158,7 +158,7 @@ using namespace std;
 	vector<vector<string>> detectPlagiarism::classLcsTest(vector<vector<string>> targetH){ 
 		//Runs a comparison of each assignment with all the others
 		vector<vector<string>> classResults = vector<vector<string>>();
-		for(int i = 0; i < targetH.size(); i++){
+                for(unsigned int i = 0; i < targetH.size(); i++){
 			classResults.push_back(singleLcsTest(targetH, i));
 		}
 		return classResults;
