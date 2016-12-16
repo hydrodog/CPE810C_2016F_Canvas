@@ -44,8 +44,6 @@ public:
     void readAttachment();
     // download submissions of students
     void doDownload(const QUrl &a);
-    void sendpostrequest(const QUrl &url, const QByteArray &data);
-    void DO(const QUrl &a);
 signals:
     //declare signal when network requests end
     void signal_requestFinished(bool bSuccess,const QString& strResult);

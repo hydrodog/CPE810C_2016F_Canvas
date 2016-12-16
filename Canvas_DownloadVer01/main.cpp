@@ -10,10 +10,10 @@ using namespace std;
 
 
 vector<QString> userid;
-vector<QString> assignmentid;
-vector<QString> assignmentscore;
-map<QString, vector<QString> > everyAss;
-vector<QString> AssId;
+vector<double> assignmentid;
+vector<double> assignmentscore;
+map<double, vector<double> > everyAss;
+vector<double> AssId;
 vector<QString> submissionName;
 vector<QString> downloadAdd;
 vector<QString> fileAddress {"1.json","2.json","3.json","4.json" ,"5.json","6.json" ,"7.json","8.json" ,"9.json","0.json"  };
@@ -40,35 +40,38 @@ vector<QString> fileApi{"https://sit.instructure.com/api/v1/courses/103000000000
 
 
 
+
 int main(int argc, char *argv[]){
     QCoreApplication a(argc, argv);
     canvasConnection A;
+    // Download json file of every students
     A.doDownload();
+    // Extract useful information (scores of every assignments)
     A.extract();
-    A.showdata();
+    // Put score in a hashmap
     A.everyAssScore();
-    qDebug() << everyAss[assignmentid[1]][1];
+    // Download json file of every assignments
     A.downAssignment();
+    // Extract download url from json file
     A.readAttachment();
+    cout << student.size() << endl;
+    cout << fileApi.size() << endl;
+    for(int j = 0; j < fileApi.size(); ++j){
+        for(int i = 0; i < student.size(); ++i){
+        cout << "assignmentid = " << assignmentid[j] << endl;
+        cout << "score = " << everyAss[assignmentid[j]][i] << endl;
+        }
+    }
+    for(vector<QString>::iterator it = submissionName.begin(); it != submissionName.end(); ++it){
+        QString t = *it;
+        cout << t.toStdString() << endl;
+    }
 
-    for( vector<QString>::iterator it = submissionName.begin(); it != submissionName.end(); ++it)
-        qDebug() << "submissionName = " << *it << endl;
 
     vector<QString>::iterator it = downloadAdd.begin();
-    for( vector<QString>::iterator it = downloadAdd.begin() ; it != downloadAdd.end(); ++it){
-        qDebug() << "downloadAdd = " << *it << endl;
-        A.doDownload(*it);
-        //_sleep(3*1000);
-    }
-    for( vector<QString>::iterator it = AssId.begin() ; it != AssId.end(); ++it){
-        qDebug() << "assignmentid = " << *it << endl;
-    }
-
-
-/*  we also have other functions for other groups
-    A.sendRequest();
-    A.readjson();
-*/
+    // Download students' submissions
+    it += 7;
+    A.doDownload(*it);
     return a.exec();
 }
 
