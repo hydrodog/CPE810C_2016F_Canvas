@@ -61,7 +61,7 @@ void Canvas_Update::sendRequest()
     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
     QByteArray postdata;
     postdata.append(reqBody);
-    qDebug() << postdata<<'\n';
+    qDebug() <<'\n'<<"New multiple updating begin------------------ "<<'\n'<< "Postdata: "<<postdata<<'\n';
     // the HTTP request
     QNetworkRequest req(QUrl(this->update_API));
     req.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
@@ -95,6 +95,7 @@ void Canvas_Update::addSingle(QString id, QString comment, QString grade)
     QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
     QByteArray postdata;
     postdata +="{\"comment\":{\"text_comment\" : \""+ comment +"\"},\"submission\":{\"posted_grade\": \""+grade+"\"} }";
+    qDebug() <<'\n'<< "New single updating begin-------------------- "<<'\n'<<"Postdata: "<<postdata<<'\n';
     // the HTTP request
     QString APIUrl =  "https://sit.instructure.com/api/v1/courses/" + this->courseId + "/assignments/" + this->AssignmentsId + "/submissions/"+id;
    // QNetworkRequest req( QUrl( APIUrl ));
@@ -150,7 +151,6 @@ void Canvas_Update::setAuthByFile(QString path)
        while (!in.atEnd())
        {
           QString authInFile = in.readLine();
-          qDebug()<<authInFile;
           this->auth = authInFile;
        }
        authFile.close();

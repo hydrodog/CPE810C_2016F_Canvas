@@ -21,9 +21,9 @@ int main(int argc, char *argv[])
     }
     Canvas_Update update1(gradelists,"133","46024",test_auth);
     update1.sendRequest();
-//    Canvas_Update update2("133","46024", "test");
-//    update2.setAuthByFile("auth.txt");
-//    update2.addSingle("7672","just joke","59");
+    Canvas_Update update2("133","46024", test_auth);
+    update2.setAuthByFile("auth.txt");
+    update2.addSingle("7672","just joke","59");
 
     return a.exec();
 }

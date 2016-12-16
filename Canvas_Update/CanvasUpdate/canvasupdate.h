@@ -46,6 +46,7 @@ struct grade_info //define the single submission grades struct
         text_comment = QString::fromStdString(grade.text_comment);
         posted_grade = QString::number(grade.posted_grade);
     }
+    grade_info(QString id, QString comment, QString grade):Stu_ID(id),text_comment(comment),posted_grade(grade){}
 
 
     /*the fellowing is the extra data we could put into the Canvas
