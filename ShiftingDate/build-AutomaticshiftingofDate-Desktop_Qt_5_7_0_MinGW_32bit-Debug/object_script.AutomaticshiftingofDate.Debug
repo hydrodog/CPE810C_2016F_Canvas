@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\createassignmententry.o
+./debug\createassignment.o
+./debug\createassignmentcontroller.o
+./debug\holiday.o
+./debug\moc_mainwindow.o
+./debug\moc_createassignmententry.o
+./debug\moc_createassignment.o
+./debug\moc_createassignmentcontroller.o
+);
