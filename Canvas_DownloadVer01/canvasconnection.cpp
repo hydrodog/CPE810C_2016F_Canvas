@@ -166,6 +166,9 @@ void canvasConnection::extract(){
         content = file.readAll();
         file.close();
         QJsonDocument sd = QJsonDocument::fromJson(content.toUtf8());
+        qWarning() << sd.isNull(); // <- print false :)
+        qWarning() << sd.isArray();
+        qWarning() << sd.isObject();
         QJsonArray sett = sd.array();
         for(int i = 0; i < 10; i++){
             double assignment_id = sett.at(i).toObject().take(QString("assignment_id")).toDouble();
@@ -259,7 +262,7 @@ void canvasConnection::replyFinished (QNetworkReply *reply){
         }
         //static int a = 0;
        //qDebug() << "filename = " << submissionName[a] << endl;
-        QFile *file = new QFile(submissionName[7]);
+        QFile *file = new QFile(submissionName[0]);
         //++a;
         if(file->open(QFile::WriteOnly)){
            file->write(reply->readAll());

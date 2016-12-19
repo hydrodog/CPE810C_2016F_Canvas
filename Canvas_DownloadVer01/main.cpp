@@ -54,8 +54,8 @@ int main(int argc, char *argv[]){
     A.downAssignment();
     // Extract download url from json file
     A.readAttachment();
-    cout << student.size() << endl;
-    cout << fileApi.size() << endl;
+    cout << "Students = " << student.size() << endl;
+    cout << "Assignments = " << fileApi.size() << endl;
     for(int j = 0; j < fileApi.size(); ++j){
         for(int i = 0; i < student.size(); ++i){
         cout << "assignmentid = " << assignmentid[j] << endl;
@@ -66,11 +66,9 @@ int main(int argc, char *argv[]){
         QString t = *it;
         cout << t.toStdString() << endl;
     }
-
-
     vector<QString>::iterator it = downloadAdd.begin();
     // Download students' submissions
-    it += 7;
+    // it += 7;
     A.doDownload(*it);
     return a.exec();
 }
