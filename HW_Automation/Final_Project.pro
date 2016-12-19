@@ -24,3 +24,4 @@ HEADERS += \
     ../Canvas_Update/CanvasUpdate/canvasupdate.h \
     ../Curving/curving.h \
     ../Plagiarism_Detector_Ver01/PlagiarismDetector.hh
+
