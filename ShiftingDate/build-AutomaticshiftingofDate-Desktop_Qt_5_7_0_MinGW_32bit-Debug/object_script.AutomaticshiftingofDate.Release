@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\createassignmententry.o
+./release\createassignment.o
+./release\createassignmentcontroller.o
+./release\holiday.o
+./release\moc_mainwindow.o
+./release\moc_createassignmententry.o
+./release\moc_createassignment.o
+./release\moc_createassignmentcontroller.o
+);
