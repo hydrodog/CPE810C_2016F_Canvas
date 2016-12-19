@@ -17,8 +17,7 @@
  * IDE: Qt Creator 4.1.0
  * tool: C++
  * group: C/zip file rules
- * group member: Zheao Ma, He Song, Yuan Zhou
- * program name: Unzip_Assignment_Ver01
+ * group member: Zheao Ma, He Song, Yuan Zhou, Fangming Zhao
  * program ver: v 1.00
  *
  ***********************************************************/
