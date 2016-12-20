@@ -9,12 +9,6 @@ using namespace std;
 class detectPlagiarism {
 private:
 
-	vector<string> testHomework; //The current homework assignment held in form tbd. String is placeholder for testing purposes.
-
-	vector<vector<string>> targetHomeworks; //The homework assignments to be tested against the current homework assignment.
-
-	vector<string> scores; //List of the comparison scores. String format is the current idea so the comparisons are easy to read.
-
 	int getLocW(string s); //This function determines where a token is in a string consisting of multiple tokens separated by non tokens.
 
 	int max(int a, int b); //helper function for lcs that determines the greater of two integers.
@@ -25,7 +19,7 @@ private:
 
 	vector<vector<string>> getVecs(string fpath1, string fpath2); //Takes in two file paths and returns a vector containing both tokenized.
 
-	vector<string> getVec(string fpath1); //Takes in a file path and converts the file into a vector of the it tokenized as strings.
+	vector<string> getVec(string fpath1); //Takes in a file path and converts the file into a vector of tokens formatted as strings.
 
 	vector<vector<string>> getDynVecs(vector<string> paths); //Takes in a vector of paths and returns a vector of them as tokenized vectors of strings.
 
@@ -43,7 +37,7 @@ public:
 
 	vector<string> singleLcsTest(); //This function allows the user to input as many file paths as needed and runs singleLcsTest with the first file as the target.
 	
-	vector<string> singleLcsTest(vector<string> paths); //This function allows the user to add as many file paths as needed through a vector of strings and then calls singleLcsTest.
+	vector<string> singleLcsTest(vector<string> paths, int student); //This function allows the user to add as many file paths as needed through a vector of strings and then calls singleLcsTest.
 
 	vector<vector<string>> classLcsTest(vector<vector<string>> targetH); //Runs a comparison of each assignment with all the others.
 

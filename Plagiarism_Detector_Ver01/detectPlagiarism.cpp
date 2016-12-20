@@ -11,7 +11,7 @@ using namespace std;
 	//This function determines where a token is in a string consisting of multiple tokens separated by non tokens
 
 		int loc = 0;
-                for(unsigned int i = 0; i < s.size(); i++)
+		for(int i = 0; i < s.size(); i++)
 		{
 			if((i == s.size() - 1) && s[i] != ' ')
 			{
@@ -128,8 +128,6 @@ using namespace std;
 
 	detectPlagiarism::detectPlagiarism(){
 		//generic constructor
-		testHomework = vector<string>();
-		targetHomeworks = vector<vector<string>> ();
 
 	}
 
@@ -149,7 +147,7 @@ using namespace std;
 	vector<vector<string>> detectPlagiarism::classLcsTest(vector<vector<string>> targetH){ 
 		//Runs a comparison of each assignment with all the others
 		vector<vector<string>> classResults = vector<vector<string>>();
-                for(unsigned int i = 0; i < targetH.size(); i++){
+		for(int i = 0; i < targetH.size(); i++){
 			classResults.push_back(singleLcsTest(targetH, i));
 		}
 		return classResults;
@@ -279,14 +277,14 @@ using namespace std;
 	}
 
 	
-	vector<string> detectPlagiarism::singleLcsTest(vector<string> paths){
+	vector<string> detectPlagiarism::singleLcsTest(vector<string> paths, int student){
 
 		vector<string> results;
 		vector<vector<string>> vecs;
 
 		vecs = getDynVecs(paths);
 
-		results = singleLcsTest(vecs, 0);
+		results = singleLcsTest(vecs, student);
 
 		return results;
 
