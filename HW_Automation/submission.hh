@@ -158,7 +158,7 @@ class Submission
             {
                 //cout << "RUN" << endl;
                 cout << "\nOutput:" << endl;
-                run_sub << "java -cp /../HW_Automation/submission_file/assignment_"
+                run_sub << "java -cp C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
                         << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
                 cout << run_sub.str() << endl;
             }
