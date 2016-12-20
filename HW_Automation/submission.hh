@@ -148,9 +148,10 @@ class Submission
             if (m_file_type == "c++")
             {
                 cout << "\nOutput:" << endl;
+                run_sub << "C:/Users/" << m_grader_username << "/Desktop/git/CPE810C_2016F_Canvas/HW_Automation/submission_file/assignment_" << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
                 //run_sub << "./../HW_Automation/submission_file/assignment_"
                 //        << m_assignment_id << "/" << m_student_id << "/" << m_file_name;
-                run_sub << "ls /.";
+                //run_sub << "ls /.";
             }
 
             else if (m_file_type == "java")
