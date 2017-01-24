@@ -1,7 +1,1 @@
-https://canvas.instructure.com/api/v1/courses/10300000000000133/assignments/10300000000046025/submissions/10300000000022347?access_token=1030~ITJlnLeBaoqbzneuPAfdNLG5e9jAZqVHMiZWxF3FbvTG31U6l5adkBJcqOf8lCIO
-
-
-
-
-
 {"id":10300000001164016,"body":null,"url":null,"grade":null,"score":null,"submitted_at":"2016-05-09T21:34:37Z","assignment_id":10300000000046025,"user_id":10300000000022347,"submission_type":"online_upload","workflow_state":"graded","grade_matches_current_submission":true,"graded_at":"2016-11-09T22:50:56Z","grader_id":10300000000020437,"attempt":1,"excused":false,"late":false,"preview_url":"https://canvas.instructure.com/courses/1030~133/assignments/1030~46025/submissions/22347?preview=1\u0026version=2"}

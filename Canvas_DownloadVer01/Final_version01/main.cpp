@@ -8,13 +8,13 @@ using namespace std;
 //TODO:download JSON file from Canvas and then put data into datd-base.
 
 
-vector<QString> student{"https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020089/assignments?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL",
-                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020168/assignments?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL",
-                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020285/assignments?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL",
-                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000019880/assignments?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL",
-                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000007672/assignments?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL",
-                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000019850/assignments?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL",
-                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020383/assignments?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL"};
+vector<QString> student{"https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020089/assignments?access_token=",
+                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020168/assignments?access_token=",
+                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020285/assignments?access_token=",
+                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000019880/assignments?access_token=",
+                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000007672/assignments?access_token=",
+                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000019850/assignments?access_token=",
+                        "https://canvas.instructure.com/api/v1/courses/10300000000000133/analytics/users/10300000000020383/assignments?access_token="};
 
 
 

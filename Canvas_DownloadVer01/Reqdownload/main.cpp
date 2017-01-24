@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     //send request to Canvas by using token.
-    sendRequest("https://canvas.instructure.com/api/v1/courses?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL");
+    sendRequest("https://canvas.instructure.com/api/v1/courses?access_token=");
     return a.exec();
 
 }
@@ -38,7 +38,7 @@ void sendRequest(const QString strUrl){
     request.setUrl(QUrl(strUrl));
 
    //test of using another api.
-   //QNetworkRequest request( QUrl( QString("https://canvas.instructure.com/api/v1/courses/14812/assignments/55596?access_token=1030~y2v695pyuP5tf7SbJVuosakVODI0LyqrA5MXFWgJYscYmgOSL3VqXezUdOSyMYxL") ) );
+   //QNetworkRequest request( QUrl( QString("https://canvas.instructure.com/api/v1/courses/14812/assignments/55596?access_token=") ) );
     QNetworkReply *reply = Canvas.get(request);
 
     eventLoop.exec(); // blocks stack until "finished()" has been called
